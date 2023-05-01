@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0vh;
+    margin-left:90%;
+    margin-top: 0;
+    width: 10%;
+    position:fixed;
+    background-color: lightblue;
+    height: 100vh;
+    border-style:groove;
+    border-color: gray;
+    color: darkolivegreen;
+}
+
+.buscar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 95%;
+}
+
+.buttonGo {
+    background-color: green;
+    width: 80%;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    max-width: 70%;
+    /* max-height: 50%; */
+}
+
+.filterdiv {
+    width: 90%;
+}
+
+@media (max-width: 360px) {
+    .container {
+      width: 30%;
+    }
+}

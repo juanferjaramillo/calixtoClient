@@ -1,0 +1,101 @@
+.container {
+  width: 25vw;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 85%;
+  /* min-width: 320px; */
+  height:70vh;
+  border-style: solid;
+  border-color: darkgray;
+  border-radius: 5%;
+  color: rgb(9, 129, 170);
+  background-color: whitesmoke;
+  margin: 1vw; 
+}
+
+.codigo {
+  font-size: 1.3vw;;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  max-width: 90%; 
+  max-height: 45%;
+}
+
+.img {
+  max-width: 100%;
+  background-color: bisque;
+}
+
+.nombre {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  color: green;
+  text-align: center;
+  font-size: 1.2vw;
+}
+
+.line {
+  background-color: black;
+  width: 80%;
+  }
+
+.precio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  font-size: 1.3vw;
+  font-weight: bold;
+}
+
+.proveedor {
+  font-size: 1vw;
+  text-align: center;
+}
+
+.lights {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: right;
+  width: 80%;
+  margin-top: 1vw;
+  font-size: 1.5vh;
+}
+
+@media (max-width: 360px) {
+  .container {
+    width: 80vw;
+  }
+  .codigo {
+    font-size: 3vw;;
+  }
+
+  .tituloName {
+    font-size: 2vw;
+    margin-right: 50%;
+  }
+
+  .nombre {
+    font-size: 7vw;
+  }
+
+.precio {
+  font-size: 4vw;
+  font-weight: bold;
+}
+.proveedor {
+  font-size: 3vw;
+}
+}

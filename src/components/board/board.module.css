@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 5vh;
+    justify-content: center;
+    width: 85vw;
+    min-height: 100vh;
+    background-color:black;
+}

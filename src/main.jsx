@@ -12,8 +12,11 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+require("dotenv").config();
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
+
 // axios.defaults.baseURL = 'http://localhost:3003';
-axios.defaults.baseURL = 'https://calixtoserver-demo1-production.up.railway.app/';
+axios.defaults.baseURL = process.env.URL_BASE;
 
 ReactDOM.render(
   <Provider store={store}>

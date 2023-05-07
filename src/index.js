@@ -8,8 +8,11 @@ import store from './redux/store'
 import {BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
 
+require("dotenv").config();
+const url= process.env.URL_BASE;
+
 // axios.defaults.baseURL = 'http://localhost:3003';
-axios.defaults.baseURL = URL_BASE;
+axios.defaults.baseURL = url;
 
 ReactDOM.render(
   <Provider store={store}>

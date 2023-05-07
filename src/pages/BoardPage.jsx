@@ -6,9 +6,9 @@ import style from "./boardPage.module.css";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../redux/actions";
 
-const handleEnter = () => {
-  Navigate("./product");
-};
+// const handleEnter = () => {
+//   Navigate("./product");
+// };
 
 function BoardPage() {
 

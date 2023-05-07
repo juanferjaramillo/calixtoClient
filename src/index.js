@@ -9,7 +9,7 @@ import {BrowserRouter} from 'react-router-dom';
 import axios from 'axios';
 
 // axios.defaults.baseURL = 'http://localhost:3003';
-axios.defaults.baseURL = 'https://calixtoserver-demo1-production.up.railway.app/';
+axios.defaults.baseURL = URL_BASE;
 
 ReactDOM.render(
   <Provider store={store}>

@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
-import BoardPage from "./components/pages/BoardPage";
-import SplashPage from "./components/pages/SplashPage.jsx";
+import BoardPage from "../src/pages/BoardPage";
+import SplashPage from "../src/pages/SplashPage";
+
 function App() {
   //const url = useLocation().pathname;
   return (
     <div>
       <Routes>
+        {/* <Route  exact path={"/"} element={<Landing />}> </Route> */}
         <Route  exact path={"/"} element={<SplashPage />}> </Route>
         <Route  exact path={"/product"} element={<BoardPage />}> </Route>
       </Routes>

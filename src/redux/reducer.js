@@ -2,6 +2,7 @@ import {
   GET_ALL_PRODUCTS,
   FILTER_BY_PROVIDER,
   FILTER_BY_NAME,
+  RESET_BOARD
 } from "./actions";
 
 const initialState = {
@@ -38,10 +39,19 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_NAME:
       let prodsName = [];
       prodsName=
-        // state.filteredProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
-        state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
-      console.log('prodsName');
-      console.log(prodsName);
+        state.filteredProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
+        // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
+        return {
+          ...state,
+          filteredProducts: prodsName
+        }
+
+
+      case RESET_BOARD:
+        return {
+          ...state,
+          filteredProducts: [...state.allProducts]
+        }
 
       return {
         ...state,

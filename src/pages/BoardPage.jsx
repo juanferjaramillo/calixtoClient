@@ -4,7 +4,7 @@ import NavBar from "../navBar/NavBar";
 import SideBar from "../sideBar/SideBar";
 import style from "./boardPage.module.css";
 import { useDispatch } from "react-redux";
-import { getAllProducts } from "../../redux/actions";
+import { getAllProducts } from "../redux/actions";
 
 const handleEnter = () => {
   Navigate("./product");

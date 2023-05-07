@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAllProducts } from "../../redux/actions";
+import { getAllProducts } from "../redux/actions";
 import style from "./splashPage.module.css";
 
 function SplashPage() {

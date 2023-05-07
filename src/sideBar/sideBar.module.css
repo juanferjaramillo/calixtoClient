@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0vh;
+    margin-left:90%;
+    margin-top: 0;
+    width: 10%;
+    position:fixed;
+    background-color: rgb(127, 163, 170);
+    height: 100vh;
+    border-style:groove;
+    border-color: gray;
+    color: darkolivegreen;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    margin-top: 2vw;
+    /* background-color: red; */
+}
+
+.filterdiv {
+    width: 100%;
+    /* background-color: blueviolet; */
+}
+
+.proveedor {
+    width: 100%;
+    margin-bottom: 2vw;
+    text-align: center;
+    /* background-color: aqua; */
+}
+
+.buscar {
+    display: flex;
+    flex-direction: column;
+    padding-top: 2vw;
+    padding-bottom: 2vw;
+    margin-top: 2vw;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(31, 46, 73);
+}
+
+.inputSearch {
+    width: 100%;
+
+}
+
+.buttonGo {
+    background-color: greenyellow;
+    width: 80%;
+}
+
+.reset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2vw;
+}
+
+.buttonReset {
+    background-color: lightsalmon;
+    width: 80%;
+}
+
+.logoSthemma {
+    margin-bottom: 1vw;
+    text-align: center;
+}
+
+@media (max-width: 360px) {
+    .container {
+      width: 30%;
+    }
+}

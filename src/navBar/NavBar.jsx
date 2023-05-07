@@ -1,7 +1,7 @@
 import { useState } from "react";
 import style from "./navBar.module.css";
 import { useDispatch } from "react-redux";
-import {filterByProvider} from '../../redux/actions'
+import {filterByProvider} from "../redux/actions";
 
 function NavBar() {
     const dispatch = useDispatch();

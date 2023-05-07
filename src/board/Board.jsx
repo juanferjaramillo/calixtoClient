@@ -17,7 +17,8 @@ function Board() {
                   nombre={prod.nombre}
                   precio_base={prod.precio_base}
                   precio_total={prod.precio_total}
-                  provider={prod.providers[0].nombre}
+                  // provider={prod.providers[0].nombre}
+                  categoria={prod.category.name}
                 />
             );
           })

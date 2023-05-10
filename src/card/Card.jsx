@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./card.module.css";
+import { Box, Grid, Typography } from "@mui/material";
 
 function Card(props) {
   const [fliped, setFliped] = useState(false);
@@ -13,38 +14,73 @@ function Card(props) {
     setFliped(!fliped);
   };
 
+  let cat = props.categoria.toString().split("/")[3];
+
   return (
-    <>
-      <div className={style.container}>
+    <Box>
+      <Grid container
+        margin={"auto"}
+        sx={{
+          width: "25vw",
+          minWidth: "320px",
+          flexDirection: "column",
+          justifyContent: "center",
+          flexWrap: "wrap"
+          // borderColor: "red",
+          // borderStyle: "solid",
+        }}>
+    
         {fliped ? (
           // ------------------------CARD BACK---------------------
-          <div
-            // onClick={handleClick}
-            onMouseLeave ={handleClick}
+  
+             <Grid container
+            onMouseLeave={handleClick}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            width={"85%"}
+            height={"70vh"}
             className={fliped ? style.backCard : style.frontCard}
+            sx={{
+          }}
           >
-           
-            <div className={style.nombre}>{props.nombre}</div>
-            <div>
-              <p>El alimento natural mas saludable que puede encontrar en el mercado</p>
-              <p>al mejor precio y cerca de usted!</p>
-            </div>
-            <div className={style.image}>
+            <Grid item className={style.codigo}>{`Codigo: ${props.codigo}`}</Grid>
+            
+            <hr className={style.line}></hr>
+
+            <Grid item>
+              <Typography
+              marginRight={"1vw"} marginLeft={"1vw"} display="block" textAlign={"center"}>
+                El alimento natural mas saludable que puede encontrar en el
+                mercado al mejor precio y cerca de usted!
+              </Typography>
+            </Grid>
+
+            <Grid item className={style.image}>
               <img
                 className={style.img}
                 src={props.prodImg}
                 alt="producto"
               ></img>
-            </div>
-          </div>
+            </Grid>
+            
+            <Typography variant="h6">🅺🅴  •  🅅🄰  •  🅳🅱</Typography>
+            <Typography variant="h6">🄶🄻  •  🅅🄴  •  🅿🆁</Typography>
+          </Grid>
         ) : (
           // ------------------------CARD FRONT---------------------
-          <div
-            // onClick={handleClick}
-            onClick ={handleClick}
+          <Grid container
+            onClick={handleClick}
+            flexDirection={"column"}
+            alignItems={"center"}
+            justifyContent={"space-around"}
+            width={"85%"}
+            height={"70vh"}
             className={fliped ? style.backCard : style.frontCard}
+            sx={{
+          }}
           >
-            <div className={style.codigo}>{`Codigo: ${props.codigo}`}</div>
+            <Typography className={style.codigo}>{`Codigo: ${props.codigo}`}</Typography>
             <hr className={style.line}></hr>
 
             <div className={style.image}>
@@ -55,21 +91,22 @@ function Card(props) {
               ></img>
             </div>
 
-            <div className={style.nombre}>{props.nombre}</div>
+            <Typography className={style.nombre}>{props.nombre}</Typography>
 
             <hr className={style.line}></hr>
 
-            <div className={style.precio}>
+            <Typography className={style.precio}>
               {/* {`precio sin IVA: $ ${props.precio_base}`} */}
               {`Precio sin IVA: $ ${PB}`}
-            </div>
-            <div className={style.precio}>{`Precio con IVA: $ ${PT}`}</div>
-            <div className={style.proveedor}>{props.categoria}</div>
-            <div className={style.lights}>🔴 🟡 🟢</div>
-          </div>
+            </Typography>
+            <Typography className={style.precio}>{`Precio con IVA: $ ${PT}`}</Typography>
+            <Typography className={style.proveedor}>{cat}</Typography>
+            <Typography variant="h7" className={style.lights}>🔴 🟡 🟢</Typography>
+          </Grid>
         )}
-      </div>
-    </>
+  
+      </Grid>
+    </Box>
   );
 }
 export default Card;

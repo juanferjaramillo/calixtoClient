@@ -1,15 +1,12 @@
 import style from "./sideBar.module.css";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  filterByProvider,
-  filterByName,
-  resetBoard,
-} from "../redux/actions";
+import { filterByProvider, filterByName, resetBoard } from "../redux/actions";
+import { Button, Typography, Input, Select, MenuItem } from "@mui/material";
 
 function SideBar() {
   const dispatch = useDispatch();
-  const [FBP, setFBP] = useState("---");
+  const [FBP, setFBP] = useState("TODOS");
   const [nombre, setNombre] = useState("");
   //creates local state for handling the search input text
 
@@ -25,13 +22,14 @@ function SideBar() {
     //dispatch(filterByPartialName(event.target.value))
   };
 
-  const handleGoClick = () => {
+  const handleBuscarClick = () => {
+    dispatch(filterByProvider(FBP));
     dispatch(filterByName(nombre));
   };
 
   const handleResetClick = () => {
     setNombre("");
-    setFBP("Todos");
+    setFBP("TODOS");
     dispatch(resetBoard());
   };
 
@@ -47,63 +45,68 @@ function SideBar() {
 
       <div id="filtros" className={style.filterdiv}>
         <div id="proveedor" className={style.proveedor}>
-          <label>Proveedor:</label>
-          <select
+          <Typography>Proveedor:</Typography>
+
+          <Select
             name="filterProvider"
             onChange={handleFilterProviderChange}
-            className={style.select}
+            sx={{ backgroundColor: "lightBlue", width: "100%", height: "3vw" }}
             value={FBP}
           >
-            <option value="TODOS">Todos</option>
-            <option value="UP NUTRICIONAL FOOD SAS">Nutritional Foods</option>
-            <option value="EL DORADO COMEX SAS">El Dorado</option>
-            <option value="ALIMENTOS EL DORADO SAS">Alimentos El Dorado</option>
-            <option value="ECOHOME">Ecohome</option>
-            <option value="AMIRA SAS">Amira</option>
-            <option value="TERRAFERTIL COLOMBIA SAS">Terrafertil</option>
-            <option value="MONTESOL">Montesol</option>
-            <option value="SAMANÁ">Samaná</option>
-            <option value="GRECO">Greco</option>
-          </select>
+            <MenuItem value="TODOS">Todos</MenuItem>
+            <MenuItem value="UP NUTRICIONAL FOOD SAS">Nutritional Foods</MenuItem>
+            <MenuItem value="EL DORADO COMEX SAS">El Dorado</MenuItem>
+            <MenuItem value="ALIMENTOS EL DORADO SAS">Alimentos El Dorado</MenuItem>
+            <MenuItem value="ECOHOME">Ecohome</MenuItem>
+            <MenuItem value="AMIRA SAS">Amira</MenuItem>
+            <MenuItem value="TERRAFERTIL COLOMBIA SAS">Terrafertil</MenuItem>
+            <MenuItem value="MONTESOL">Montesol</MenuItem>
+            <MenuItem value="SAMANÁ">Samaná</MenuItem>
+            <MenuItem value="GRECO">Greco</MenuItem>
+          </Select>
         </div>
         <hr></hr>
 
         <div className={style.buscar}>
-          <input
-            className={style.inputSearch}
-            placeholder="nombre contiene"
+          <Typography>Producto:</Typography>
+          <Input
+            placeholder="Nombre"
             type="search"
+            variant="filled"
+            color="warning"
+            sx={{ backgroundColor: "lightBlue" }}
+            inputProps="nombre"
             onChange={handleInput}
             value={nombre}
           />
+
           <br></br>
-          <button
-            type="button"
-            className={style.buttonGo}
-            onClick={handleGoClick}
-          >
-            Buscar
-          </button>
+          <Button 
+          variant="outlined"
+          onClick={handleBuscarClick}
+          >Buscar</Button>
         </div>
 
         <br></br>
         <hr></hr>
 
         <div className={style.reset}>
-          <button
-            type="button"
-            className={style.buttonReset}
-            onClick={handleResetClick}
-          >
-            Reset
-          </button>
+          <Button 
+          variant="outlined"
+          color="error"
+          onClick={handleResetClick}
+          >Reset</Button>
         </div>
       </div>
-      <div className={style.logoSthemma}>
-        <span>Made by Sthemma</span>
-      </div>
 
-
+      <Typography
+        textAlign={"center"}
+        color={"goldenrod"}
+        fontSize={"small"}
+        sx={{ marginBottom: "1vw" }}
+      >
+        Made by Sthemma
+      </Typography>
     </div>
   );
 }

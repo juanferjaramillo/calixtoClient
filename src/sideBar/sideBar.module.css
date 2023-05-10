@@ -8,7 +8,7 @@
     margin-top: 0;
     width: 10%;
     position:fixed;
-    background-color: rgb(127, 163, 170);
+    background-color: rgb(0, 15, 18);
     height: 100vh;
     border-style:groove;
     border-color: gray;
@@ -20,6 +20,7 @@
     justify-content: center;
     max-width: 100%;
     margin-top: 2vw;
+    border-radius: 10%;
     /* background-color: red; */
 }
 
@@ -32,6 +33,7 @@
     width: 100%;
     margin-bottom: 2vw;
     text-align: center;
+    color: whitesmoke
     /* background-color: aqua; */
 }
 
@@ -44,17 +46,21 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: rgb(31, 46, 73);
+    /* background-color: rgb(31, 46, 73); */
+    color: whitesmoke
 }
 
 .inputSearch {
     width: 100%;
+    margin-top: 1vw;
 
 }
 
-.buttonGo {
-    background-color: greenyellow;
+.button {
+    background-color: rgb(212, 215, 242);
     width: 80%;
+    height: 2.5vw;
+    border-radius: 15%;
 }
 
 .reset {
@@ -64,14 +70,18 @@
     margin-top: 2vw;
 }
 
-.buttonReset {
-    background-color: lightsalmon;
-    width: 80%;
+.select {
+    width: 100%;
+    background-color: rgb(226, 224, 224);
+    border-radius: 10%;
+    height: 2vw;
+    margin-top: 1vw;
 }
 
 .logoSthemma {
     margin-bottom: 1vw;
     text-align: center;
+    color: rgb(138, 117, 1);
 }
 
 @media (max-width: 360px) {

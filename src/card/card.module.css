@@ -5,7 +5,7 @@
 @keyframes flipCard1 {
   0% {
       transform: rotateY(0deg);
-      background-color:aquamarine;
+      background-color:rgb(243, 255, 243);
   }
   100% {
       transform: rotateY(180deg);
@@ -14,15 +14,9 @@
 }
 
 .frontCard {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  width: 85%;
-  /* min-width: 320px; */
-  height:70vh;
+
   border-style: solid;
-  border-color: darkgray;
+  border-color: lightgray;
   border-radius: 5%;
   color: rgb(9, 129, 170);
   background-color: whitesmoke;
@@ -39,7 +33,7 @@
   }
   100% {
       transform: rotateY(180deg);
-      background-color:aquamarine;
+      background-color:rgb(243, 255, 243);
   }
 }
 
@@ -52,14 +46,14 @@
   /* min-width: 320px; */
   height:70vh;
   border-style: solid;
-  border-color: darkgray;
+  border-color: lightgray;
   border-radius: 5%;
   color: rgb(9, 129, 170);
   margin: 1vw; 
   animation-name: flipCard2;
   animation-duration: 0.2s;
   animation-iteration-count: 1;
-  background-color:rgb(174, 252, 226);
+  background-color:rgb(224, 251, 224);
 }
 
 .codigo {
@@ -90,6 +84,7 @@
 .line {
   background-color: black;
   width: 80%;
+  margin: 0;
   }
 
 .precio {
@@ -122,7 +117,7 @@
     width: 80vw;
   }
   .codigo {
-    font-size: 3vw;;
+    font-size: 3vw;
   }
 
   .tituloName {
@@ -141,4 +136,5 @@
 .proveedor {
   font-size: 3vw;
 }
+
 }

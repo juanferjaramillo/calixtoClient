@@ -24,7 +24,6 @@ const reducer = (state = initialState, action) => {
 
     case FILTER_BY_PROVIDER:
       let prodsProvider = [];
-      console.log(action.payload);
       action.payload === "TODOS"
         ? (prodsProvider = [...state.allProducts])
         : (prodsProvider = state.allProducts.filter(

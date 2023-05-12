@@ -1,6 +1,7 @@
 import { useState } from "react";
 import style from "./card.module.css";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Grid, Typography, Avatar } from "@mui/material";
+import Divider from '@mui/material/Divider';
 
 function Card(props) {
   const [fliped, setFliped] = useState(false);
@@ -16,96 +17,123 @@ function Card(props) {
 
   let cat = props.categoria.toString().split("/")[3];
 
+  //------------------------RENDER---------------------------
   return (
-    <Box>
-      <Grid container
-        margin={"auto"}
-        sx={{
-          width: "25vw",
-          minWidth: "320px",
-          flexDirection: "column",
-          justifyContent: "center",
-          flexWrap: "wrap"
-          // borderColor: "red",
-          // borderStyle: "solid",
-        }}>
-    
-        {fliped ? (
-          // ------------------------CARD BACK---------------------
-  
-             <Grid container
-            onMouseLeave={handleClick}
-            flexDirection={"column"}
-            alignItems={"center"}
-            justifyContent={"space-around"}
-            width={"85%"}
-            height={"70vh"}
-            className={fliped ? style.backCard : style.frontCard}
-            sx={{
-          }}
-          >
-            <Grid item className={style.codigo}>{`Codigo: ${props.codigo}`}</Grid>
-            
-            <hr className={style.line}></hr>
+    <Box
+      sx={{
+        width: "25vw",
+        minWidth: "320px",
+        // borderColor: "red",
+        // borderStyle: "solid",
+      }}
+    >
+      {fliped ? (
+        // ------------------------CARD BACK---------------------
 
-            <Grid item>
-              <Typography
-              marginRight={"1vw"} marginLeft={"1vw"} display="block" textAlign={"center"}>
-                El alimento natural mas saludable que puede encontrar en el
-                mercado al mejor precio y cerca de usted!
-              </Typography>
-            </Grid>
+        <Grid
+          container
+          onMouseLeave={handleClick}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          width={"85%"}
+          height={"70vh"}
+          className={fliped ? style.backCard : style.frontCard}
+          sx={{}}
+        >
+          <Grid item>{`Codigo: ${props.codigo}`}</Grid>
 
-            <Grid item className={style.image}>
-              <img
-                className={style.img}
-                src={props.prodImg}
-                alt="producto"
-              ></img>
-            </Grid>
-            
-            <Typography variant="h6">🅺🅴  •  🅅🄰  •  🅳🅱</Typography>
-            <Typography variant="h6">🄶🄻  •  🅅🄴  •  🅿🆁</Typography>
+          <hr className={style.line}></hr>
+
+          <Grid item>
+            <Typography
+              marginRight={"1vw"}
+              marginLeft={"1vw"}
+              display="block"
+              textAlign={"center"}
+            >
+              El alimento natural mas saludable que puede encontrar en el
+              mercado al mejor precio y cerca de usted!
+            </Typography>
           </Grid>
-        ) : (
-          // ------------------------CARD FRONT---------------------
-          <Grid container
-            onClick={handleClick}
-            flexDirection={"column"}
-            alignItems={"center"}
-            justifyContent={"space-around"}
-            width={"85%"}
-            height={"70vh"}
-            className={fliped ? style.backCard : style.frontCard}
-            sx={{
-          }}
+
+          <Grid
+            item
+            display={"flex"}
+            justifyContent={"center"}
+            maxWidth={"90%"}
+            maxHeight={"45%"}
           >
-            <Typography className={style.codigo}>{`Codigo: ${props.codigo}`}</Typography>
-            <hr className={style.line}></hr>
+            <Avatar src={props.prodImg} alt="producto"
+            variant="square"
+            sx={{ width: 200, height: 200 }}
+            />
+          </Grid>
 
-            <div className={style.image}>
-              <img
-                className={style.img}
-                src={props.prodImg}
-                alt="producto"
-              ></img>
-            </div>
+          <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
+          <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography>
+        </Grid>
+      ) : (
+        // ------------------------CARD FRONT---------------------
+        <Grid
+          container
+          onClick={handleClick}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"space-around"}
+          width={"85%"}
+          height={"70vh"}
+          className={fliped ? style.backCard : style.frontCard}
+        >
+          <Grid item>
+            <Typography>{`Codigo: ${props.codigo}`}</Typography>
+            <Divider />
+          </Grid>
 
-            <Typography className={style.nombre}>{props.nombre}</Typography>
+          <Grid
+            item
+            display={"flex"}
+            justifyContent={"center"}
+            width={"30%"}
+            maxHeight={"45%"}
+          >
+            <Avatar src={props.prodImg} alt="producto"
+            variant="square"
+            sx={{ width: 200, height: 200 }}
+            />
+          </Grid>
 
-            <hr className={style.line}></hr>
+          <Grid item
+          textAlign={"center"}
+          paddingLeft={1}
+          paddingRight={1}
+          >
+            <Typography>{props.nombre}</Typography>
+            <Divider />
+          </Grid>
 
-            <Typography className={style.precio}>
+          <Grid item
+          textAlign={"center"}
+          >
+            <Typography>
               {/* {`precio sin IVA: $ ${props.precio_base}`} */}
               {`Precio sin IVA: $ ${PB}`}
             </Typography>
-            <Typography className={style.precio}>{`Precio con IVA: $ ${PT}`}</Typography>
-            <Typography className={style.proveedor}>{cat}</Typography>
-            <Typography variant="h7" className={style.lights}>🔴 🟡 🟢</Typography>
+            <Typography>{`Precio con IVA: $ ${PT}`}</Typography>
+            <Typography>{cat}</Typography>
           </Grid>
-        )}
-  
-      </Grid>
+          <Grid 
+          item
+          width={"80%"}
+          textAlign={"right"}
+          >
+          
+            <Typography 
+            fontSize={10}
+            >🔴 🟡 🟢</Typography>
+          </Grid>
+        </Grid>
+      )}
     </Box>
   );
 }

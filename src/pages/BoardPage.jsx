@@ -18,16 +18,21 @@ function BoardPage() {
   }, [dispatch]);
 
   return (
-    <Box>
-      <Grid container>
-        <Grid item>
-          <SideBar />
-        </Grid>
-        <Grid item>
-          <Board />
-        </Grid>
+    <Grid container>
+      <Grid item 
+      flex={9}
+      // md={10} sm={9} xs={8}
+      >
+        <Board />
       </Grid>
-    </Box>
+
+      <Grid item
+      flex={1} 
+      // md={2} sm={3} xs={4}
+      >
+        <SideBar />
+      </Grid>
+    </Grid>
   );
 }
 export default BoardPage;

@@ -15,9 +15,6 @@ export const getAllProducts = () => {
     let allProds = await axios.get("/product");
     allProds = allProds.data;
     //brings all products from db
-    console.log("actions: allProds");
-    console.log("TODOS LOS PRODUCTOS");
-    console.log(allProds);
 
     return dispatch({
       type: GET_ALL_PRODUCTS,

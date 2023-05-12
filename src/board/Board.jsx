@@ -1,17 +1,22 @@
 import { useSelector } from "react-redux";
-import style from "./board.module.css"
 import Card from "../card/Card.jsx";
+import { Box, Grid, Typography } from "@mui/material";
 
 function Board() {
   const FiltProds = useSelector((state) => state.filteredProducts);
 
   return (
-    <div className={style.container}>
-      {FiltProds.length > 0
-        ? FiltProds.map((prod) => {
-          console.log(prod);
-            return (
+    <Box>
+      <Grid
+        container
+        paddingTop={"5vw"}
+        justifyContent={"center"}
+      >
+        {FiltProds.length > 0
+          ? FiltProds.map((prod, index) => {
+              return (
                 <Card
+                  key={index}
                   codigo={prod.codigo}
                   prodImg={prod.prodImg}
                   nombre={prod.nombre}
@@ -20,10 +25,11 @@ function Board() {
                   // provider={prod.providers[0].nombre}
                   categoria={prod.category.name}
                 />
-            );
-          })
-        : null}
-    </div>
+              );
+            })
+          : null}
+      </Grid>
+    </Box>
   );
 }
 

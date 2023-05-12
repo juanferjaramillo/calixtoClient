@@ -1,9 +1,0 @@
-.container {
-    display: flex;
-    flex-wrap: wrap;
-    padding-top: 5vw;
-    justify-content: center;
-    width: 85vw;
-    min-height: 100vh;
-    background-color:white;
-}

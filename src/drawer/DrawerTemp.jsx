@@ -20,10 +20,11 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
+import Avatar from "@mui/material/Avatar";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../card/Card";
 import { Input } from "@mui/material";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { filterByProvider, filterByName, resetBoard } from "../redux/actions";
 
 const drawerWidth = 240;
@@ -67,10 +68,18 @@ function ResponsiveDrawer(props) {
     dispatch(resetBoard());
   };
 
-
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar>
+          <Avatar
+            variant="square"
+            alt="Logo SF"
+            sx={{ width: "70%", height: "100%"}}
+            src={
+              "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
+            }
+          ></Avatar>
+      </Toolbar>
       <Divider />
       <List>
         <ListItem key={"proveedor"} disablePadding>
@@ -105,33 +114,41 @@ function ResponsiveDrawer(props) {
           </Select>
         </ListItem>
       </List>
-            <Divider />
+      <Divider />
       <List>
         <ListItem key={"producto"} disablePadding>
-          <Input placeholder="Producto"
-          onChange={handleInput}
-          value={nombre}
+          <Input
+            placeholder="Producto"
+            sx={{width: "100%"}}
+            onChange={handleInput}
+            value={nombre}
           ></Input>
         </ListItem>
         <ListItem key={"buscar"} disablePadding>
           <ListItemButton>
-            <Button variant="outlined"
-            onClick={handleBuscarClick}
-            >Buscar</Button>
+            <Button 
+            variant="outlined" 
+            sx={{width: "50%"}}
+            onClick={handleBuscarClick}>
+              Buscar
+            </Button>
           </ListItemButton>
         </ListItem>
       </List>
       <Divider />
       <List>
-      <ListItem key={"reset"} disablePadding>
+        <ListItem key={"reset"} disablePadding>
           <ListItemButton>
-            <Button variant="outlined"
-            onClick={handleResetClick}
-            >Reset</Button>
+            <Button 
+            variant="outlined" 
+            color="error" 
+            sx={{width: "50%"}}
+            onClick={handleResetClick}>
+              Reset
+            </Button>
           </ListItemButton>
         </ListItem>
       </List>
-
     </div>
   );
 

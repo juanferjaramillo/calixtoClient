@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import BoardPage from "../src/pages/BoardPage";
 import SplashPage from "../src/pages/SplashPage";
 import axios from 'axios';
-import ResponsiveDrawer from "../src/drawer/DrawerTemp"
+import ResponsiveDrawer from "../src/drawer/Drawer"
 // import PersistentDrawerRight from "../src/drawer/Drawer"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

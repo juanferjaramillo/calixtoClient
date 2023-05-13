@@ -77,6 +77,7 @@ function Card(props) {
     >
       {flipped ? (
         //-------------------------------BACK CARD-----------------------------------
+       
         <Grid
           container
           direction={"column"}
@@ -89,7 +90,7 @@ function Card(props) {
             minHeight: "65vh",
           }}
         >
-          <Typography variant="body1">{`Codigo: ${props.codigo}`}</Typography>
+          <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
           <Divider sx={{ width: "80%" }} />
           <Typography
             variant="body2"

@@ -119,4 +119,9 @@
     width: 80%;
     margin: 0;
   }
+  .img {
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+  }
 }

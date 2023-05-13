@@ -12,7 +12,7 @@ import { margin } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 
-const colorDot = "red";
+const colorDot = "green";
 // const colorDot = "orange"
 // const colorDot = "green";
 // const colorDot = '#44b700'
@@ -65,9 +65,10 @@ function Card(props) {
   return (
     <Box
       margin={1}
+      border={1}
       sx={{
         width: isMobile ? "80vw" : "20vw",
-        minWidth: isMobile ? "260px" : "270px",
+        minWidth: isMobile ? "250px" : "260px",
         bgcolor: theme.palette.background.paper,
         boxShadow: 3,
         borderRadius: 2,
@@ -82,35 +83,52 @@ function Card(props) {
           alignItems={"center"}
           justifyContent={"space-around"}
           onMouseLeave={handleClick}
+          onClick={handleClick}
           className={flipped ? "backCard" : "frontCard"}
           sx={{
-            minHeight: "50vh",
+            minHeight: "65vh",
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.codigo}`}</Typography>
           <Divider sx={{ width: "80%" }} />
-          <Typography variant="body2" textAlign="center" p={1}
-          borderRadius={1}
-          border={1}
-          // boxShadow={1}
-          // sx={{backgroundColor: "lightgray", width: "100%", textAlign: "center" }}
+          <Typography
+            variant="body2"
+            textAlign="center"
+            p={1}
+            borderRadius={1}
+            border={1}
+            // boxShadow={1}
+            // sx={{backgroundColor: "lightgray", width: "100%", textAlign: "center" }}
           >
             El alimento natural más saludable que puede encontrar en el mercado
             al mejor precio y cerca de usted!
           </Typography>
 
-          <StyledBadge>
+          <img
+            style={{ objectFit: "contain" }}
+            src={props.prodImg}
+            height="220vh"
+            width="240vh"
+            alt="producto"
+            // border="1"
+          />
+          
+          {/* <StyledBadge>
             <Avatar
               src={props.prodImg}
               alt="producto"
               variant="square"
               sx={{ width: "100%", height: 180, marginBottom: 2 }}
             />
-          </StyledBadge>
+          </StyledBadge> */}
 
           <Divider sx={{ width: "80%" }} />
-          <Grid item marginTop={2} borderRadius={2} boxShadow={1}
-          // sx={{backgroundColor: "lightgreen", width: "100%", textAlign: "center"}}
+          <Grid
+            item
+            marginTop={2}
+            borderRadius={2}
+            boxShadow={1}
+            // sx={{backgroundColor: "lightgreen", width: "100%", textAlign: "center"}}
           >
             <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
             <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography>
@@ -142,24 +160,28 @@ function Card(props) {
           >
             {`Codigo: ${props.codigo}`}
           </Typography>
-          <Divider sx={{ width: "80%" }} />
+          {/* <Divider sx={{ width: "80%" }} /> */}
 
-          <StyledBadge>
-            <Avatar
-              src={props.prodImg}
-              alt="producto"
-              variant="square"
-              sx={{
-                height: 180,
-                width: "100%",
-                // border: 1,
-                // borderColor: "orange",
-              }}
-            />
-          </StyledBadge>
+          <img
+            style={{ objectFit: "contain" }}
+            src={props.prodImg}
+            height="220vh"
+            width="240vh"
+            alt="producto"
+            // border="1"
+          />
+
+          {/* <Avatar
+          style={{objectFit: "contain"}}
+            src={props.prodImg}
+            alt="producto"
+            variant="square"
+            sx={{ width: 180, height: 180, marginBottom: 2 }}
+          /> */}
 
           <Typography
             variant="body1"
+            fontWeight={"500"}
             sx={{
               textAlign: "center",
               //border: 3,

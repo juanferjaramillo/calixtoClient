@@ -1,140 +1,203 @@
 import { useState } from "react";
-import style from "./card.module.css";
-import { Box, Grid, Typography, Avatar } from "@mui/material";
-import Divider from '@mui/material/Divider';
+import {
+  Box,
+  Grid,
+  Typography,
+  Avatar,
+  Divider,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import { margin } from "@mui/system";
+import { styled } from "@mui/material/styles";
+import Badge from "@mui/material/Badge";
 
+const colorDot = "red";
+// const colorDot = "orange"
+// const colorDot = "green";
+// const colorDot = '#44b700'
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  "& .MuiBadge-badge": {
+    backgroundColor: colorDot,
+    color: colorDot,
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    "&::after": {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: "50%",
+      animation: "ripple 1.2s infinite ease-in-out",
+      border: "1px solid currentColor",
+      content: '""',
+    },
+  },
+  "@keyframes ripple": {
+    "0%": {
+      transform: "scale(.8)",
+      opacity: 1,
+    },
+    "100%": {
+      transform: "scale(2.4)",
+      opacity: 0,
+    },
+  },
+}));
+
+//-------------------------COMPONENT------------------------
 function Card(props) {
-  const [fliped, setFliped] = useState(false);
+  const [flipped, setFlipped] = useState(false);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const PB = props.precio_base.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   const PT = props.precio_total
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const cat = props.categoria.toString().split("/")[3];
 
   const handleClick = () => {
-    setFliped(!fliped);
+    setFlipped(!flipped);
   };
 
-  let cat = props.categoria.toString().split("/")[3];
-
-  //------------------------RENDER---------------------------
   return (
     <Box
+      margin={1}
       sx={{
-        width: "25vw",
-        minWidth: "320px",
-        // borderColor: "red",
-        // borderStyle: "solid",
+        width: isMobile ? "80vw" : "20vw",
+        minWidth: isMobile ? "260px" : "270px",
+        bgcolor: theme.palette.background.paper,
+        boxShadow: 3,
+        borderRadius: 2,
+        p: 2,
       }}
     >
-      {fliped ? (
-        // ------------------------CARD BACK---------------------
-
+      {flipped ? (
+        //-------------------------------BACK CARD-----------------------------------
         <Grid
           container
-          onMouseLeave={handleClick}
-          flexDirection={"column"}
+          direction={"column"}
           alignItems={"center"}
           justifyContent={"space-around"}
-          width={"85%"}
-          height={"70vh"}
-          className={fliped ? style.backCard : style.frontCard}
-          sx={{}}
+          onMouseLeave={handleClick}
+          className={flipped ? "backCard" : "frontCard"}
+          sx={{
+            minHeight: "50vh",
+          }}
         >
-          <Grid item>{`Codigo: ${props.codigo}`}</Grid>
-
-          <hr className={style.line}></hr>
-
-          <Grid item>
-            <Typography
-              marginRight={"1vw"}
-              marginLeft={"1vw"}
-              display="block"
-              textAlign={"center"}
-            >
-              El alimento natural mas saludable que puede encontrar en el
-              mercado al mejor precio y cerca de usted!
-            </Typography>
-          </Grid>
-
-          <Grid
-            item
-            display={"flex"}
-            justifyContent={"center"}
-            maxWidth={"90%"}
-            maxHeight={"45%"}
+          <Typography variant="body1">{`Codigo: ${props.codigo}`}</Typography>
+          <Divider sx={{ width: "80%" }} />
+          <Typography variant="body2" textAlign="center" p={1}
+          borderRadius={1}
+          border={1}
+          // boxShadow={1}
+          // sx={{backgroundColor: "lightgray", width: "100%", textAlign: "center" }}
           >
-            <Avatar src={props.prodImg} alt="producto"
-            variant="square"
-            sx={{ width: 200, height: 200 }}
-            />
-          </Grid>
+            El alimento natural más saludable que puede encontrar en el mercado
+            al mejor precio y cerca de usted!
+          </Typography>
 
-          <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
-          <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography>
+          <StyledBadge>
+            <Avatar
+              src={props.prodImg}
+              alt="producto"
+              variant="square"
+              sx={{ width: "100%", height: 180, marginBottom: 2 }}
+            />
+          </StyledBadge>
+
+          <Divider sx={{ width: "80%" }} />
+          <Grid item marginTop={2} borderRadius={2} boxShadow={1}
+          // sx={{backgroundColor: "lightgreen", width: "100%", textAlign: "center"}}
+          >
+            <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
+            <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography>
+          </Grid>
         </Grid>
       ) : (
-        // ------------------------CARD FRONT---------------------
+        //-------------------------------FRONT CARD-----------------------------------
         <Grid
           container
-          onClick={handleClick}
-          flexDirection={"column"}
+          direction={"column"}
           alignItems={"center"}
           justifyContent={"space-around"}
-          width={"85%"}
-          height={"70vh"}
-          className={fliped ? style.backCard : style.frontCard}
+          onClick={handleClick}
+          className={flipped ? "backCard" : "frontCard"}
+          sx={{
+            minHeight: "65vh",
+            // borderColor: 'orange',
+            // borderWidth: 2,
+            // borderStyle: 'solid'
+          }}
         >
-          <Grid item>
-            <Typography>{`Codigo: ${props.codigo}`}</Typography>
-            <Divider />
-          </Grid>
-
-          <Grid
-            item
-            display={"flex"}
-            justifyContent={"center"}
-            width={"30%"}
-            maxHeight={"45%"}
+          <Typography
+            variant="body1"
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              //border: 3, borderColor: 'orange',
+            }}
           >
-            <Avatar src={props.prodImg} alt="producto"
-            variant="square"
-            sx={{ width: 200, height: 200 }}
+            {`Codigo: ${props.codigo}`}
+          </Typography>
+          <Divider sx={{ width: "80%" }} />
+
+          <StyledBadge>
+            <Avatar
+              src={props.prodImg}
+              alt="producto"
+              variant="square"
+              sx={{
+                height: 180,
+                width: "100%",
+                // border: 1,
+                // borderColor: "orange",
+              }}
             />
-          </Grid>
+          </StyledBadge>
 
-          <Grid item
-          textAlign={"center"}
-          paddingLeft={1}
-          paddingRight={1}
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: "center",
+              //border: 3,
+              //borderColor: 'red',
+              p: 1,
+            }}
           >
-            <Typography>{props.nombre}</Typography>
-            <Divider />
-          </Grid>
+            {props.nombre}
+          </Typography>
+          <Divider sx={{ width: "80%" }} />
+          <Typography variant="body2">{`Precio sin IVA: $ ${PB}`}</Typography>
+          <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
-          <Grid item
-          textAlign={"center"}
+          <StyledBadge
+            overlap="rectangular"
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            variant="dot"
           >
-            <Typography>
-              {/* {`precio sin IVA: $ ${props.precio_base}`} */}
-              {`Precio sin IVA: $ ${PB}`}
+            <Grid item width={200} textAlign={"center"}>
+              <Typography variant="body2">{cat}</Typography>
+            </Grid>
+          </StyledBadge>
+
+          {/* <Box
+            sx={{
+              width: "80%",
+              textAlign: "right",
+              pt: 1,
+            }}
+          >
+            <Typography variant="body2" fontSize={10}>
+              🔴 🟡 🟢
             </Typography>
-            <Typography>{`Precio con IVA: $ ${PT}`}</Typography>
-            <Typography>{cat}</Typography>
-          </Grid>
-          <Grid 
-          item
-          width={"80%"}
-          textAlign={"right"}
-          >
-          
-            <Typography 
-            fontSize={10}
-            >🔴 🟡 🟢</Typography>
-          </Grid>
+          </Box> */}
         </Grid>
       )}
     </Box>
   );
 }
+
 export default Card;

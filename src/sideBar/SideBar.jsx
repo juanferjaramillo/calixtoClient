@@ -11,6 +11,7 @@ import {
   Grid,
   Avatar,
 } from "@mui/material";
+import Divider from "@mui/material/Divider";
 
 function SideBar() {
   const dispatch = useDispatch();
@@ -43,152 +44,144 @@ function SideBar() {
 
   //------------------------------RENDER---------------------------------
   return (
-    <Box sx={{ width: "10vw", minWidth: "160px" }}>
+    <Box id="box">
       <Grid
+        id="GContainer"
         container
         height={"100vh"}
-        // maxWidth={"10vw"}
-        width={"100%"}
-        //minWidth= {"160px"}
+        //maxWidth={"10vw"}
+        backgroundColor={"rgb(0, 15, 18)"}
+        color={"darkolivegreen"}
         position={"fixed"}
-        //md={1.2}  sm={5} xs={5}
+        // border={3}
+        // borderColor={"blue"}
+        md={1.2} sm={2} xs={2.5}
       >
         <Grid
           item
-          backgroundColor={"rgb(0, 15, 18)"}
-          color={"darkolivegreen"}
-          // border={1}
-          // borderColor={"blue"}
+          id="logoSF"
+          marginBottom={"5vh"}
+          //height={"20vh"}
+          width={"100%"}
+          border={3}
+          borderColor={"orange"}
         >
-          <Grid
-            item
-            id="logoSF"
-            marginBottom={"5vh"}
-            // border={1}
-            // borderColor={"yellow"}
+          <Avatar
+            variant="square"
+            sx={{ width: "100%" }}
+            alt="Logo SF"
+            src={
+              "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
+            }
+          ></Avatar>
+        </Grid>
+
+        <Grid
+          item
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          id="filtro"
+          marginBottom={"70%"}
+          //height={"60vh"}
+          width={"100%"}
+          border={3}
+          borderColor={"orange"}
+        >
+          <Typography>Proveedor:</Typography>
+          <Select
+            name="filterProvider"
+            onChange={handleFilterProviderChange}
+            sx={{
+              backgroundColor: "whiteSmoke",
+              width: "100%",
+              height: "3vw",
+            }}
+            value={FBP}
           >
-            <Avatar
-              src={
-                "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
-              }
-              variant="square"
-              sx={{ width: "100%", height: "10vh" }}
-              // width="100%"
-              //src="https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
-              alt="Logo SF"
-            ></Avatar>
-          </Grid>
+            <MenuItem value="TODOS">Todos</MenuItem>
+            <MenuItem value="UP NUTRICIONAL FOOD SAS">
+              Nutritional Foods
+            </MenuItem>
+            <MenuItem value="EL DORADO COMEX SAS">El Dorado</MenuItem>
+            <MenuItem value="ALIMENTOS EL DORADO SAS">
+              Alimentos El Dorado
+            </MenuItem>
+            <MenuItem value="ECOHOME">Ecohome</MenuItem>
+            <MenuItem value="AMIRA SAS">Amira</MenuItem>
+            <MenuItem value="TERRAFERTIL COLOMBIA SAS">Terrafertil</MenuItem>
+            <MenuItem value="MONTESOL">Montesol</MenuItem>
+            <MenuItem value="SAMANÁ">Samaná</MenuItem>
+            <MenuItem value="GRECO">Greco</MenuItem>
+          </Select>
+        </Grid>
 
-          <Grid
-            item
-            id="filtros"
-            marginBottom={"70%"}
-            height={"60vh"}
-            width={"100%"}
-            // border={1}
-            // borderColor={"green"}
+        <Grid
+          item
+          id="busqueda"
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          width={"100%"}
+          //marginBottom={"2vw"}
+          color={"whiteSmoke"}
+          border={3}
+          borderColor={"red"}
+        >
+          <Typography>Producto:</Typography>
+          <Input
+            placeholder="Nombre"
+            type="search"
+            variant="filled"
+            color="warning"
+            sx={{ backgroundColor: "whiteSmoke" }}
+            onChange={handleInput}
+            value={nombre}
+          />
+          <Button
+            variant="outlined"
+            onClick={handleBuscarClick}
+            sx={{ width: "80%" }}
           >
-            <Grid
-              item
-              id="proveedor"
-              textAlign={"center"}
-              marginBottom={"2vw"}
-              color={"whiteSmoke"}
-            >
-              <Typography>Proveedor:</Typography>
+            Buscar
+          </Button>
+        </Grid>
 
-              <Select
-                name="filterProvider"
-                onChange={handleFilterProviderChange}
-                sx={{
-                  backgroundColor: "whiteSmoke",
-                  width: "100%",
-                  height: "3vw",
-                }}
-                value={FBP}
-              >
-                <MenuItem value="TODOS">Todos</MenuItem>
-                <MenuItem value="UP NUTRICIONAL FOOD SAS">
-                  Nutritional Foods
-                </MenuItem>
-                <MenuItem value="EL DORADO COMEX SAS">El Dorado</MenuItem>
-                <MenuItem value="ALIMENTOS EL DORADO SAS">
-                  Alimentos El Dorado
-                </MenuItem>
-                <MenuItem value="ECOHOME">Ecohome</MenuItem>
-                <MenuItem value="AMIRA SAS">Amira</MenuItem>
-                <MenuItem value="TERRAFERTIL COLOMBIA SAS">
-                  Terrafertil
-                </MenuItem>
-                <MenuItem value="MONTESOL">Montesol</MenuItem>
-                <MenuItem value="SAMANÁ">Samaná</MenuItem>
-                <MenuItem value="GRECO">Greco</MenuItem>
-              </Select>
-            </Grid>
-            <hr></hr>
+        <Grid
+          item
+          id="reset"
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          color={"whiteSmoke"}
+          width={"100%"}
+          border={3}
+          borderColor={"orange"}
+        >
+          <Button variant="outlined" color="error" onClick={handleResetClick}>
+            Reset
+          </Button>
+        </Grid>
 
-            <Grid
-              item
-              paddingTop={"4vw"}
-              paddingBottom={"2vw"}
-              color={"whiteSmoke"}
-            >
-              <Typography textAlign={"center"}>Producto:</Typography>
-              <Input
-                placeholder="Nombre"
-                type="search"
-                variant="filled"
-                color="warning"
-                sx={{ backgroundColor: "whiteSmoke" }}
-                onChange={handleInput}
-                value={nombre}
-              />
-
-              <br></br>
-              <br></br>
-              <br></br>
-              <Grid item
-              display={"flex"}
-              width={"100%"}
-              justifyContent={"center"}
-              
-              >
-                <Button variant="outlined" onClick={handleBuscarClick}>
-                  Buscar
-                </Button>
-              </Grid>
-            </Grid>
-
-            <br></br>
-            <hr></hr>
-            <br></br>
-
-            <Grid item display={"flex"} justifyContent={"center"}>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={handleResetClick}
-              >
-                Reset
-              </Button>
-            </Grid>
-          </Grid>
-
-          <Grid
-            item
-            height={"20vh"}
-            // border={1}
-            // borderColor={"red"}
+        <Grid
+          item
+          id="logoSthemma"
+          display={"flex"}
+          justifyContent={"center"}
+          width={"100%"}
+          border={3}
+          borderColor={"red"}
+        >
+          <Typography
+            textAlign={"center"}
+            color={"goldenrod"}
+            fontSize={"small"}
+            // sx={{ marginBottom: "1vw" }}
           >
-            <Typography
-              textAlign={"center"}
-              color={"goldenrod"}
-              fontSize={"small"}
-              // sx={{ marginBottom: "1vw" }}
-            >
-              Made by Sthemma
-            </Typography>
-          </Grid>
+            Made by Sthemma
+          </Typography>
         </Grid>
       </Grid>
     </Box>

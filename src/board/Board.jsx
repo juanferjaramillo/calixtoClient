@@ -7,6 +7,7 @@ function Board() {
 
   return (
     <Box>
+      
       <Grid
         container
         paddingTop={"5vw"}

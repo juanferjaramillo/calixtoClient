@@ -12,7 +12,7 @@ import { margin } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 
-const colorDot = "red";
+const colorDot = "green";
 // const colorDot = "orange"
 // const colorDot = "green";
 // const colorDot = '#44b700'
@@ -83,9 +83,10 @@ function Card(props) {
           alignItems={"center"}
           justifyContent={"space-around"}
           onMouseLeave={handleClick}
+          onClick={handleClick}
           className={flipped ? "backCard" : "frontCard"}
           sx={{
-            minHeight: "50vh",
+            minHeight: "65vh",
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.codigo}`}</Typography>
@@ -103,14 +104,23 @@ function Card(props) {
             al mejor precio y cerca de usted!
           </Typography>
 
-          <StyledBadge>
+          <img
+            style={{ objectFit: "contain" }}
+            src={props.prodImg}
+            height="220vh"
+            width="240vh"
+            alt="producto"
+            // border="1"
+          />
+          
+          {/* <StyledBadge>
             <Avatar
               src={props.prodImg}
               alt="producto"
               variant="square"
               sx={{ width: "100%", height: 180, marginBottom: 2 }}
             />
-          </StyledBadge>
+          </StyledBadge> */}
 
           <Divider sx={{ width: "80%" }} />
           <Grid
@@ -150,12 +160,12 @@ function Card(props) {
           >
             {`Codigo: ${props.codigo}`}
           </Typography>
-          <Divider sx={{ width: "80%" }} />
+          {/* <Divider sx={{ width: "80%" }} /> */}
 
           <img
             style={{ objectFit: "contain" }}
             src={props.prodImg}
-            height="240vh"
+            height="220vh"
             width="240vh"
             alt="producto"
             // border="1"
@@ -171,6 +181,7 @@ function Card(props) {
 
           <Typography
             variant="body1"
+            fontWeight={"500"}
             sx={{
               textAlign: "center",
               //border: 3,

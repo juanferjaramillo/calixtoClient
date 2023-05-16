@@ -3,12 +3,11 @@ import {
   Box,
   Grid,
   Typography,
-  Avatar,
   Divider,
   useTheme,
   useMediaQuery,
+  Avatar
 } from "@mui/material";
-import { margin } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 
@@ -52,10 +51,11 @@ function Card(props) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const PB = props.precio_base.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  const PT = props.precio_total
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  let PB = Number(props.precio_base).toFixed();
+  let PT = ((1+Number(props.iva)/100)* Number(PB)).toFixed();
+  PB = PB.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  PT = PT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   const cat = props.categoria.toString().split("/")[3];
 
   const handleClick = () => {
@@ -67,12 +67,12 @@ function Card(props) {
       margin={1}
       border={1}
       sx={{
-        width: isMobile ? "80vw" : "20vw",
-        minWidth: isMobile ? "250px" : "260px",
+        width: isMobile ? "80vw" : "25vw",
+        minWidth: isMobile ? "250px" : "290px",
         bgcolor: theme.palette.background.paper,
         boxShadow: 3,
         borderRadius: 2,
-        p: 2,
+        p: 1,
       }}
     >
       {flipped ? (
@@ -91,24 +91,20 @@ function Card(props) {
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
-          <Divider sx={{ width: "80%" }} />
+          {/* <Divider sx={{ width: "80%" }} /> */}
           <Typography
-            variant="body2"
+            fontSize={11}
             textAlign="center"
             p={1}
-            borderRadius={1}
-            border={1}
-            // boxShadow={1}
-            // sx={{backgroundColor: "lightgray", width: "100%", textAlign: "center" }}
-          >
-            El alimento natural más saludable que puede encontrar en el mercado
-            al mejor precio y cerca de usted!
+            boxShadow={2}
+            >
+            {props.descripcion}
           </Typography>
 
           <img
             style={{ objectFit: "contain" }}
             src={props.prodImg}
-            height="220vh"
+            height="150vh"
             width="240vh"
             alt="producto"
             // border="1"
@@ -126,13 +122,28 @@ function Card(props) {
           <Divider sx={{ width: "80%" }} />
           <Grid
             item
-            marginTop={2}
-            borderRadius={2}
-            boxShadow={1}
+            display={"flex"}
+            justifyContent={"center"}
+            marginTop={1}
             // sx={{backgroundColor: "lightgreen", width: "100%", textAlign: "center"}}
           >
-            <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
-            <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography>
+            {props.class.map((icon,i)=>{
+              return(
+                <Avatar
+                alt="icon"
+                src={icon.iconUrl}
+                sx={{width:35, 
+                  height:35, 
+                  marginRight: 0.5,
+                  marginLeft: 0.5}}
+                >
+                </Avatar>
+              )
+            })
+            }
+
+            {/* <Typography variant="h6">🅺🅴 • 🅅🄰 • 🅳🅱</Typography>
+            <Typography variant="h6">🄶🄻 • 🅅🄴 • 🅿🆁</Typography> */}
           </Grid>
         </Grid>
       ) : (

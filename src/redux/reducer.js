@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
       action.payload === "TODOS"
         ? (prodsProvider = [...state.allProducts])
         : (prodsProvider = state.allProducts.filter(
-            (prod) => prod.providers[0].nombre === action.payload
+            (prod) => prod.providers[0].name === action.payload
           ));
 
       return {
@@ -38,7 +38,7 @@ const reducer = (state = initialState, action) => {
     case FILTER_BY_NAME:
       let prodsName = [];
       prodsName=
-        state.filteredProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
+        state.filteredProducts.filter((p) => p.name.toLowerCase().includes(action.payload));
         // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
         return {
           ...state,

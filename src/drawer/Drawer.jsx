@@ -8,13 +8,10 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import Select from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -27,7 +24,7 @@ import { Input } from "@mui/material";
 import Button from "@mui/material/Button";
 import { filterByProvider, filterByName, resetBoard } from "../redux/actions";
 
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
@@ -245,13 +242,16 @@ function ResponsiveDrawer(props) {
                   <Card
                     key={index}
                     codigo={prod.codigo}
-                    Barras={prod.codigo_barras}
-                    prodImg={prod.prodImg}
                     nombre={prod.nombre}
-                    precio_base={prod.precio_base}
-                    precio_total={prod.precio_total}
-                    // provider={prod.providers[0].nombre}
+                    Barras={prod.codigoBarras}
+                    precio_base={prod.precioBase}
+                    prodImg={prod.prodUrl}
+                    descripcion={prod.descripcion}
                     categoria={prod.category.name}
+                    iva={prod.tax.tax}
+                    class={prod.classes}
+                    //clases [{iconUrl:"http"},] 
+                    // provider={prod.providers[0].nombre}
                   />
                 );
               })

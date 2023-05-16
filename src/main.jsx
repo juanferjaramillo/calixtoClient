@@ -3,22 +3,33 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App.jsx";
 // import reportWebVitals from "./reportWebVitals";
-import {Provider} from 'react-redux'
-import store from './redux/store'
-import {BrowserRouter} from 'react-router-dom';
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import { BrowserRouter } from "react-router-dom";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
+
+
+let theme = createTheme({
+  typography: {
+    fontFamily: ["Poppins", "sans-serif"].join(","),
+  },
+});
+theme = responsiveFontSizes(theme);
 
 ReactDOM.render(
-  <Provider store={store}>
-    <React.StrictMode>
-      <BrowserRouter>
-      <App />
-      </BrowserRouter> 
-    </React.StrictMode>
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <React.StrictMode>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </React.StrictMode>
+    </Provider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

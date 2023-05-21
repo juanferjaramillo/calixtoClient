@@ -18,11 +18,11 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
-import { useDispatch, useSelector } from "react-redux";
-import Card from "../card/Card";
-import { Input } from "@mui/material";
+import Card from "../../components/card/Card";
+import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import { filterByProvider, filterByName, resetBoard } from "../redux/actions";
+import { filterByProvider, filterByName, resetBoard } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 180;
 

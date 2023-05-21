@@ -6,12 +6,11 @@ import {
 } from "./actions";
 
 const initialState = {
-  page: 1,
   allProducts: [],
   filteredProducts: [],
 };
 
-const reducer = (state = initialState, action) => {
+const pReducer = (state = initialState, action) => {
   //console.log(`action: ${action.type}`);
 
   switch (action.type) {
@@ -76,4 +75,4 @@ const reducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-export default reducer;
+export default pReducer;

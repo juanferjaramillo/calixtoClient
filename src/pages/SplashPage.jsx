@@ -8,10 +8,6 @@ function SplashPage() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getAllProducts());
-  // }, [dispatch]);
-
   const handleEnter = () => {
     Navigate("./product");
   };

@@ -8,11 +8,26 @@ export const CREATE_PRODUCT = "GET_ALL_PRODUCTS";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
+export const GET_ALL_USERS = "GET_ALL_USERS";
 
-export const getAllProducts = () => {
-  //brings all products to the state
+//----------------------USER ACTIONS--------------------------------
+export const getAllUsers = () => {
+  //brings all the users from the db to the state
   return async function (dispatch) {
-    let allProds = await axios.get("/product");
+    let allUsers = await axios.get('/users');
+    allUsers = allUsers.data;
+    return dispatch({
+      type: GET_ALL_USERS,
+      payload: allUsers
+    })
+  }
+}
+
+//----------------------PRODUCT ACTIONS-------------------------------
+export const getAllProducts = (owner) => {
+  //brings all products from db to the state
+  return async function (dispatch) {
+    let allProds = await axios.get(`/product/${owner}`);
     allProds = allProds.data;
     //brings all products from db
 

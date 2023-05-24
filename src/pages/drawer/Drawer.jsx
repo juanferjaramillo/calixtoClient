@@ -1,5 +1,4 @@
-import * as React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -21,7 +20,11 @@ import Avatar from "@mui/material/Avatar";
 import Card from "../../components/card/Card";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import { filterByProvider, filterByName, resetBoard } from "../../redux/actions";
+import {
+  filterByProvider,
+  filterByName,
+  resetBoard,
+} from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 const drawerWidth = 180;
@@ -29,11 +32,12 @@ const drawerWidth = 180;
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-  const FiltProds = useSelector((state) => state.filteredProducts);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
   const [nombre, setNombre] = useState("");
 
+  const filtProds = useSelector((state) => state.product.filteredProducts);
+  const providers = useSelector((state) => state.product.providers);
   const dispatch = useDispatch();
 
   //---------------------HANDLES----------------------
@@ -68,14 +72,14 @@ function ResponsiveDrawer(props) {
   const drawer = (
     <div>
       <Toolbar>
-          <Avatar
-            variant="square"
-            alt="Logo SF"
-            sx={{ width: "70%", height: "100%"}}
-            src={
-              "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
-            }
-          ></Avatar>
+        <Avatar
+          variant="square"
+          alt="Logo SF"
+          sx={{ width: "70%", height: "100%" }}
+          src={
+            "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
+          }
+        ></Avatar>
       </Toolbar>
       <Divider />
       <List>
@@ -94,20 +98,25 @@ function ResponsiveDrawer(props) {
             }}
             value={FBP}
           >
-            <MenuItem value="TODOS">Todos</MenuItem>
+            <MenuItem key={0} value="TODOS">Todos</MenuItem>
+            {providers.map((p,i) => {
+              return <MenuItem key={i} value={p}>{p}</MenuItem>;
+            })}
+
+            {/* <MenuItem value="TODOS">Todos</MenuItem>
             <MenuItem value="UP NUTRICIONAL FOOD SAS">
-              Nutritional Foods
+            Nutritional Foods
             </MenuItem>
             <MenuItem value="EL DORADO COMEX SAS">El Dorado</MenuItem>
             <MenuItem value="ALIMENTOS EL DORADO SAS">
-              Alimentos El Dorado
+            Alimentos El Dorado
             </MenuItem>
             <MenuItem value="ECOHOME">Ecohome</MenuItem>
             <MenuItem value="AMIRA SAS">Amira</MenuItem>
             <MenuItem value="TERRAFERTIL COLOMBIA SAS">Terrafertil</MenuItem>
             <MenuItem value="MONTESOL">Montesol</MenuItem>
             <MenuItem value="SAMANÁ">Samaná</MenuItem>
-            <MenuItem value="GRECO">Greco</MenuItem>
+            <MenuItem value="GRECO">Greco</MenuItem> */}
           </Select>
         </ListItem>
       </List>
@@ -116,17 +125,18 @@ function ResponsiveDrawer(props) {
         <ListItem key={"producto"} disablePadding>
           <Input
             placeholder="Producto"
-            sx={{width: "100%"}}
+            sx={{ width: "100%" }}
             onChange={handleInput}
             value={nombre}
           ></Input>
         </ListItem>
         <ListItem key={"buscar"} disablePadding>
           <ListItemButton>
-            <Button 
-            variant="outlined" 
-            sx={{width: "50%"}}
-            onClick={handleBuscarClick}>
+            <Button
+              variant="outlined"
+              sx={{ width: "50%" }}
+              onClick={handleBuscarClick}
+            >
               Buscar
             </Button>
           </ListItemButton>
@@ -136,11 +146,12 @@ function ResponsiveDrawer(props) {
       <List>
         <ListItem key={"reset"} disablePadding>
           <ListItemButton>
-            <Button 
-            variant="outlined" 
-            color="error" 
-            sx={{width: "50%"}}
-            onClick={handleResetClick}>
+            <Button
+              variant="outlined"
+              color="error"
+              sx={{ width: "50%" }}
+              onClick={handleResetClick}
+            >
               Reset
             </Button>
           </ListItemButton>
@@ -236,8 +247,8 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
-          {FiltProds.length > 0
-            ? FiltProds.map((prod, index) => {
+          {filtProds.length > 0
+            ? filtProds.map((prod, index) => {
                 return (
                   <Card
                     key={index}
@@ -250,7 +261,7 @@ function ResponsiveDrawer(props) {
                     categoria={prod.category.name}
                     iva={prod.tax.tax}
                     class={prod.classes}
-                    //clases [{iconUrl:"http"},] 
+                    //clases [{iconUrl:"http"},]
                     // provider={prod.providers[0].nombre}
                   />
                 );

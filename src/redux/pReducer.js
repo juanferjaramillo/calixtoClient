@@ -2,12 +2,13 @@ import {
   GET_ALL_PRODUCTS,
   FILTER_BY_PROVIDER,
   FILTER_BY_NAME,
-  RESET_BOARD
+  RESET_BOARD,
 } from "./actions";
 
 const initialState = {
   allProducts: [],
   filteredProducts: [],
+  providers: [],
 };
 
 const pReducer = (state = initialState, action) => {
@@ -17,8 +18,9 @@ const pReducer = (state = initialState, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        allProducts: action.payload,
-        filteredProducts: action.payload,
+        allProducts: action.payload.allProds,
+        filteredProducts: action.payload.allProds,
+        providers: action.payload.provs,
       };
 
     case FILTER_BY_PROVIDER:
@@ -36,20 +38,20 @@ const pReducer = (state = initialState, action) => {
 
     case FILTER_BY_NAME:
       let prodsName = [];
-      prodsName=
-        state.filteredProducts.filter((p) => p.name.toLowerCase().includes(action.payload));
-        // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
-        return {
-          ...state,
-          filteredProducts: prodsName
-        }
+      prodsName = state.filteredProducts.filter((p) =>
+        p.name.toLowerCase().includes(action.payload)
+      );
+      // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
+      return {
+        ...state,
+        filteredProducts: prodsName,
+      };
 
-
-      case RESET_BOARD:
-        return {
-          ...state,
-          filteredProducts: [...state.allProducts]
-        }
+    case RESET_BOARD:
+      return {
+        ...state,
+        filteredProducts: [...state.allProducts],
+      };
 
       return {
         ...state,

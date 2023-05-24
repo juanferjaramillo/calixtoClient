@@ -70,9 +70,10 @@ function Card(props) {
         width: isMobile ? "80vw" : "25vw",
         minWidth: isMobile ? "250px" : "290px",
         bgcolor: theme.palette.background.paper,
-        boxShadow: 3,
+        boxShadow: 8,
         borderRadius: 2,
         p: 1,
+        borderColor: "lightgray"
       }}
     >
       {flipped ? (

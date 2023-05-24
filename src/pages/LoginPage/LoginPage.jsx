@@ -22,7 +22,8 @@ import FormControl from "@mui/material/FormControl";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { padding } from "@mui/system";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts, getAuthUser } from "../../redux/actions";
 
 //------------------------------COMPONENT--------------------------
 function LoginPage() {
@@ -31,11 +32,14 @@ function LoginPage() {
   const [idError, setIdError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //---------------------------HANDLES------------------------------
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //validateAuthUser:
-    // const allUsers = useSelector(state=>state.users)
+    dispatch(getAuthUser(id));
+    dispatch(getAllProducts(id));
     navigate("/products");
   };
 
@@ -72,6 +76,7 @@ function LoginPage() {
         mt={5}
         border={1}
         height={"55vh"}
+        sx={{ boxShadow: 10 }}
       >
         <form autoComplete="off" onSubmit={handleSubmit}>
           <Typography textAlign={"center"} variant="h5" margin={2}>
@@ -105,7 +110,12 @@ function LoginPage() {
           />
 
           <Grid display={"flex"} justifyContent={"center"} item>
-            <Button variant="outlined" color="secondary" type="submit">
+            <Button
+              variant="outlined"
+              color="secondary"
+              type="submit"
+              disabled={id === "" || password === "" ? true : false}
+            >
               Ingresar
             </Button>
           </Grid>

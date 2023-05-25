@@ -80,7 +80,7 @@ function LoginPage() {
       >
         <form autoComplete="off" onSubmit={handleSubmit}>
           <Typography textAlign={"center"} variant="h5" margin={2}>
-            Ingreso al Calixto
+            Ingreso a Calixto
           </Typography>
 
           <TextField

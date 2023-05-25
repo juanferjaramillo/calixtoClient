@@ -26,6 +26,8 @@ import {
   resetBoard,
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAuthUser } from "../../redux/actions";
 
 const drawerWidth = 180;
 
@@ -38,7 +40,9 @@ function ResponsiveDrawer(props) {
 
   const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = useSelector((state) => state.product.providers);
+  const logoOwner = useSelector((state) => state.users.authUser.logoowner);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //---------------------HANDLES----------------------
 
@@ -69,18 +73,22 @@ function ResponsiveDrawer(props) {
     dispatch(resetBoard());
   };
 
+  const handlelogout = () => {
+    dispatch(getAuthUser());
+    navigate("/");
+  };
+
   const drawer = (
-    <div>
-      <Toolbar>
-        <Avatar
-          variant="square"
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Grid item
+      >
+        <img
+        width={"100%"}
           alt="Logo SF"
-          sx={{ width: "70%", height: "100%" }}
-          src={
-            "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg"
-          }
-        ></Avatar>
-      </Toolbar>
+          src={logoOwner}
+          sx={{objectFit:"contain"}}
+        ></img>
+      </Grid>
       <Divider />
       <List>
         <ListItem key={"proveedor"} disablePadding>
@@ -98,25 +106,16 @@ function ResponsiveDrawer(props) {
             }}
             value={FBP}
           >
-            <MenuItem key={0} value="TODOS">Todos</MenuItem>
-            {providers.map((p,i) => {
-              return <MenuItem key={i} value={p}>{p}</MenuItem>;
+            <MenuItem key={0} value="TODOS">
+              Todos
+            </MenuItem>
+            {providers.map((p, i) => {
+              return (
+                <MenuItem key={i} value={p}>
+                  {p}
+                </MenuItem>
+              );
             })}
-
-            {/* <MenuItem value="TODOS">Todos</MenuItem>
-            <MenuItem value="UP NUTRICIONAL FOOD SAS">
-            Nutritional Foods
-            </MenuItem>
-            <MenuItem value="EL DORADO COMEX SAS">El Dorado</MenuItem>
-            <MenuItem value="ALIMENTOS EL DORADO SAS">
-            Alimentos El Dorado
-            </MenuItem>
-            <MenuItem value="ECOHOME">Ecohome</MenuItem>
-            <MenuItem value="AMIRA SAS">Amira</MenuItem>
-            <MenuItem value="TERRAFERTIL COLOMBIA SAS">Terrafertil</MenuItem>
-            <MenuItem value="MONTESOL">Montesol</MenuItem>
-            <MenuItem value="SAMANÁ">Samaná</MenuItem>
-            <MenuItem value="GRECO">Greco</MenuItem> */}
           </Select>
         </ListItem>
       </List>
@@ -133,8 +132,8 @@ function ResponsiveDrawer(props) {
         <ListItem key={"buscar"} disablePadding>
           <ListItemButton>
             <Button
-              variant="outlined"
-              sx={{ width: "50%" }}
+              variant="contained"
+              sx={{ width: "50%", marginLeft: "25%" }}
               onClick={handleBuscarClick}
             >
               Buscar
@@ -147,9 +146,9 @@ function ResponsiveDrawer(props) {
         <ListItem key={"reset"} disablePadding>
           <ListItemButton>
             <Button
-              variant="outlined"
+              variant="contained"
               color="error"
-              sx={{ width: "50%" }}
+              sx={{ width: "50%", marginLeft: "25%" }}
               onClick={handleResetClick}
             >
               Reset
@@ -157,7 +156,28 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
       </List>
-    </div>
+      <Button
+        variant="outlined"
+        color="error"
+        sx={{
+          width: "50%",
+          position: "absolute",
+          marginTop: "85vh",
+          marginLeft: "25%",
+        }}
+        onClick={handlelogout}
+      >
+        Logout
+      </Button>
+      <Typography
+        width={"100%"}
+        textAlign={"center"}
+        sx={{ position: "absolute", marginTop: "95vh" }}
+        border={1}
+      >
+        Made by Sthemma
+      </Typography>
+    </Box>
   );
 
   const container =

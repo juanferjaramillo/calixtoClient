@@ -26,7 +26,11 @@ export const getAuthUser = (usr) => {
   //brings one specific user to the state
   console.log(`getting auth user ${usr}`);
   return async function (dispatch) {
-    const oneUsr = (await axios.get(`/user/${usr}`)).data;
+    let oneUsr = {};
+    usr ?
+    oneUsr = (await axios.get(`/user/${usr}`)).data
+    :
+    null;
     return dispatch({
       type: GET_AUTH_USER,
       payload: oneUsr,

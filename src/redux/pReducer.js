@@ -39,7 +39,7 @@ const pReducer = (state = initialState, action) => {
     case FILTER_BY_NAME:
       let prodsName = [];
       prodsName = state.filteredProducts.filter((p) =>
-        p.name.toLowerCase().includes(action.payload)
+        p.nombre.toLowerCase().includes(action.payload)
       );
       // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));
       return {

@@ -1,31 +1,15 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import Select from "@mui/material/Select";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
-import Avatar from "@mui/material/Avatar";
-import Card from "../../components/card/Card";
-import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { padding } from "@mui/system";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { getAllProducts, getAuthUser } from "../../redux/actions";
+import axios from "axios";
+import {dataDb} from "../../dataDb"
 
-//------------------------------COMPONENT--------------------------
+//===========================COMPONENT=============================
 function LoginPage() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
@@ -35,6 +19,15 @@ function LoginPage() {
   const dispatch = useDispatch();
 
   //---------------------------HANDLES------------------------------
+
+  const handleLoadDb = async () => {
+    try {
+      console.log(dataDb);
+      await axios.post("/load", dataDb);
+    } catch (err) {
+      alert(err.message);
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -121,6 +114,7 @@ function LoginPage() {
           </Grid>
         </form>
       </Grid>
+      <Button onClick={handleLoadDb}>Load DB</Button>
     </Grid>
   );
 }

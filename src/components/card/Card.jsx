@@ -64,6 +64,7 @@ function Card(props) {
 
   return (
     <Box
+      key={Date()}
       margin={1}
       border={1}
       sx={{

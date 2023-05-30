@@ -18,7 +18,6 @@ import Grid from "@mui/material/Grid";
 import Card from "../../components/card/Card";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import useMediaQuery from '@mui/material/useMediaQuery';
 import {
   filterByProvider,
   filterByName,
@@ -28,11 +27,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAuthUser } from "../../redux/actions";
 
-
 const drawerWidth = 180;
 
 //------------------------------COMPONENT-------------------------
-function ResponsiveDrawer(props) {
+function Test(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
@@ -61,13 +59,13 @@ function ResponsiveDrawer(props) {
   };
 
   const handleBuscarClick = () => {
-    dispatch(filterByName(inputRef.current.value));
+    dispatch(filterByName(textInput.current.value));
   };
 
   const handleResetClick = () => {
     inputRef.current.value = "";
-    setFBP("TODOS");
-    dispatch(resetBoard());
+    //setFBP("TODOS");
+    //dispatch(resetBoard());
   };
 
   const handlelogout = () => {
@@ -75,7 +73,7 @@ function ResponsiveDrawer(props) {
     navigate("/");
   };
 
-  //------------------------DRAWER FUNCTION------------------------------
+  //------------------------DRAWER------------------------------
   const drawer = (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Grid item>
@@ -119,7 +117,7 @@ function ResponsiveDrawer(props) {
       </List>
 
       <Divider sx={{ marginTop: 10 }} />
- 
+      <form>
         <Input
           placeholder="Producto"
           sx={{ width: "100%" }}
@@ -135,7 +133,7 @@ function ResponsiveDrawer(props) {
         >
           Buscar
         </Button>
-     
+      </form>
       <Divider sx={{ marginTop: 5, marginBottom: 3 }} />
 
       <Button
@@ -168,7 +166,6 @@ function ResponsiveDrawer(props) {
       >
         Made by Sthemma
       </Typography>
-   
     </Box>
   );
 
@@ -176,11 +173,7 @@ function ResponsiveDrawer(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-    const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
-    console.log("isSmallScreen");
-    console.log(isSmallScreen);
-
-  //==================================RENDER======================================
+  //-----------------------RENDER-----------------------
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -189,8 +182,10 @@ function ResponsiveDrawer(props) {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: "100vw",
+          // width: { sm: `calc(100% - ${drawerWidth}px)` },
+          // ml: { sm: `${drawerWidth}px` },
+          ml:0
         }}
       >
         <Toolbar>
@@ -199,7 +194,7 @@ function ResponsiveDrawer(props) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ ml: 1, display: { sm: "none" } }}
+            sx={{ ml: 1 }}
           >
             <MenuIcon />
           </IconButton>
@@ -209,18 +204,40 @@ function ResponsiveDrawer(props) {
         </Toolbar>
       </AppBar>
 
-      {/* -------------------------DRAWER------------------------ */}
+      {/* -------------------------DRAWERS------------------------ */}
       <Box
         border={3}
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 
+        {/* -------------------------------mobile drawer------------------------- */}
+        {/* <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer> */}
+        {/* -------------------------------desktop drawer------------------------- */}
         <Drawer
-          variant={isSmallScreen ? "temporary" : "permanent"}
-          open = {isSmallScreen ? mobileOpen : true}
-          onClose = {isSmallScreen ? handleDrawerToggle : null}
+        container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
           sx={{
             display: { xs: "block", sm: "block" },
             "& .MuiDrawer-paper": {
@@ -228,49 +245,19 @@ function ResponsiveDrawer(props) {
               width: drawerWidth,
             },
           }}
-          // open
+          
         >
           {drawer}
         </Drawer>
       </Box>
 
       {/* -------------------------------BOARD------------------------- */}
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
-      >
-        <Toolbar />
-
-        <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
-          {filtProds.length > 0
-            ? filtProds.map((prod, index) => {
-                return (
-                  <Card
-                    Key={index}
-                    codigo={prod.codigo}
-                    nombre={prod.nombre}
-                    Barras={prod.codigoBarras}
-                    precio_base={prod.precioBase}
-                    prodImg={prod.prodUrl}
-                    descripcion={prod.descripcion}
-                    categoria={prod.category.name}
-                    iva={prod.tax.tax}
-                    class={prod.classes}
-                  />
-                );
-              })
-            : null}
-        </Grid>
-      </Box>
+   
     </Box>
   );
 }
 
-ResponsiveDrawer.propTypes = {
+Test.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -278,4 +265,36 @@ ResponsiveDrawer.propTypes = {
   window: PropTypes.func,
 };
 
-export default ResponsiveDrawer;
+export default Test;
+
+
+
+// import { useRef } from "react";
+// import Input from "@mui/material/Input";
+// import Button from "@mui/material/Button";
+
+// function Test() {
+//   const inputRef = useRef(null);
+
+//   const handle = () => {
+//     inputRef.current.value = "";
+//   }
+
+//   return (
+//     <>
+//       <Input
+//         inputRef={inputRef}
+//         sx={{
+//           m: 2,
+//         }}
+//       />
+//       <Button
+//         variant="outlined"
+//         onClick={handle}
+//       >
+//         Clear it
+//       </Button>
+//     </>
+//   );
+// }
+// export default Test;

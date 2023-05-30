@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "../src/pages/LoginPage/LoginPage";
+import Test from "./pages/drawer/Test"
 import axios from 'axios';
 import ResponsiveDrawer from "../src/pages/drawer/Drawer"
 import { useEffect } from "react";
@@ -18,6 +19,7 @@ function App() {
         {/* <Route  exact path={"/"} element={<SplashPage />}> </Route> */}
         <Route  exact path={"/"} element={<LoginPage />}> </Route>
         <Route  exact path={"/products"} element={<ResponsiveDrawer />}> </Route>
+        <Route  exact path={"/test"} element={<Test />}> </Route>
       </Routes>
   );
 }

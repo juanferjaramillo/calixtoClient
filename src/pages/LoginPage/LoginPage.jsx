@@ -31,7 +31,7 @@ function LoginPage() {
   const handleSubmit = async(event) => {
     event.preventDefault();
     dispatch(getAuthUser(id));  //brings the authUser to the state
-    dispatch(getProdsUser(id)); 
+    dispatch(getProdsUser(id)); //brings products and providers of that user to the state
     // dispatch(getProvidersOfProducts);
     navigate("/products");
   };

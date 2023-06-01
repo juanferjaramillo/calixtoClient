@@ -188,6 +188,18 @@ function Card(props) {
               })}
             </Grid>
           </StyledBadge>
+
+          {/* <Box
+            sx={{
+              width: "80%",
+              textAlign: "right",
+              pt: 1,
+            }}
+          >
+            <Typography variant="body2" fontSize={10}>
+              🔴 🟡 🟢
+            </Typography>
+          </Box> */}
         </Grid>
       )}
     </Box>

@@ -32,15 +32,17 @@ export const getProdsUser = (usr) => {
 console.log(`getting user ${usr} products`);
   return async function (dispatch) {
     let prodUser = [];
-    let prove = []
-    usr ? ({prodUser, prove} = (await axios.get(`/prodsuser/${usr}`)).data) : null;
-    console.log('prodUser');
-    console.log(prodUser);
-    console.log('prove');
-    console.log(prove);
+    let prove = [];
+    let categs = [];
+    let icons = [];
+    usr ? ({prodUser, prove, categs, icons} = (await axios.get(`/prodsuser/${usr}`)).data) : null;
+    // console.log('prodUser');
+    // console.log(prodUser);
+    // console.log('prove');
+    // console.log(prove);
     return dispatch ({
       type: GET_PRODS_USER,
-      payload: {prodUser,prove}
+      payload: {prodUser,prove, categs, icons}
     })
   }
 }

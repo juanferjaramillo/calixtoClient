@@ -9,7 +9,9 @@ import {
 const initialState = {
   allProducts: [],
   filteredProducts: [],
-  providers: []
+  providers: [],
+  categories: [],
+  icons: []
 };
 
 const pReducer = (state = initialState, action) => {
@@ -21,7 +23,9 @@ const pReducer = (state = initialState, action) => {
         ...state,
         allProducts: action.payload.prodUser,
         filteredProducts: action.payload.prodUser,
-        providers: action.payload.prove
+        providers: action.payload.prove,
+        categories: action.payload.categs,
+        icons: action.payload.icons
       };
 
     case GET_ALL_PRODUCTS:

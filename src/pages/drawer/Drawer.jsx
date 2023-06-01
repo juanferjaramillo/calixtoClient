@@ -28,7 +28,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAuthUser } from "../../redux/actions";
 
-
 const drawerWidth = 180;
 
 //------------------------------COMPONENT-------------------------
@@ -36,13 +35,18 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
+  const [provid, setProvid] = useState ([])
 
   const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = useSelector((state) => state.product.providers);
-  const logoOwner = useSelector((state) => state.users.authUser.logoowner);
+  const logoOwner = useSelector((state) => state.users.authUser?.logoOwner);
+  const nameOwner = useSelector((state)=>state.users.authUser?.name)
+  const sloganOwner = useSelector((state)=>state.users.authUser?.sloganOwner)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
+
+
   //---------------------HANDLES----------------------
 
   const handleDrawerToggle = () => {
@@ -107,10 +111,10 @@ function ResponsiveDrawer(props) {
             <MenuItem key={0} value="TODOS">
               Todos
             </MenuItem>
-            {providers.map((p, i) => {
+            {providers?.map((p, i) => {
               return (
                 <MenuItem key={i} value={p}>
-                  {p}
+                  {p.name}
                 </MenuItem>
               );
             })}
@@ -177,8 +181,8 @@ function ResponsiveDrawer(props) {
     window !== undefined ? () => window().document.body : undefined;
 
     const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
-    console.log("isSmallScreen");
-    console.log(isSmallScreen);
+    // console.log("isSmallScreen");
+    // console.log(isSmallScreen);
 
   //==================================RENDER======================================
   return (
@@ -204,7 +208,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Catálogo de Productos
+            {nameOwner}: {sloganOwner}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -257,9 +261,9 @@ function ResponsiveDrawer(props) {
                     precio_base={prod.precioBase}
                     prodImg={prod.prodUrl}
                     descripcion={prod.descripcion}
-                    categoria={prod.category.name}
-                    iva={prod.tax.tax}
-                    class={prod.classes}
+                    categorias={prod.categories}  //array of objects with name:""
+                    iva={prod.tax?.tax}
+                    icons={prod.icons} //array of objects with iconUrl
                   />
                 );
               })

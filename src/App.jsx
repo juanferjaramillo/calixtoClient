@@ -3,14 +3,10 @@ import LoginPage from "../src/pages/LoginPage/LoginPage";
 import Test from "./pages/drawer/Test"
 import axios from 'axios';
 import ResponsiveDrawer from "../src/pages/drawer/Drawer"
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getAllProducts, getAllUsers } from "../src/redux/actions";
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
 
 function App() {
-  const dispatch  = useDispatch();
 
     //-------------------------------------------------------------------------------
 

@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getAllProducts, getAuthUser } from "../../redux/actions";
+import { getProdsUser, getAuthUser } from "../../redux/actions";
 import axios from "axios";
 import {dataDb} from "../../dataDb"
 
@@ -22,17 +22,17 @@ function LoginPage() {
 
   const handleLoadDb = async () => {
     try {
-      console.log(dataDb);
       await axios.post("/load", dataDb);
     } catch (err) {
       alert(err.message);
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    dispatch(getAuthUser(id));
-    dispatch(getAllProducts(id));
+    dispatch(getAuthUser(id));  //brings the authUser to the state
+    dispatch(getProdsUser(id)); 
+    // dispatch(getProvidersOfProducts);
     navigate("/products");
   };
 
@@ -71,13 +71,15 @@ function LoginPage() {
         height={"55vh"}
         sx={{ boxShadow: 10 }}
       >
+        <Button onClick={handleLoadDb}>Load DB</Button>
+
         <form autoComplete="off" onSubmit={handleSubmit}>
           <Typography textAlign={"center"} variant="h5" margin={2}>
             Ingreso a Calixto
           </Typography>
 
           <TextField
-            label="Identificación"
+            label="Usuario"
             onChange={handleIdChange}
             required
             variant="outlined"
@@ -113,8 +115,8 @@ function LoginPage() {
             </Button>
           </Grid>
         </form>
+      
       </Grid>
-      <Button onClick={handleLoadDb}>Load DB</Button>
     </Grid>
   );
 }

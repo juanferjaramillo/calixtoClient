@@ -30,12 +30,42 @@ export const dataDb = {
   ],
 
   icon: [
-    { id: 1, name: "keto", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Keto_toqnlw.jpg" },
-    { id: 2, name: "vegano", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegan_ycilwc.jpg" },
-    { id: 3, name: "vegetariano", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegetarian_azjhdm.jpg" },
-    { id: 4, name: "aptoDiabetico", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Diabetic_n9socu.jpg" },
-    { id: 5, name: "altoProteina", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Protein_ae3btw.jpg" },
-    { id: 6, name: "sinGluten", iconUrl:"https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Gluten_pppjih.jpg" },
+    {
+      id: 1,
+      name: "keto",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Keto_toqnlw.jpg",
+    },
+    {
+      id: 2,
+      name: "vegano",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegan_ycilwc.jpg",
+    },
+    {
+      id: 3,
+      name: "vegetariano",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegetarian_azjhdm.jpg",
+    },
+    {
+      id: 4,
+      name: "aptoDiabetico",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Diabetic_n9socu.jpg",
+    },
+    {
+      id: 5,
+      name: "altoProteina",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Protein_ae3btw.jpg",
+    },
+    {
+      id: 6,
+      name: "sinGluten",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Gluten_pppjih.jpg",
+    },
   ],
 
   tax: [
@@ -65,11 +95,13 @@ export const dataDb = {
   owner: [
     {
       id: 1,
-      name: "sthemma",
+      name: "Sthemma",
       password: "qwer",
       plan: 50,
       logoOwner:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684979344/Logo_huella_y52gwa.png",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684979344/calixto/Logo_huella_y52gwa.png",
+      sloganOwner: "Modelando el mundo",
+      cardType: 1,
     },
     {
       id: 2,
@@ -78,6 +110,8 @@ export const dataDb = {
       plan: 40,
       logoOwner:
         "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1681872234/calixto/SFGroup_rz9wyr.jpg",
+      sloganOwner: "Distribuyendo sueños",
+      cardType: 2,
     },
     {
       id: 3,
@@ -86,9 +120,26 @@ export const dataDb = {
       plan: 30,
       logoOwner:
         "https://candyjobs.com.co/wp-content/uploads/2020/10/0805-LOGO-GRECO.png",
+      sloganOwner: "Toda una galleta",
+      cardType: 3,
     },
-    { id: 4, name: "Punto 4", password: "qwer", plan: 20, logoOwner: "" },
-    { id: 5, name: "Punto 5", password: "qwer", plan: 0, logoOwner: "" },
+    {
+      id: 4,
+      name: "Punto 4",
+      password: "qwer",
+      plan: 20,
+      logoOwner: "",
+      sloganOwner: "Catalogo del Punto 4",
+      cardType: 1,
+    },
+    {
+      id: 5,
+      name: "Punto 5",
+      password: "qwer",
+      plan: 0,
+      logoOwner: "",
+      cardType: 2,
+    },
   ],
 
   portfolio: [

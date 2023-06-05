@@ -15,7 +15,7 @@ const uReducer = (state = initialState, action) => {
   case GET_AUTH_USER:
     return {
       ...state,
-      authUser: action.payload,
+      authUser: action.payload[0],
     }
     
     case GET_ALL_USERS:

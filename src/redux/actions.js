@@ -5,7 +5,6 @@ export const GET_PRODS_USER = "GET_PRODS_USER";
 
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
-export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
@@ -18,8 +17,6 @@ export const getAuthUser = (usr) => {
   return async function (dispatch) {
     let oneUsr = {};
     usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
-    console.log('oneUsr');
-    console.log(oneUsr);
     return dispatch({
       type: GET_AUTH_USER,
       payload: oneUsr,
@@ -67,8 +64,6 @@ export const getAllProducts = (owner) => {
   return async function (dispatch) {
     let allProds = await axios.get(`/prodsowner/${owner}`);
     allProds = allProds.data;
-    console.log('allProds');
-    console.log(allProds);
     //brings all products from db
     const provs = Array.from(new Set(allProds.map((p) => p.providers[0].name)));
     //Creates an array of providers with no repeated values

@@ -10,11 +10,11 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
-import style from "./card.module.css"
+import style from "./card.module.css";
 
 // const colorDot = "green";
 // const colorDot = "orange"
-const colorDot = "red"
+const colorDot = "red";
 // const colorDot = "blue"
 // const colorDot = '#44b700'
 
@@ -22,6 +22,8 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
     backgroundColor: colorDot,
     color: colorDot,
+    // width: "1vw",
+    // height: "1vw",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     "&::after": {
       position: "absolute",
@@ -58,14 +60,16 @@ function Card(props) {
   PB = PB.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   PT = PT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const cats = props.categorias?.map((cat) => cat.name.toString().split("/")[3]);
+  const cats = props.categorias?.map(
+    (cat) => cat.name.toString().split("/")[3]
+  );
   const handleClick = () => {
     setFlipped(!flipped);
   };
 
   return (
     <Box
-      key={Date()}
+      key={props.ind}
       margin={1}
       border={1}
       className={flipped ? style.backCard : style.frontCard}
@@ -77,7 +81,6 @@ function Card(props) {
         borderRadius: 2,
         p: 1,
         borderColor: "lightgray",
-        
       }}
     >
       {flipped ? (
@@ -92,11 +95,11 @@ function Card(props) {
           onClick={handleClick}
           sx={{
             minHeight: "65vh",
-            className: "style.turn"
+            className: "style.turn",
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
-    
+
           <Typography fontSize={11} textAlign="center" p={1} boxShadow={2}>
             {props.descripcion}
           </Typography>
@@ -111,15 +114,11 @@ function Card(props) {
           />
 
           <Divider sx={{ width: "80%" }} />
-          <Grid
-            item
-            display={"flex"}
-            justifyContent={"center"}
-            marginTop={1}
-             >
+          <Grid item display={"flex"} justifyContent={"center"} marginTop={1}>
             {props.icons?.map((icon, i) => {
               return (
                 <Avatar
+                  key={i}
                   alt="icon"
                   src={icon.iconUrl}
                   sx={{
@@ -144,6 +143,7 @@ function Card(props) {
           sx={{
             minHeight: "65vh",
           }}
+          //border={1}
         >
           <Typography
             variant="body1"
@@ -178,13 +178,14 @@ function Card(props) {
           <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
           <StyledBadge
-            overlap="rectangular"
-            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            overlap="circular"
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            badgeContent=""
             variant="dot"
           >
-            <Grid item width={200} textAlign={"center"}>
-              {cats?.map((k) => {
-                return <Typography variant="body2">{k}</Typography>;
+            <Grid item width={300} textAlign={"center"}>
+              {cats?.map((k,i) => {
+                return <Typography key={i} variant="body2">{k}</Typography>;
               })}
             </Grid>
           </StyledBadge>

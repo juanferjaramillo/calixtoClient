@@ -39,13 +39,12 @@ function ResponsiveDrawer(props) {
 
   const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = useSelector((state) => state.product.providers);
-  const logoOwner = useSelector((state) => state.users.authUser?.logoOwner);
-  const nameOwner = useSelector((state)=>state.users.authUser?.name)
-  const sloganOwner = useSelector((state)=>state.users.authUser?.sloganOwner)
+  const logoOwner = useSelector((state) => state.users.authUser?.owner?.logoOwner);
+  const nameOwner = useSelector((state)=>state.users.authUser?.owner?.name)
+  const sloganOwner = useSelector((state)=>state.users.authUser?.owner?.sloganOwner)
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
-
 
   //---------------------HANDLES----------------------
 
@@ -80,6 +79,11 @@ function ResponsiveDrawer(props) {
   };
 
   //------------------------DRAWER FUNCTION------------------------------
+
+
+  console.log('logoOwner');
+  console.log(logoOwner);
+
   const drawer = (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Grid item>
@@ -113,8 +117,8 @@ function ResponsiveDrawer(props) {
             </MenuItem>
             {providers?.map((p, i) => {
               return (
-                <MenuItem key={i} value={p}>
-                  {p.name}
+                <MenuItem key={i+1} value={p}>
+                  {p}
                 </MenuItem>
               );
             })}
@@ -134,7 +138,7 @@ function ResponsiveDrawer(props) {
 
         <Button
           variant="contained"
-          sx={{ width: "50%", ml: 5, mt: 1 }}
+          sx={{ width: "50%", ml: 5, mt: 1, backgroundColor:"purple" }}
           onClick={handleBuscarClick}
         >
           Buscar
@@ -145,7 +149,7 @@ function ResponsiveDrawer(props) {
       <Button
         variant="contained"
         color="error"
-        sx={{ width: "50%", ml: 5 }}
+        sx={{ width: "50%", ml: 5, backgroundColor:"black" }}
         onClick={handleResetClick}
       >
         Reset
@@ -159,6 +163,8 @@ function ResponsiveDrawer(props) {
           position: "absolute",
           marginTop: "85vh",
           marginLeft: "25%",
+          color:"black",
+          borderColor: "purple"
         }}
         onClick={handlelogout}
       >
@@ -197,7 +203,8 @@ function ResponsiveDrawer(props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar
+        sx={{backgroundColor:"purple"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -254,7 +261,7 @@ function ResponsiveDrawer(props) {
             ? filtProds.map((prod, index) => {
                 return (
                   <Card
-                    Key={index}
+                    ind={index}
                     codigo={prod.codigo}
                     nombre={prod.nombre}
                     Barras={prod.codigoBarras}

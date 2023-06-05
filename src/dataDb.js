@@ -34,37 +34,37 @@ export const dataDb = {
       id: 1,
       name: "keto",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Keto_toqnlw.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730194/calixto/Keto_bjwxe9.jpg",
     },
     {
       id: 2,
       name: "vegano",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegan_ycilwc.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/Vegan_niu9ta.jpg",
     },
     {
       id: 3,
       name: "vegetariano",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Vegetarian_azjhdm.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/Vegetarian_eys2s4.jpg",
     },
     {
       id: 4,
       name: "aptoDiabetico",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Diabetic_n9socu.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730194/calixto/Diabetic_ifjsmh.jpg",
     },
     {
       id: 5,
       name: "altoProteina",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Protein_ae3btw.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/Protein_bdxjjk.jpg",
     },
     {
       id: 6,
       name: "sinGluten",
       iconUrl:
-        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Gluten_pppjih.jpg",
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730194/calixto/Gluten_ubwtpz.jpg",
     },
   ],
 
@@ -77,11 +77,11 @@ export const dataDb = {
   ],
 
   provider: [
-    { id: 1, name: "UP NUTRICIONAL FOOD SAS" },
-    { id: 2, name: "EL DORADO COMEX SAS" },
-    { id: 3, name: "ALIMENTOS EL DORADO SAS" },
-    { id: 4, name: "ECOHOME" },
-    { id: 5, name: "AMIRA SAS" },
+    { name: "UP NUTRICIONAL FOOD SAS" },
+    { name: "EL DORADO COMEX SAS" },
+    {name: "ALIMENTOS EL DORADO SAS" },
+    { name: "ECOHOME" },
+    { name: "AMIRA SAS" },
   ],
 
   user: [

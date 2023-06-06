@@ -18,7 +18,7 @@ import Grid from "@mui/material/Grid";
 import Card from "../../components/card/Card";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   filterByProvider,
   filterByName,
@@ -29,22 +29,53 @@ import { useNavigate } from "react-router-dom";
 import { getAuthUser } from "../../redux/actions";
 
 const drawerWidth = 180;
-
+const maxCards = 12; //number of cards to render at a time
+let ic = 0;
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
-  const [provid, setProvid] = useState ([])
+  const [initCard, setInitCard] = useState(0);
+  const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
 
   const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = useSelector((state) => state.product.providers);
-  const logoOwner = useSelector((state) => state.users.authUser?.owner?.logoOwner);
-  const nameOwner = useSelector((state)=>state.users.authUser?.owner?.name)
-  const sloganOwner = useSelector((state)=>state.users.authUser?.owner?.sloganOwner)
+  const logoOwner = useSelector(
+    (state) => state.users.authUser?.owner?.logoOwner
+  );
+  const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
+  const sloganOwner = useSelector(
+    (state) => state.users.authUser?.owner?.sloganOwner
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
+
+  const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+
+  function handleScroll() {
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+    console.log("initCard1", initCard);
+    console.log("Fetch more list items!");
+    document.documentElement.scrollTop = 0;
+    //setInitCard(55);
+    setInitCard(initCard + 6);
+    console.log("initCard2", initCard);
+  }}
+  
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => document.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setCardsOnDisplay(filtProds.slice(initCard, initCard + 6));
+    console.log(cardsOnDisplay);
+  }, [initCard, filtProds]);
+
 
   //---------------------HANDLES----------------------
 
@@ -80,10 +111,6 @@ function ResponsiveDrawer(props) {
 
   //------------------------DRAWER FUNCTION------------------------------
 
-
-  console.log('logoOwner');
-  console.log(logoOwner);
-
   const drawer = (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Grid item>
@@ -117,7 +144,7 @@ function ResponsiveDrawer(props) {
             </MenuItem>
             {providers?.map((p, i) => {
               return (
-                <MenuItem key={i+1} value={p}>
+                <MenuItem key={i + 1} value={p}>
                   {p}
                 </MenuItem>
               );
@@ -127,29 +154,29 @@ function ResponsiveDrawer(props) {
       </List>
 
       <Divider sx={{ marginTop: 10 }} />
- 
-        <Input
-          placeholder="Producto"
-          sx={{ width: "100%" }}
-          type="text"
-          inputRef={inputRef}
-          onChange={handleInput}
-        ></Input>
 
-        <Button
-          variant="contained"
-          sx={{ width: "50%", ml: 5, mt: 1, backgroundColor:"purple" }}
-          onClick={handleBuscarClick}
-        >
-          Buscar
-        </Button>
-     
+      <Input
+        placeholder="Producto"
+        sx={{ width: "100%" }}
+        type="text"
+        inputRef={inputRef}
+        onChange={handleInput}
+      ></Input>
+
+      <Button
+        variant="contained"
+        sx={{ width: "50%", ml: 5, mt: 1, backgroundColor: "purple" }}
+        onClick={handleBuscarClick}
+      >
+        Buscar
+      </Button>
+
       <Divider sx={{ marginTop: 5, marginBottom: 3 }} />
 
       <Button
         variant="contained"
         color="error"
-        sx={{ width: "50%", ml: 5, backgroundColor:"black" }}
+        sx={{ width: "50%", ml: 5, backgroundColor: "black" }}
         onClick={handleResetClick}
       >
         Reset
@@ -163,8 +190,8 @@ function ResponsiveDrawer(props) {
           position: "absolute",
           marginTop: "85vh",
           marginLeft: "25%",
-          color:"black",
-          borderColor: "purple"
+          color: "black",
+          borderColor: "purple",
         }}
         onClick={handlelogout}
       >
@@ -178,18 +205,8 @@ function ResponsiveDrawer(props) {
       >
         Made by Sthemma
       </Typography>
-   
     </Box>
   );
-
-  //---------------------------------CONTAINER--------------------------
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
-    const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
-    // console.log("isSmallScreen");
-    // console.log(isSmallScreen);
-
   //==================================RENDER======================================
   return (
     <Box sx={{ display: "flex" }}>
@@ -203,8 +220,7 @@ function ResponsiveDrawer(props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar
-        sx={{backgroundColor:"purple"}}>
+        <Toolbar sx={{ backgroundColor: "purple" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -227,11 +243,10 @@ function ResponsiveDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-
         <Drawer
           variant={isSmallScreen ? "temporary" : "permanent"}
-          open = {isSmallScreen ? mobileOpen : true}
-          onClose = {isSmallScreen ? handleDrawerToggle : null}
+          open={isSmallScreen ? mobileOpen : true}
+          onClose={isSmallScreen ? handleDrawerToggle : null}
           sx={{
             display: { xs: "block", sm: "block" },
             "& .MuiDrawer-paper": {
@@ -257,8 +272,8 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
-          {filtProds.length > 0
-            ? filtProds.map((prod, index) => {
+          {cardsOnDisplay.length > 0
+            ? cardsOnDisplay.map((prod, index) => {
                 return (
                   <Card
                     ind={index}
@@ -268,7 +283,7 @@ function ResponsiveDrawer(props) {
                     precio_base={prod.precioBase}
                     prodImg={prod.prodUrl}
                     descripcion={prod.descripcion}
-                    categorias={prod.categories}  //array of objects with name:""
+                    categorias={prod.categories} //array of objects with name:""
                     iva={prod.tax?.tax}
                     icons={prod.icons} //array of objects with iconUrl
                   />
@@ -280,13 +295,5 @@ function ResponsiveDrawer(props) {
     </Box>
   );
 }
-
-ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default ResponsiveDrawer;

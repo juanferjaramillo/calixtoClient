@@ -29,7 +29,7 @@ import { useNavigate } from "react-router-dom";
 import { getAuthUser } from "../../redux/actions";
 
 const drawerWidth = 180;
-const maxCards = 12; //number of cards to render at a time
+const maxCards = 6; //number of cards to render at a time
 let ic = 0;
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
@@ -58,12 +58,8 @@ function ResponsiveDrawer(props) {
       window.innerHeight + document.documentElement.scrollTop ===
       document.documentElement.offsetHeight
     ) {
-    console.log("initCard1", initCard);
-    console.log("Fetch more list items!");
     document.documentElement.scrollTop = 0;
-    //setInitCard(55);
-    setInitCard(initCard + 6);
-    console.log("initCard2", initCard);
+    setInitCard(initCard => initCard + maxCards);
   }}
   
   useEffect(() => {
@@ -72,8 +68,7 @@ function ResponsiveDrawer(props) {
   }, []);
 
   useEffect(() => {
-    setCardsOnDisplay(filtProds.slice(initCard, initCard + 6));
-    console.log(cardsOnDisplay);
+    setCardsOnDisplay(filtProds.slice(initCard, initCard + maxCards));
   }, [initCard, filtProds]);
 
 
@@ -274,21 +269,22 @@ function ResponsiveDrawer(props) {
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
-                return (
-                  <Card
-                    ind={index}
-                    codigo={prod.codigo}
-                    nombre={prod.nombre}
-                    Barras={prod.codigoBarras}
-                    precio_base={prod.precioBase}
-                    prodImg={prod.prodUrl}
-                    descripcion={prod.descripcion}
-                    categorias={prod.categories} //array of objects with name:""
-                    iva={prod.tax?.tax}
-                    icons={prod.icons} //array of objects with iconUrl
-                  />
-                );
-              })
+              return (
+                <Card
+                  key={index}
+                  ind={index}
+                  codigo={prod.codigo}
+                  nombre={prod.nombre}
+                  Barras={prod.codigoBarras}
+                  precio_base={prod.precioBase}
+                  prodImg={prod.prodUrl}
+                  descripcion={prod.descripcion}
+                  categorias={prod.categories} //array of objects with name:""
+                  iva={prod.tax?.tax}
+                  icons={prod.icons} //array of objects with iconUrl
+                />
+              );
+            })
             : null}
         </Grid>
       </Box>

@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 // import reportWebVitals from "./reportWebVitals";
@@ -20,7 +21,8 @@ let theme = createTheme({
 });
 theme = responsiveFontSizes(theme);
 
-ReactDOM.render(
+const root = createRoot(document.getElementById("root"))
+root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
       <React.StrictMode>
@@ -30,7 +32,7 @@ ReactDOM.render(
       </React.StrictMode>
     </Provider>
   </ThemeProvider>,
-  document.getElementById("root")
+  
 );
 
 // If you want to start measuring performance in your app, pass a function

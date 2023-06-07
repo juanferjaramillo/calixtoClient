@@ -13,10 +13,11 @@ export const GET_ALL_USERS = "GET_ALL_USERS";
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
   //brings one specific user to the state
-  console.log(`getting auth user ${usr}`);
   return async function (dispatch) {
     let oneUsr = {};
     usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
+    sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
+    localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
       type: GET_AUTH_USER,
       payload: oneUsr,
@@ -26,27 +27,21 @@ export const getAuthUser = (usr) => {
 
 export const getProdsUser = (usr) => {
   //brings the user products to the state
-console.log(`getting user ${usr} products`);
   return async function (dispatch) {
     let prodUser = [];
     let prove = [];
-    let categs = [];
-    let icons = [];
-    usr ? ({prodUser, prove, categs, icons} = (await axios.get(`/prodsuser/${usr}`)).data) : null;
-    // console.log('prodUser');
-    // console.log(prodUser);
-    // console.log('prove');
-    // console.log(prove);
-    return await dispatch ({
+    usr ? ({prodUser, prove} = (await axios.get(`/prodsuser/${usr}`)).data) : null;
+    sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
+    sessionStorage.setItem("providers", JSON.stringify(prove));
+    return dispatch ({
       type: GET_PRODS_USER,
-      payload: {prodUser,prove, categs, icons}
+      payload: {prodUser, prove}
     })
   }
 }
 
 export const getAllUsers = () => {
   //brings all the users from the db to the state
-  console.log("served by getAllUsers");
   return async function (dispatch) {
     let allUsers = await axios.get("/owners");
     allUsers = allUsers.data;

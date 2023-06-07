@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import LoginPage from "../src/pages/LoginPage/LoginPage";
-import Test from "./pages/drawer/Test"
+import Landing from "../src/pages/landing/Landing";
+import Test from "./pages/tests/test.jsx"
+import Test2 from "./pages/tests/test2.jsx"
 import axios from 'axios';
 import ResponsiveDrawer from "../src/pages/drawer/Drawer"
 
@@ -13,9 +14,10 @@ function App() {
   return (
       <Routes>
         {/* <Route  exact path={"/"} element={<SplashPage />}> </Route> */}
-        <Route  exact path={"/"} element={<LoginPage />}> </Route>
+        <Route  exact path={"/"} element={<Landing />}> </Route>
         <Route  exact path={"/products"} element={<ResponsiveDrawer />}> </Route>
         <Route  exact path={"/test"} element={<Test />}> </Route>
+        <Route  exact path={"/test2"} element={<Test2 />}> </Route>
       </Routes>
   );
 }

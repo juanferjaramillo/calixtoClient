@@ -4,7 +4,7 @@ import {
 } from "./actions";
 
 const initialState = {
-  authUser: {}
+  authUser: JSON.parse(localStorage.getItem("AuthUsr")) || {}
 };
 
 const uReducer = (state = initialState, action) => {

@@ -6,12 +6,11 @@ import {
   RESET_BOARD,
 } from "./actions";
 
+// console.log(typeof localStorage.getItem("categories"));
 const initialState = {
-  allProducts: [],
-  filteredProducts: [],
-  providers: [],
-  categories: [],
-  icons: []
+  allProducts: JSON.parse(localStorage.getItem("allProducts")) || [],
+  filteredProducts: JSON.parse(localStorage.getItem("allProducts")) || [],
+  providers: JSON.parse(localStorage.getItem("providers")) || [],
 };
 
 const pReducer = (state = initialState, action) => {
@@ -24,8 +23,6 @@ const pReducer = (state = initialState, action) => {
         allProducts: action.payload.prodUser,
         filteredProducts: action.payload.prodUser,
         providers: action.payload.prove,
-        categories: action.payload.categs,
-        icons: action.payload.icons
       };
 
     case GET_ALL_PRODUCTS:

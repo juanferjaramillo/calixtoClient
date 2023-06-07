@@ -30,7 +30,6 @@ import { getAuthUser } from "../../redux/actions";
 
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
-let ic = 0;
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -50,8 +49,9 @@ function ResponsiveDrawer(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
-
+  
   const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+  let data = [];
 
   function handleScroll() {
     if (
@@ -61,7 +61,7 @@ function ResponsiveDrawer(props) {
     document.documentElement.scrollTop = 0;
     setInitCard(initCard => initCard + maxCards);
   }}
-  
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => document.removeEventListener("scroll", handleScroll);
@@ -202,6 +202,7 @@ function ResponsiveDrawer(props) {
       </Typography>
     </Box>
   );
+
   //==================================RENDER======================================
   return (
     <Box sx={{ display: "flex" }}>
@@ -267,6 +268,7 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
+      
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
               return (
@@ -286,10 +288,11 @@ function ResponsiveDrawer(props) {
               );
             })
             : null}
+            {/* </InfiniteScroll> */}
         </Grid>
       </Box>
     </Box>
   );
-}
+            }
 
 export default ResponsiveDrawer;

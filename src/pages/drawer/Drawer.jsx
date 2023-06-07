@@ -24,12 +24,14 @@ import {
   filterByName,
   resetBoard,
 } from "../../redux/actions";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAuthUser } from "../../redux/actions";
 
 const drawerWidth = 180;
 const maxCards = 12; //number of cards to render at a time
+let cardsOnDisplay = [];
 let ic = 0;
 //------------------------------COMPONENT-------------------------
 function ResponsiveDrawer(props) {
@@ -37,6 +39,7 @@ function ResponsiveDrawer(props) {
   const [FBP, setFBP] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
+  const [Loading, setLoading] = useState(false);
 
   const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = useSelector((state) => state.product.providers);
@@ -50,32 +53,40 @@ function ResponsiveDrawer(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
-
+  
   const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+  let data = [];
+
+  const fetchData = () => {
+    setLoading(true);
+     data = filtProds.slice(initCard, initCard + 6)
+     console.log("initCardzz");
+     console.log(initCard);
+    setCardsOnDisplay(data);
+    setInitCard(initCard+6);
+    setLoading(false);
+  }
 
   function handleScroll() {
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
-    console.log("initCard1", initCard);
+      window.innerHeight + document.documentElement.scrollTop !==
+      document.documentElement.offsetHeight || Loading
+    ) { return; }
+    fetchData();
+    console.log("initCard0");
+    console.log(initCard);
     console.log("Fetch more list items!");
-    document.documentElement.scrollTop = 0;
-    //setInitCard(55);
-    setInitCard(initCard + 6);
-    console.log("initCard2", initCard);
-  }}
+    //document.documentElement.scrollTop = 0;
+  }
   
+  useEffect(() => {
+    fetchData();
+  }, [])
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => document.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    setCardsOnDisplay(filtProds.slice(initCard, initCard + 6));
-    console.log(cardsOnDisplay);
-  }, [initCard, filtProds]);
-
+  }, [Loading]);
 
   //---------------------HANDLES----------------------
 
@@ -108,6 +119,12 @@ function ResponsiveDrawer(props) {
     dispatch(getAuthUser());
     navigate("/");
   };
+
+  console.log("initCardyy");
+  console.log(initCard);
+  // cardsOnDisplay = filtProds.slice(initCard, initCard + 6)
+  console.log("initCardxx");
+  console.log(initCard);
 
   //------------------------DRAWER FUNCTION------------------------------
 
@@ -207,6 +224,7 @@ function ResponsiveDrawer(props) {
       </Typography>
     </Box>
   );
+
   //==================================RENDER======================================
   return (
     <Box sx={{ display: "flex" }}>
@@ -272,6 +290,7 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
+      
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
                 return (
@@ -290,10 +309,11 @@ function ResponsiveDrawer(props) {
                 );
               })
             : null}
+            {/* </InfiniteScroll> */}
         </Grid>
       </Box>
     </Box>
   );
-}
+            }
 
 export default ResponsiveDrawer;

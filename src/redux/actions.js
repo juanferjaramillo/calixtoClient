@@ -37,7 +37,7 @@ console.log(`getting user ${usr} products`);
     // console.log(prodUser);
     // console.log('prove');
     // console.log(prove);
-    return dispatch ({
+    return await dispatch ({
       type: GET_PRODS_USER,
       payload: {prodUser,prove, categs, icons}
     })

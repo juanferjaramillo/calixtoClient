@@ -31,25 +31,35 @@ import { getAuthUser } from "../../redux/actions";
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
 //------------------------------COMPONENT-------------------------
-function ResponsiveDrawer(props) {
+function ResponsiveDrawer() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
+  const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
 
+  //const filtProds = JSON.parse(sessionStorage.getItem("allProducts"));
+
+  // const prodInit = filtProds.slice(initCard, initCard + maxCards)
   const filtProds = useSelector((state) => state.product.filteredProducts);
-  const providers = useSelector((state) => state.product.providers);
-  const logoOwner = useSelector(
-    (state) => state.users.authUser?.owner?.logoOwner
-  );
-  const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
-  const sloganOwner = useSelector(
-    (state) => state.users.authUser?.owner?.sloganOwner
-  );
+  const providers = JSON.parse(sessionStorage.getItem("providers"));
+  // const providers = useSelector((state) => state.product.providers);
+  // const logoOwner = useSelector(
+  //   (state) => state.users.authUser?.owner?.logoOwner
+  // );
+  const logoOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner
+    .logoOwner;
+  // const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
+  const nameOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner.name;
+  // const sloganOwner = useSelector(
+  //   (state) => state.users.authUser?.owner?.sloganOwner
+  // );
+  const sloganOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner
+    .sloganOwner;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  
+
   const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
   let data = [];
 
@@ -58,9 +68,10 @@ function ResponsiveDrawer(props) {
       window.innerHeight + document.documentElement.scrollTop ===
       document.documentElement.offsetHeight
     ) {
-    document.documentElement.scrollTop = 0;
-    setInitCard(initCard => initCard + maxCards);
-  }}
+      document.documentElement.scroll;
+      setInitCard((init) => init + maxCards);
+    }
+  }
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -68,21 +79,20 @@ function ResponsiveDrawer(props) {
   }, []);
 
   useEffect(() => {
-    setCardsOnDisplay(filtProds.slice(initCard, initCard + maxCards));
-  }, [initCard, filtProds]);
+    setCardsOnDisplay(filtProds.slice(0, initCard + maxCards));
+  }, [initCard, render]);
 
-
-  //---------------------HANDLES----------------------
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const handleFilterProviderChange = (event) => {
-    setFBP(event.target.value);
-    //to keep the selection box updated
     dispatch(filterByProvider(event.target.value));
-    //textInput.current.reset();
+    //to keep the selection box updated
+    document.documentElement.scrollTop = 0;
+    setFBP(event.target.value);
+    setRender(r=>!r);
   };
 
   const handleInput = (event) => {
@@ -91,16 +101,22 @@ function ResponsiveDrawer(props) {
 
   const handleBuscarClick = () => {
     dispatch(filterByName(inputRef.current.value));
+    document.documentElement.scrollTop = 0;
+    setRender(r=>!r);
   };
 
   const handleResetClick = () => {
     inputRef.current.value = "";
     setFBP("TODOS");
     dispatch(resetBoard());
+    document.documentElement.scrollTop = 0;
+    setInitCard(init => 0);
+    setRender(r=>!r);
   };
 
   const handlelogout = () => {
     dispatch(getAuthUser());
+    sessionStorage.clear();
     navigate("/");
   };
 
@@ -268,31 +284,30 @@ function ResponsiveDrawer(props) {
         <Toolbar />
 
         <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
-      
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
-              return (
-                <Card
-                  key={index}
-                  ind={index}
-                  codigo={prod.codigo}
-                  nombre={prod.nombre}
-                  Barras={prod.codigoBarras}
-                  precio_base={prod.precioBase}
-                  prodImg={prod.prodUrl}
-                  descripcion={prod.descripcion}
-                  categorias={prod.categories} //array of objects with name:""
-                  iva={prod.tax?.tax}
-                  icons={prod.icons} //array of objects with iconUrl
-                />
-              );
-            })
+                return (
+                  <Card
+                    key={index}
+                    ind={index}
+                    codigo={prod.codigo}
+                    nombre={prod.nombre}
+                    Barras={prod.codigoBarras}
+                    precio_base={prod.precioBase}
+                    prodImg={prod.prodUrl}
+                    descripcion={prod.descripcion}
+                    categorias={prod.categories} //array of objects with name:""
+                    iva={prod.tax?.tax}
+                    icons={prod.icons} //array of objects with iconUrl
+                  />
+                );
+              })
             : null}
-            {/* </InfiniteScroll> */}
+          {/* </InfiniteScroll> */}
         </Grid>
       </Box>
     </Box>
   );
-            }
+}
 
 export default ResponsiveDrawer;

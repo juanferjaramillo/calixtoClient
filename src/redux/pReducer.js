@@ -32,21 +32,21 @@ const pReducer = (state = initialState, action) => {
         filteredProducts: action.payload.allProds,
       };
 
-    // case FILTER_BY_PROVIDER:
-    //   let prodsProvider = [];
-    //   action.payload === "TODOS"
-    //     ? (prodsProvider = [...state.allProducts])
-    //     : (prodsProvider = state.allProducts.filter(
-    //         (prod) => prod.providers[0].name === action.payload
-    //       ));
-      // return {
-      //   ...state,
-      //   filteredProducts: prodsProvider,
-      // };
+    case FILTER_BY_PROVIDER:
+      let prodsProvider = [];
+      action.payload === "TODOS"
+        ? (prodsProvider = [...state.allProducts])
+        : (prodsProvider = state.allProducts.filter(
+            (prod) => prod.provider.name === action.payload
+          ));
+      return {
+        ...state,
+        filteredProducts: prodsProvider,
+      };
 
     case FILTER_BY_NAME:
-      let prodsName = [];
-      prodsName = state.filteredProducts.filter((p) =>
+      //let prodsName = [];
+      const prodsName = state.filteredProducts.filter((p) =>
         p.nombre.toLowerCase().includes(action.payload)
       );
       // state.allProducts.filter((p) => p.nombre.toLowerCase().includes(action.payload));

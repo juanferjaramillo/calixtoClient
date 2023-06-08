@@ -29,8 +29,6 @@ export default function LoginForm() {
 //   }, []);
 
   const submitHandler = async ({ email, password }) => {
-    console.log(email);
-    console.log(typeof email);
 
     try {
       dispatch(getAuthUser(email)); //brings the authUser to the state

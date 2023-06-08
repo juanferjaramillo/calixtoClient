@@ -2,20 +2,18 @@ import axios from "axios";
 
 export const GET_AUTH_USER = "GET_AUTH_USER";
 export const GET_PRODS_USER = "GET_PRODS_USER";
-
+export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
-export const GET_ONE_PRODUCT = "GET_ONE_PRODUCT";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
-export const GET_ALL_USERS = "GET_ALL_USERS";
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
   //brings one specific user to the state
   return async function (dispatch) {
     let oneUsr = {};
-    usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
+    usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : oneUsr = [{id:0, name:"nobody", password:"qwer"}];
     sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
     localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
@@ -88,11 +86,3 @@ export const resetBoard = () => {
     type: RESET_BOARD,
   };
 };
-
-export const getOneProduct = (id) => {};
-
-export const disableProduct = (id) => {};
-
-export const enableProduct = (id) => {};
-
-export const createProduct = (id) => {};

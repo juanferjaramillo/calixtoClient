@@ -40,8 +40,6 @@ function ResponsiveDrawer() {
 
   //const filtProds = JSON.parse(sessionStorage.getItem("allProducts"));
 
-  // const prodInit = filtProds.slice(initCard, initCard + maxCards)
-  const filtProds = useSelector((state) => state.product.filteredProducts);
   const providers = JSON.parse(sessionStorage.getItem("providers"));
   // const providers = useSelector((state) => state.product.providers);
   // const logoOwner = useSelector(
@@ -56,6 +54,9 @@ function ResponsiveDrawer() {
   // );
   const sloganOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner
     .sloganOwner;
+
+    const filtProds = useSelector((state) => state.product.filteredProducts);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
@@ -82,6 +83,9 @@ function ResponsiveDrawer() {
     setCardsOnDisplay(filtProds.slice(0, initCard + maxCards));
   }, [initCard, render]);
 
+  useEffect(()=>{
+    setRender(r=>!r);
+  },[filtProds])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

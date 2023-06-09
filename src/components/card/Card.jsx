@@ -12,16 +12,12 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import style from "./card.module.css";
 
-// const colorDot = "green";
-// const colorDot = "orange"
-const colorDot = "red";
-// const colorDot = "blue"
-// const colorDot = '#44b700'
+let colorD = "purple";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
-    backgroundColor: colorDot,
-    color: colorDot,
+    backgroundColor: colorD,
+    color: colorD,
     // width: "1vw",
     // height: "1vw",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -48,6 +44,30 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     },
   },
 }));
+
+const colorsDot = (id) => {
+  switch (id) {
+    case 1:
+      //disponible
+      return colorD = "green";
+      break;
+    case 2:
+      //agotado
+      return colorD = "red";
+      break;
+    case 3:
+      //llegado
+      return colorD = "blue";
+      break;
+    case 4:
+      //escaso
+      return colorD = "orange";
+      break;
+    default:
+      break;
+  }
+};
+
 
 //-------------------------COMPONENT------------------------
 function Card(props) {
@@ -177,6 +197,8 @@ function Card(props) {
           <Typography variant="body2">{`Precio sin IVA: $ ${PB}`}</Typography>
           <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
+          {colorsDot(props.estado)}
+         
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -184,8 +206,12 @@ function Card(props) {
             variant="dot"
           >
             <Grid item width={300} textAlign={"center"}>
-              {cats?.map((k,i) => {
-                return <Typography key={i} variant="body2">{k}</Typography>;
+              {cats?.map((k, i) => {
+                return (
+                  <Typography key={i} variant="body2">
+                    {k}
+                  </Typography>
+                );
               })}
             </Grid>
           </StyledBadge>

@@ -6,11 +6,10 @@ import {
   RESET_BOARD,
 } from "./actions";
 
-// console.log(typeof localStorage.getItem("categories"));
 const initialState = {
-  allProducts: JSON.parse(localStorage.getItem("allProducts")) || [],
-  filteredProducts: JSON.parse(localStorage.getItem("allProducts")) || [],
-  providers: JSON.parse(localStorage.getItem("providers")) || [],
+  allProducts: JSON.parse(sessionStorage.getItem("allProducts")) || [],
+  filteredProducts: JSON.parse(sessionStorage.getItem("allProducts")) || [],
+  providers: JSON.parse(sessionStorage.getItem("providers")) || [],
 };
 
 const pReducer = (state = initialState, action) => {

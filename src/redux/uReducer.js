@@ -1,10 +1,11 @@
 import {
   GET_AUTH_USER,
   GET_ALL_USERS, 
+  USER_LOGOUT
 } from "./actions";
 
 const initialState = {
-  authUser: JSON.parse(localStorage.getItem("AuthUsr")) || {}
+  authUser: JSON.parse(sessionStorage.getItem("AuthUsr")) || {}
 };
 
 const uReducer = (state = initialState, action) => {
@@ -23,6 +24,12 @@ const uReducer = (state = initialState, action) => {
         ...state,
         allUsers: action.payload,
       };
+
+      case USER_LOGOUT:
+        return {
+          ...state,
+          authUser: {}
+        }
 
     default:
       return { ...state };

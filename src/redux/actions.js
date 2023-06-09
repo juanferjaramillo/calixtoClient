@@ -7,13 +7,16 @@ export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
+export const USER_LOGOUT = "USER_LOGOUT";
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
   //brings one specific user to the state
   return async function (dispatch) {
     let oneUsr = {};
-    usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : oneUsr = [{id:0, name:"nobody", password:"qwer"}];
+    usr
+      ? (oneUsr = (await axios.get(`/user/${usr}`)).data)
+      : null;
     sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
     localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
@@ -28,15 +31,17 @@ export const getProdsUser = (usr) => {
   return async function (dispatch) {
     let prodUser = [];
     let prove = [];
-    usr ? ({prodUser, prove} = (await axios.get(`/prodsuser/${usr}`)).data) : null;
+    usr
+      ? ({ prodUser, prove } = (await axios.get(`/prodsuser/${usr}`)).data)
+      : null;
     sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
     sessionStorage.setItem("providers", JSON.stringify(prove));
-    return dispatch ({
+    return dispatch({
       type: GET_PRODS_USER,
-      payload: {prodUser, prove}
-    })
-  }
-}
+      payload: { prodUser, prove },
+    });
+  };
+};
 
 export const getAllUsers = () => {
   //brings all the users from the db to the state
@@ -50,6 +55,11 @@ export const getAllUsers = () => {
   };
 };
 
+export const logout = () => {
+  return {
+    type: USER_LOGOUT,
+  };
+};
 
 //----------------------PRODUCT ACTIONS-------------------------------
 export const getAllProducts = (owner) => {

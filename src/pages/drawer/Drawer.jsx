@@ -26,7 +26,8 @@ import {
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getAuthUser } from "../../redux/actions";
+import { logout } from "../../redux/actions";
+import { Toaster, toast } from "sonner";
 
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
@@ -38,25 +39,16 @@ function ResponsiveDrawer() {
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
 
-  //const filtProds = JSON.parse(sessionStorage.getItem("allProducts"));
-
-  const providers = JSON.parse(sessionStorage.getItem("providers"));
-  // const providers = useSelector((state) => state.product.providers);
-  // const logoOwner = useSelector(
-  //   (state) => state.users.authUser?.owner?.logoOwner
-  // );
-  const logoOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner
-    .logoOwner;
-  // const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
-  const nameOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner.name;
-  // const sloganOwner = useSelector(
-  //   (state) => state.users.authUser?.owner?.sloganOwner
-  // );
-  const sloganOwner = JSON.parse(sessionStorage.getItem("AuthUsr")).owner
-    .sloganOwner;
-
-    const filtProds = useSelector((state) => state.product.filteredProducts);
-
+  // const providers = JSON.parse(sessionStorage.getItem("providers"));
+  const providers = useSelector((state) => state.product.providers);
+  const logoOwner = useSelector(
+    (state) => state.users.authUser?.owner?.logoOwner
+  );
+  const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
+  const sloganOwner = useSelector(
+    (state) => state.users.authUser?.owner?.sloganOwner
+  );
+  const filtProds = useSelector((state) => state.product.filteredProducts);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
@@ -75,6 +67,7 @@ function ResponsiveDrawer() {
   }
 
   useEffect(() => {
+    toast.success("Bienvenido!")
     window.addEventListener("scroll", handleScroll);
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
@@ -119,7 +112,7 @@ function ResponsiveDrawer() {
   };
 
   const handlelogout = () => {
-    dispatch(getAuthUser());
+    dispatch(logout());
     sessionStorage.clear();
     navigate("/");
   };
@@ -227,7 +220,9 @@ function ResponsiveDrawer() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-
+      <Toaster
+      toastOptions={{ style: { background: 'gray', color: 'white' }}}
+      />
       {/* ---------------------------------APP BAR----------------------------     */}
       <AppBar
         position="fixed"
@@ -303,11 +298,11 @@ function ResponsiveDrawer() {
                     categorias={prod.categories} //array of objects with name:""
                     iva={prod.tax?.tax}
                     icons={prod.icons} //array of objects with iconUrl
+                    estado={prod.state.id}
                   />
                 );
               })
             : null}
-          {/* </InfiniteScroll> */}
         </Grid>
       </Box>
     </Box>

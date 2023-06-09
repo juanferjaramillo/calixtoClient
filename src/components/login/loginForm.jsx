@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getAuthUser, getProdsUser } from "../../redux/actions";
-import axios from "axios";
+import { Toaster, toast } from 'sonner';
 
 const validationSchema = Yup.object({
-  email: Yup.string().required("The user is required."),
-  password: Yup.string().required("The password is required."),
+  email: Yup.string().required("Por favor ingrese su indentificación"),
+  password: Yup.string().required("Por favor ingrese su contraseña"),
 });
 
 //======================Component===================
@@ -19,27 +19,24 @@ export default function LoginForm() {
   const dispatch = useDispatch();
 
   const initialValues = {
-      email: id,
-      password: "",
-    };
-
-//   useEffect(() => {
-    //     setId(localStorage.getItem("User"));
-    
-//   }, []);
+    email: id,
+    password: "",
+  };
 
   const submitHandler = async ({ email, password }) => {
-
     try {
       dispatch(getAuthUser(email)); //brings the authUser to the state
       dispatch(getProdsUser(email)); //brings products and providers of that user to the state
       navigate("/products");
     } catch ({ response }) {
-      alert("User or Password is Incorrect! Please try again.");
+      toast("La identificación o la contraseña son incorrectos 😳")
+      //alert("La identificación o la contraseña son incorrectos 😳");
     }
   };
 
-  return (
+  return ( 
+    <Box>
+      <Toaster />
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -54,14 +51,14 @@ export default function LoginForm() {
             >
               <Field
                 sx={{ marginBottom: "20px" }}
-                placeholder="E-mail"
+                placeholder="identificación"
                 name="email"
                 as={TextField}
                 error={errors.email && touched.email}
                 helperText={errors.email && touched.email ? errors.email : null}
               />
               <Field
-                placeholder="Password"
+                placeholder="Contraseña"
                 type="password"
                 name="password"
                 as={TextField}
@@ -70,7 +67,7 @@ export default function LoginForm() {
                   errors.password && touched.password ? errors.password : null
                 }
               />
-              <Typography
+              {/* <Typography
                 onClick={() => {
                   navigate("/password-recovery");
                 }}
@@ -84,14 +81,17 @@ export default function LoginForm() {
                 }}
               >
                 Forgot your password?
-              </Typography>
-              <Button type="submit" variant="contained" disabled={isSubmitting}>
-                Log In
+              </Typography> */}
+              <Button type="submit" variant="contained" disabled={isSubmitting}
+              sx={{mt: 3, backgroundColor: "purple"}}
+              >
+                Ingresar
               </Button>
             </Box>
           </Form>
         );
       }}
     </Formik>
+    </Box>
   );
 }

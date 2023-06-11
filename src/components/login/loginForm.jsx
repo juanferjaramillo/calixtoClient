@@ -5,7 +5,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getAuthUser, getProdsUser } from "../../redux/actions";
-import { Toaster, toast } from 'sonner';
+import { Toaster, toast } from "sonner";
 
 const validationSchema = Yup.object({
   email: Yup.string().required("Por favor ingrese su indentificación"),
@@ -13,7 +13,7 @@ const validationSchema = Yup.object({
 });
 
 //======================Component===================
-export default function LoginForm() {
+function LoginForm() {
   const [id, setId] = useState(localStorage.getItem("User"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -30,45 +30,51 @@ export default function LoginForm() {
       // navigate("/products");
       navigate("/starter");
     } catch ({ response }) {
-      toast("La identificación o la contraseña son incorrectos 😳")
+      toast("La identificación o la contraseña son incorrectos 😳");
       //alert("La identificación o la contraseña son incorrectos 😳");
     }
   };
 
-  return ( 
+  return (
     <Box>
       <Toaster />
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={submitHandler}
-    >
-      {(formik) => {
-        const { errors, touched, isSubmitting } = formik;
-        return (
-          <Form>
-            <Box
-              sx={{ display: "flex", flexDirection: "column", margin: "20px" }}
-            >
-              <Field
-                sx={{ marginBottom: "20px" }}
-                placeholder="identificación"
-                name="email"
-                as={TextField}
-                error={errors.email && touched.email}
-                helperText={errors.email && touched.email ? errors.email : null}
-              />
-              <Field
-                placeholder="Contraseña"
-                type="password"
-                name="password"
-                as={TextField}
-                error={errors.password && touched.password}
-                helperText={
-                  errors.password && touched.password ? errors.password : null
-                }
-              />
-              {/* <Typography
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={submitHandler}
+      >
+        {(formik) => {
+          const { errors, touched, isSubmitting } = formik;
+          return (
+            <Form>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  margin: "20px",
+                }}
+              >
+                <Field
+                  sx={{ marginBottom: "20px" }}
+                  placeholder="identificación"
+                  name="email"
+                  as={TextField}
+                  error={errors.email && touched.email}
+                  helperText={
+                    errors.email && touched.email ? errors.email : null
+                  }
+                />
+                <Field
+                  placeholder="Contraseña"
+                  type="password"
+                  name="password"
+                  as={TextField}
+                  error={errors.password && touched.password}
+                  helperText={
+                    errors.password && touched.password ? errors.password : null
+                  }
+                />
+                {/* <Typography
                 onClick={() => {
                   navigate("/password-recovery");
                 }}
@@ -83,16 +89,20 @@ export default function LoginForm() {
               >
                 Forgot your password?
               </Typography> */}
-              <Button type="submit" variant="contained" disabled={isSubmitting}
-              sx={{mt: 3, backgroundColor: "purple"}}
-              >
-                Ingresar
-              </Button>
-            </Box>
-          </Form>
-        );
-      }}
-    </Formik>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isSubmitting}
+                  sx={{ mt: 3, backgroundColor: "purple" }}
+                >
+                  Ingresar
+                </Button>
+              </Box>
+            </Form>
+          );
+        }}
+      </Formik>
     </Box>
   );
 }
+export default LoginForm;

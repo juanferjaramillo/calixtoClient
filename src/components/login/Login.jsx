@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Grid, Paper, Typography, useTheme } from "@mui/material";
-import LoginForm from "./LoginForm";
+import LoginForm from "./loginForm";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
 

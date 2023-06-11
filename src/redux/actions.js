@@ -14,9 +14,7 @@ export const getAuthUser = (usr) => {
   //brings one specific user to the state
   return async function (dispatch) {
     let oneUsr = {};
-    usr
-      ? (oneUsr = (await axios.get(`/user/${usr}`)).data)
-      : null;
+    usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
     sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
     localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
@@ -34,6 +32,13 @@ export const getProdsUser = (usr) => {
     usr
       ? ({ prodUser, prove } = (await axios.get(`/prodsuser/${usr}`)).data)
       : null;
+    console.log('prodUser');
+    console.log(prodUser);
+    prodUser
+      ? prodUser.sort((a, b) => a.prioridad - b.prioridad)
+      : console.log("sin ordenar");
+    console.log("prodUser[0]");
+    console.log(prodUser[0]);
     sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
     sessionStorage.setItem("providers", JSON.stringify(prove));
     return dispatch({

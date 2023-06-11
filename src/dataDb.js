@@ -66,6 +66,42 @@ export const dataDb = {
       iconUrl:
         "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730194/calixto/Gluten_ubwtpz.jpg",
     },
+    {
+      id: 7,
+      name: "Xketo",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/NoKeto_hlneqz.jpg",
+    },
+    {
+      id: 8,
+      name: "Xvegano",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730194/calixto/NoVegan_w55mxp.jpg",
+    },
+    {
+      id: 9,
+      name: "Xvegetariano",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730192/calixto/NoVegetarian_cbwq6b.jpg",
+    },
+    {
+      id: 10,
+      name: "XaptoDiabetico",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/NoDiabetic_m1usq2.jpg",
+    },
+    {
+      id: 11,
+      name: "XaltoProteina",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1685730193/calixto/NoProtein_gi6vs0.jpg",
+    },
+    {
+      id: 12,
+      name: "XsinGluten",
+      iconUrl:
+        "https://res.cloudinary.com/dbxsr9mfc/image/upload/v1684113637/calixto/Gluten_pppjih.jpg",
+    },
   ],
 
   tax: [

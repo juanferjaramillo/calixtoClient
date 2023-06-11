@@ -32,7 +32,7 @@ import { Toaster, toast } from "sonner";
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
 //------------------------------COMPONENT-------------------------
-function ResponsiveDrawer() {
+function Display() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
@@ -67,7 +67,7 @@ function ResponsiveDrawer() {
   }
 
   useEffect(() => {
-    toast.success("Bienvenido!")
+    toast.success("Bienvenido!");
     window.addEventListener("scroll", handleScroll);
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
@@ -76,9 +76,9 @@ function ResponsiveDrawer() {
     setCardsOnDisplay(filtProds.slice(0, initCard + maxCards));
   }, [initCard, render]);
 
-  useEffect(()=>{
-    setRender(r=>!r);
-  },[filtProds])
+  useEffect(() => {
+    setRender((r) => !r);
+  }, [filtProds]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -89,7 +89,7 @@ function ResponsiveDrawer() {
     //to keep the selection box updated
     document.documentElement.scrollTop = 0;
     setFBP(event.target.value);
-    setRender(r=>!r);
+    setRender((r) => !r);
   };
 
   const handleInput = (event) => {
@@ -99,7 +99,7 @@ function ResponsiveDrawer() {
   const handleBuscarClick = () => {
     dispatch(filterByName(inputRef.current.value));
     document.documentElement.scrollTop = 0;
-    setRender(r=>!r);
+    setRender((r) => !r);
   };
 
   const handleResetClick = () => {
@@ -107,8 +107,8 @@ function ResponsiveDrawer() {
     setFBP("TODOS");
     dispatch(resetBoard());
     document.documentElement.scrollTop = 0;
-    setInitCard(init => 0);
-    setRender(r=>!r);
+    setInitCard((init) => 0);
+    setRender((r) => !r);
   };
 
   const handlelogout = () => {
@@ -221,7 +221,7 @@ function ResponsiveDrawer() {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Toaster
-      toastOptions={{ style: { background: 'gray', color: 'white' }}}
+        toastOptions={{ style: { background: "gray", color: "white" } }}
       />
       {/* ---------------------------------APP BAR----------------------------     */}
       <AppBar
@@ -232,18 +232,46 @@ function ResponsiveDrawer() {
         }}
       >
         <Toolbar sx={{ backgroundColor: "purple" }}>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ ml: 1, display: { sm: "none" } }}
+          <Grid
+            item
+            display={"flex"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+            width={"100%"}
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            {nameOwner}: {sloganOwner}
-          </Typography>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ ml: 1, display: { sm: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Grid item>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{ fontSize: { xs: "100%", sm: "130%", md: "160%" } }}
+              >
+                {nameOwner}: {sloganOwner}
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="contaied"
+                sx={{
+                  backgroundColor: "gray",
+                  color: "white",
+                  fontSize: {xs: "80%", sm: "90%", md: "100%"},
+                }}
+                onClick={() => navigate("/starter")}
+              >
+                Inicio
+              </Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
 
@@ -309,4 +337,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default Display;

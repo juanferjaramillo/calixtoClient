@@ -73,13 +73,13 @@ function LoginPage() {
           <Login />
         </Grid>
       </Grid>
-      <Box sx={styles.secondary}>
+      {/* <Box sx={styles.secondary}>
         <Typography
           sx={{ alignSelf: "center", fontWeight: "bold", fontSize: "20px" }}
         >
           Resto de lo decorativo/informacional
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 }

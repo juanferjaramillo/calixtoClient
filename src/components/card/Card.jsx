@@ -49,25 +49,24 @@ const colorsDot = (id) => {
   switch (id) {
     case 1:
       //disponible
-      return colorD = "green";
+      return (colorD = "green");
       break;
     case 2:
       //agotado
-      return colorD = "red";
+      return (colorD = "red");
       break;
     case 3:
       //llegado
-      return colorD = "blue";
+      return (colorD = "blue");
       break;
     case 4:
       //escaso
-      return colorD = "orange";
+      return (colorD = "orange");
       break;
     default:
       break;
   }
 };
-
 
 //-------------------------COMPONENT------------------------
 function Card(props) {
@@ -116,6 +115,7 @@ function Card(props) {
           sx={{
             minHeight: "65vh",
             className: "style.turn",
+            cursor: "pointer",
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
@@ -162,7 +162,9 @@ function Card(props) {
           onClick={handleClick}
           sx={{
             minHeight: "65vh",
+            cursor: "pointer",
           }}
+
           //border={1}
         >
           <Typography
@@ -198,7 +200,7 @@ function Card(props) {
           <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
           {colorsDot(props.estado)}
-         
+
           <StyledBadge
             overlap="circular"
             anchorOrigin={{ vertical: "top", horizontal: "right" }}

@@ -12,7 +12,7 @@ import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import style from "./card.module.css";
 
-let colorD = "purple";
+let colorD = "white";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -79,12 +79,11 @@ function Card(props) {
   PB = PB.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   PT = PT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-  const cats = props.categorias?.map(
-    (cat) => cat.name.toString().split("/")[3]
-  );
   const handleClick = () => {
     setFlipped(!flipped);
   };
+
+  colorsDot(props.estado)
 
   return (
     <Box
@@ -94,12 +93,14 @@ function Card(props) {
       className={flipped ? style.backCard : style.frontCard}
       sx={{
         width: isMobile ? "80vw" : "25vw",
-        minWidth: isMobile ? "250px" : "290px",
+        minWidth: "320px",
+        // minWidth: isMobile ? "310px" : "310px",
         bgcolor: theme.palette.background.paper,
         boxShadow: 8,
         borderRadius: 2,
         p: 1,
-        borderColor: "lightgray",
+        borderColor: "purple",
+        // borderColor: "lightgray",
       }}
     >
       {flipped ? (
@@ -165,17 +166,27 @@ function Card(props) {
             cursor: "pointer",
           }}
 
-          //border={1}
         >
-          <Typography
-            variant="body1"
-            sx={{
-              width: "100%",
-              textAlign: "center",
-            }}
+          <StyledBadge
+            overlap="circular"
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            badgeContent=""
+            variant="dot"
           >
-            {`Codigo: ${props.codigo}`}
-          </Typography>
+  
+              <Typography
+                variant="body1"
+                sx={{
+                  width: "310px",
+                  textAlign: "center",
+                }}
+              >
+                {`Codigo: ${props.codigo}`}
+              </Typography>
+       
+          </StyledBadge>
+
+        
 
           <img
             style={{ objectFit: "contain" }}
@@ -187,9 +198,10 @@ function Card(props) {
 
           <Typography
             variant="body1"
-            fontWeight={"500"}
+            fontWeight={"1000"}
             sx={{
               textAlign: "center",
+              width: "310px",
               p: 1,
             }}
           >
@@ -199,24 +211,15 @@ function Card(props) {
           <Typography variant="body2">{`Precio sin IVA: $ ${PB}`}</Typography>
           <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
-          {colorsDot(props.estado)}
-
-          <StyledBadge
-            overlap="circular"
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            badgeContent=""
-            variant="dot"
-          >
-            <Grid item width={300} textAlign={"center"}>
-              {cats?.map((k, i) => {
-                return (
-                  <Typography key={i} variant="body2">
-                    {k}
-                  </Typography>
-                );
-              })}
-            </Grid>
-          </StyledBadge>
+          <Grid item width={300} textAlign={"center"}>
+            {/* {cats?.map((k, i) => { */}
+            {/* return ( */}
+            <Typography variant="body2">
+              {props.categoria}
+              </Typography>
+            {/* ); */}
+            {/* })} */}
+          </Grid>
 
           {/* <Box
             sx={{

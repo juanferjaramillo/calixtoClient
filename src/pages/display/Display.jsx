@@ -323,7 +323,7 @@ function Display() {
                     precio_base={prod.precioBase}
                     prodImg={prod.prodUrl}
                     descripcion={prod.descripcion}
-                    categorias={prod.categories} //array of objects with name:""
+                    categoria={prod.category?.name} //array of objects with name:""
                     iva={prod.tax?.tax}
                     icons={prod.icons} //array of objects with iconUrl
                     estado={prod.state.id}

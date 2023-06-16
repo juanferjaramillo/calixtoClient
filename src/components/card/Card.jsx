@@ -89,7 +89,7 @@ function Card(props) {
     <Box
       key={props.ind}
       margin={1}
-      border={1}
+      // border={1}
       className={flipped ? style.backCard : style.frontCard}
       sx={{
         width: isMobile ? "80vw" : "25vw",
@@ -133,6 +133,7 @@ function Card(props) {
             alt="producto"
             // border="1"
           />
+      
 
           <Divider sx={{ width: "80%" }} />
           <Grid item display={"flex"} justifyContent={"center"} marginTop={1}>
@@ -192,8 +193,9 @@ function Card(props) {
             style={{ objectFit: "contain" }}
             src={props.prodImg}
             height="220vh"
-            width="240vh"
+            width="300vh"
             alt="producto"
+            // border="1"
           />
 
           <Typography

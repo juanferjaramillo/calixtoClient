@@ -18,6 +18,7 @@ import Grid from "@mui/material/Grid";
 import Card from "../../components/card/Card";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import ListItemButton from "@mui/material/ListItemButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import {
   filterByProvider,
@@ -28,6 +29,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
+import WorkIcon from "@mui/icons-material/Work";
+import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
@@ -38,6 +41,9 @@ function Display() {
   const [initCard, setInitCard] = useState(0);
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
+  const [selectProv, setSelectProv] = useState(false);
+  const [searchProd, setSearchProd] = useState(false);
+  const [selectCateg, setSelectCateg] = useState(false);
 
   // const providers = JSON.parse(sessionStorage.getItem("providers"));
   const providers = useSelector((state) => state.product.providers);
@@ -103,7 +109,7 @@ function Display() {
   };
 
   const handleResetClick = () => {
-    inputRef.current.value = "";
+    inputRef.current ? (inputRef.current.value = "") : null;
     setFBP("TODOS");
     dispatch(resetBoard());
     document.documentElement.scrollTop = 0;
@@ -132,87 +138,121 @@ function Display() {
       </Grid>
       <Divider />
       <List>
-        <ListItem key={"proveedor"} disablePadding>
-          <ListItemText primary={"Proveedor:"} />
+        <ListItem key={"proveedor"}>
+          <ListItemButton onClick={() => setSelectProv(!selectProv)}>
+            <WorkIcon sx={{ color: "purple" }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Proveedor" />
+          </ListItemButton>
         </ListItem>
 
-        <ListItem key={"provList"} disablePadding>
-          <Select
-            name="filterProvider"
-            onChange={handleFilterProviderChange}
-            sx={{
-              backgroundColor: "whiteSmoke",
-              width: "100%",
-              height: "5vh",
-            }}
-            value={FBP}
-          >
-            <MenuItem key={0} value="TODOS">
-              Todos
-            </MenuItem>
-            {providers?.map((p, i) => {
-              return (
-                <MenuItem key={i + 1} value={p}>
-                  {p}
+        {!selectProv ? null : (
+          <>
+            <ListItem key={"provList"} disablePadding>
+              <Select
+                name="filterProvider"
+                onChange={handleFilterProviderChange}
+                sx={{
+                  backgroundColor: "whiteSmoke",
+                  width: "100%",
+                  mb: 2,
+                }}
+                value={FBP}
+              >
+                <MenuItem key={0} value="TODOS">
+                  Todos
                 </MenuItem>
-              );
-            })}
-          </Select>
+                {providers?.map((p, i) => {
+                  return (
+                    <MenuItem key={i + 1} value={p}>
+                      {p}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </ListItem>
+          </>
+        )}
+        <Divider />
+
+        <ListItem key={"categoria"}>
+          <ListItemButton onClick={() => setSelectCateg(!selectCateg)}>
+            <WorkIcon sx={{ color: "purple" }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
+          </ListItemButton>
+        </ListItem>
+
+        {!selectCateg ? null : (
+          <>
+            <Typography>categorias aqui</Typography>
+          </>
+        )}
+        <Divider />
+
+        <ListItem key={"Nproducto"}>
+          <ListItemButton onClick={() => setSearchProd(!searchProd)}>
+            <LocalGroceryStoreIcon sx={{ color: "purple" }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
+          </ListItemButton>
+        </ListItem>
+
+        {!searchProd ? null : (
+          <>
+            <ListItem>
+              <Input
+                placeholder="Producto"
+                sx={{ width: "100%" }}
+                type="text"
+                inputRef={inputRef}
+                onChange={handleInput}
+              ></Input>
+            </ListItem>
+
+            <ListItem>
+              <Button
+                variant="outlined"
+                sx={{ width: "100%" }}
+                onClick={handleBuscarClick}
+              >
+                Buscar
+              </Button>
+            </ListItem>
+          </>
+        )}
+        <Divider sx={{ mb: 3 }} />
+
+        <ListItem>
+          <Button
+            variant="outlined"
+            color="success"
+            sx={{ width: "100%" }}
+            // sx={{ backgroundColor: "black" }}
+            onClick={handleResetClick}
+          >
+            todos
+          </Button>
         </ListItem>
       </List>
 
-      <Divider sx={{ marginTop: 10 }} />
-
-      <Input
-        placeholder="Producto"
-        sx={{ width: "100%" }}
-        type="text"
-        inputRef={inputRef}
-        onChange={handleInput}
-      ></Input>
-
-      <Button
-        variant="contained"
-        sx={{ width: "50%", ml: 5, mt: 1, backgroundColor: "purple" }}
-        onClick={handleBuscarClick}
-      >
-        Buscar
-      </Button>
-
-      <Divider sx={{ marginTop: 5, marginBottom: 3 }} />
-
-      <Button
-        variant="contained"
-        color="error"
-        sx={{ width: "50%", ml: 5, backgroundColor: "black" }}
-        onClick={handleResetClick}
-      >
-        Reset
-      </Button>
-
-      <Button
-        variant="outlined"
-        color="error"
-        sx={{
-          width: "50%",
-          position: "absolute",
-          marginTop: "85vh",
-          marginLeft: "25%",
-          color: "black",
-          borderColor: "purple",
-        }}
-        onClick={handlelogout}
-      >
-        Logout
-      </Button>
-      <Typography
-        width={"100%"}
-        textAlign={"center"}
-        sx={{ position: "absolute", marginTop: "95vh" }}
+      <Grid
+        item
+        display={"flex"}
+        alignItems={"center"}
         border={1}
+        height={40}
+        width={"100%"}
+        borderRadius={"10%"}
+        backgroundColor={"black"}
+        color={"white"}
+        sx={{ position: "absolute", marginTop: "92vh" }}
       >
-        Made by Sthemma
-      </Typography>
+        <Typography
+          width={"100%"}
+          textAlign={"center"}
+          //
+        >
+          Made by Sthemma
+        </Typography>
+      </Grid>
     </Box>
   );
 
@@ -258,17 +298,29 @@ function Display() {
                 {nameOwner}: {sloganOwner}
               </Typography>
             </Grid>
-            <Grid item>
+            <Grid item display={"flex"}>
               <Button
-                variant="contaied"
+                variant="outlined"
                 sx={{
-                  backgroundColor: "gray",
+                  // backgroundColor: "gray",
                   color: "white",
-                  fontSize: {xs: "80%", sm: "90%", md: "100%"},
+                  fontSize: { xs: "80%", sm: "90%", md: "100%" },
                 }}
                 onClick={() => navigate("/starter")}
               >
                 Inicio
+              </Button>
+
+              <Button
+                variant="outlined"
+                sx={{
+                  // backgroundColor: "gray",
+                  color: "white",
+                  fontSize: { xs: "80%", sm: "90%", md: "100%", marginLeft: 5 },
+                }}
+                onClick={handlelogout}
+              >
+                salir
               </Button>
             </Grid>
           </Grid>

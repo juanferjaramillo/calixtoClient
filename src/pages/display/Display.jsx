@@ -31,19 +31,30 @@ import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import WorkIcon from "@mui/icons-material/Work";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
+import SearchIcon from "@mui/icons-material/Search";
+import InventoryIcon from '@mui/icons-material/Inventory';
+import CategoryIcon from '@mui/icons-material/Category';
+import { fabClasses } from "@mui/material";
+import palette from "../../css/palette.js"
 
+
+let ss=0;
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
 //------------------------------COMPONENT-------------------------
 function Display() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [FBP, setFBP] = useState("TODOS");
+  const [FBC, setFBC] = useState("TODOS");
+  const [FBD, setFBD] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
   const [selectProv, setSelectProv] = useState(false);
   const [searchProd, setSearchProd] = useState(false);
   const [selectCateg, setSelectCateg] = useState(false);
+  const [selectDisp, setSelectDisp] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(false);
 
   // const providers = JSON.parse(sessionStorage.getItem("providers"));
   const providers = useSelector((state) => state.product.providers);
@@ -59,7 +70,8 @@ function Display() {
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
-  const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+  // const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+  const isSmallScreen = useMediaQuery(`(max-width: 900px)`);
   let data = [];
 
   function handleScroll() {
@@ -123,6 +135,9 @@ function Display() {
     navigate("/");
   };
 
+  const handleFilterDispChange = () => {};
+  const handleFilterCategChange = () => {};
+
   //------------------------DRAWER FUNCTION------------------------------
 
   const drawer = (
@@ -140,7 +155,7 @@ function Display() {
       <List>
         <ListItem key={"proveedor"}>
           <ListItemButton onClick={() => setSelectProv(!selectProv)}>
-            <WorkIcon sx={{ color: "purple" }} />
+            <WorkIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Proveedor" />
           </ListItemButton>
         </ListItem>
@@ -153,8 +168,11 @@ function Display() {
                 onChange={handleFilterProviderChange}
                 sx={{
                   backgroundColor: "whiteSmoke",
-                  width: "100%",
+                  width: "90%",
+                  height: 30,
                   mb: 2,
+                  ml: 1,
+                  mr: 1,
                 }}
                 value={FBP}
               >
@@ -176,44 +194,101 @@ function Display() {
 
         <ListItem key={"categoria"}>
           <ListItemButton onClick={() => setSelectCateg(!selectCateg)}>
-            <WorkIcon sx={{ color: "purple" }} />
+            <CategoryIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
           </ListItemButton>
         </ListItem>
 
         {!selectCateg ? null : (
           <>
-            <Typography>categorias aqui</Typography>
+            <Select
+              name="filtercateg"
+              onChange={handleFilterCategChange}
+              sx={{
+                backgroundColor: "whiteSmoke",
+                width: "90%",
+                height: 30,
+                mb: 2,
+                ml: 1,
+                mr: 1,
+              }}
+              value={FBC}
+            >
+              <MenuItem key={0} value="TODOS">
+                Todos
+              </MenuItem>
+              {["Categ1", "Categ1", "Categ1"].map((e, i) => (
+                <MenuItem key={i+1} value={e}>
+                  {e}
+                </MenuItem>
+              ))}
+            </Select>
           </>
         )}
+
+        <Divider />
+
+        <ListItem key={"disponibilidad"}>
+          <ListItemButton onClick={() => setSelectDisp(!selectDisp)}>
+            <InventoryIcon sx={{ color: palette.icons  }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Disponibilidad" />
+          </ListItemButton>
+        </ListItem>
+
+        {!selectDisp ? null : (
+          <>
+            <Select
+              name="filterDisp"
+              onChange={handleFilterDispChange}
+              sx={{
+                backgroundColor: "whiteSmoke",
+                width: "90%",
+                height: 30,
+                mb: 2,
+                ml: 1,
+                mr: 1,
+              }}
+              value={FBD}
+            >
+              <MenuItem key={0} value="TODOS">
+                Todos
+              </MenuItem>
+              {["Llegado", "Escaso", "Agotado"].map((e, i) => (
+                <MenuItem key={i+1} value={e}>
+                  {e}
+                </MenuItem>
+              ))}
+            </Select>
+          </>
+        )}
+
         <Divider />
 
         <ListItem key={"Nproducto"}>
           <ListItemButton onClick={() => setSearchProd(!searchProd)}>
-            <LocalGroceryStoreIcon sx={{ color: "purple" }} />
+            <LocalGroceryStoreIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
           </ListItemButton>
         </ListItem>
 
         {!searchProd ? null : (
           <>
-            <ListItem>
+            <ListItem disablePadding>
               <Input
                 placeholder="Producto"
-                sx={{ width: "100%" }}
+                sx={{ marginLeft: 1, height: 30 }}
                 type="text"
                 inputRef={inputRef}
                 onChange={handleInput}
               ></Input>
-            </ListItem>
 
-            <ListItem>
               <Button
-                variant="outlined"
-                sx={{ width: "100%" }}
+                // variant="outlined"
+                disablePadding
+                sx={{ color: "black" }}
                 onClick={handleBuscarClick}
               >
-                Buscar
+                <SearchIcon fontSize="small" />
               </Button>
             </ListItem>
           </>
@@ -241,15 +316,11 @@ function Display() {
         height={40}
         width={"100%"}
         borderRadius={"10%"}
-        backgroundColor={"black"}
+        backgroundColor={palette.appBar}
         color={"white"}
         sx={{ position: "absolute", marginTop: "92vh" }}
       >
-        <Typography
-          width={"100%"}
-          textAlign={"center"}
-          //
-        >
+        <Typography width={"100%"} textAlign={"center"}>
           Made by Sthemma
         </Typography>
       </Grid>
@@ -267,11 +338,11 @@ function Display() {
       <AppBar
         position="fixed"
         sx={{
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
+          width: {md: `calc(100% - ${drawerWidth}px)` },
+          ml: { md: `${drawerWidth}px` },
         }}
       >
-        <Toolbar sx={{ backgroundColor: "purple" }}>
+        <Toolbar sx={{ backgroundColor: palette.appBar }}>
           <Grid
             item
             display={"flex"}
@@ -284,7 +355,7 @@ function Display() {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
-              sx={{ ml: 1, display: { sm: "none" } }}
+              sx={{ ml: 1, display: { md: "none" } }}
             >
               <MenuIcon />
             </IconButton>
@@ -293,7 +364,7 @@ function Display() {
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ fontSize: { xs: "100%", sm: "130%", md: "160%" } }}
+                sx={{ fontSize: { xs: "100%",md: "130%", md: "160%" } }}
               >
                 {nameOwner}: {sloganOwner}
               </Typography>
@@ -304,7 +375,7 @@ function Display() {
                 sx={{
                   // backgroundColor: "gray",
                   color: "white",
-                  fontSize: { xs: "80%", sm: "90%", md: "100%" },
+                  fontSize: { xs: "80%",md: "90%", md: "100%" },
                 }}
                 onClick={() => navigate("/starter")}
               >
@@ -316,7 +387,7 @@ function Display() {
                 sx={{
                   // backgroundColor: "gray",
                   color: "white",
-                  fontSize: { xs: "80%", sm: "90%", md: "100%", marginLeft: 5 },
+                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 5 },
                 }}
                 onClick={handlelogout}
               >
@@ -328,10 +399,11 @@ function Display() {
       </AppBar>
 
       {/* -------------------------DRAWER------------------------ */}
+      {/* {isSmallScreen ? ss=0 : ss=drawerWidth} */}
       <Box
-        border={3}
         component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ width: { md:ss }, flexShrink: { md: 0 } }}
+        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
         aria-label="mailbox folders"
       >
         <Drawer
@@ -339,7 +411,8 @@ function Display() {
           open={isSmallScreen ? mobileOpen : true}
           onClose={isSmallScreen ? handleDrawerToggle : null}
           sx={{
-            display: { xs: "block", sm: "block" },
+            display: { xs: "block", md: "block" },
+
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,
@@ -354,15 +427,12 @@ function Display() {
       {/* -------------------------------BOARD------------------------- */}
       <Box
         component="main"
-        sx={{
-          flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}
+        backgroundColor={palette.backgroundDisplay}
+        sx={{ width: { md: `calc(100% - ${drawerWidth}px)` } }}
       >
         <Toolbar />
 
-        <Grid item display={"flex"} sx={{ flexWrap: "wrap" }}>
+        <Grid item display={"flex"} justifyContent={"center"} sx={{ flexWrap: "wrap" }}>
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
                 return (

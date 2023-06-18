@@ -31,32 +31,24 @@ function LoginPage() {
   return (
     <Box>
       <Grid container sx={styles.principal}>
-        <Grid item 
-        display={"flex"}
-        alignItems={"center"}
-        justifyContent={"center"}
-        xs={12} md={6} order={{ xs: 2, md: 1 }}
+        <Grid
+          item
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+          xs={12}
+          md={6}
+          order={{ xs: 2, md: 1 }}
         >
-          <Grid item
-          width={"90%"}
-          sx={{boxShadow: 10}}
-          >
-
-          <img
-          src="https://res.cloudinary.com/dbxsr9mfc/image/upload/v1682391978/calixto/Cover_lrghp5.jpg"
-          style={{ objectFit: "contain"}}
-          //height={}
-          width={"100%"}
-          sx={{ boxShadow: "15" }}
-          >
-          
-          </img>
-            </Grid>
-          {/* <Typography
-            sx={{ alignSelf: "center", fontWeight: "bold", fontSize: "20px" }}
-          >
-            Aquí va lo decorativo/visual de la landing
-          </Typography> */}
+          <Grid item width={"90%"} sx={{ boxShadow: 10 }}>
+            <img
+              src="https://res.cloudinary.com/dbxsr9mfc/image/upload/v1682391978/calixto/Cover_lrghp5.jpg"
+              style={{ objectFit: "contain" }}
+              //height={}
+              width={"100%"}
+              sx={{ boxShadow: "15" }}
+            ></img>
+          </Grid>
         </Grid>
         <Grid
           item

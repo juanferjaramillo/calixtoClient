@@ -9,6 +9,10 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import WorkIcon from "@mui/icons-material/Work";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
+import video1 from "../../../assets/video1.mp4";
+import video2 from "../../../assets/video2.mp4";
+import video3 from "../../../assets/video3.mp4";
+import video4 from "../../../assets/video4.mp4";
 
 //==================Component=======================
 function Starter() {
@@ -45,22 +49,15 @@ function Starter() {
           </Tabs>
         </Box>
 
-        <TabPanel
-          value={value}
-          index={0}
-          id={"proveedores"}
-        >
-          <Grid item
-          display={"flex"}  
-          justifyContent={"center"}
-        >
-          <img
-            src="https://res.cloudinary.com/dbxsr9mfc/image/upload/v1686442232/calixto/proveedores_zlgr9b.jpg"
-            alt="providers"
-            onClick={handleClick}
-            width={"90%"}
-            style={{ objectFit: "fit", cursor: "pointer" }}
-          />
+        <TabPanel value={value} index={0} id={"proveedores"}>
+          <Grid item display={"flex"} justifyContent={"center"}>
+            <img
+              src="https://res.cloudinary.com/dbxsr9mfc/image/upload/v1686442232/calixto/proveedores_zlgr9b.jpg"
+              alt="providers"
+              onClick={handleClick}
+              width={"90%"}
+              style={{ objectFit: "fit", cursor: "pointer" }}
+            />
           </Grid>
         </TabPanel>
 
@@ -70,23 +67,57 @@ function Starter() {
             display={"Flex"}
             justifyContent={"center"}
             alignItems={"center"}
-            width={"100vw"}
-            sx={{cursor: "pointer"}}
-            onClick={()=>navigate("/products")}
+            width={"30vw"}
+            sx={{ cursor: "pointer" }}
+            onClick={() => navigate("/products")}
           >
             <video
-              autoPlay
-              loop
+              // autoPlay
+              // loop
               muted
-              poster="https://assets.codepen.io/6093409/river.jpg"
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+              src={video1}
+              type="video/mp4"
               width={"70%"}
-              style={{ objectFit: "fill" }}
-            >
-              <source
-                src="https://assets.codepen.io/6093409/river.mp4"
-                type="video/mp4"
-              />
-            </video>
+              style={{ objectFit: "fill", margin:10 }}
+              controls
+            ></video>
+
+            <video
+              // autoPlay
+              // loop
+              muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+              src={video2}
+              type="video/mp4"
+              width={"70%"}
+              style={{ objectFit: "fill", margin:10  }}
+              controls
+            ></video>
+
+            <video
+              // autoPlay
+              // loop
+              muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+              src={video3}
+              type="video/mp4"
+              width={"70%"}
+              style={{ objectFit: "fill", margin:10  }}
+              controls
+            ></video>
+
+            <video
+              // autoPlay
+              // loop
+              muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+              src={video4}
+              type="video/mp4"
+              width={"70%"}
+              style={{ objectFit: "fill", margin:10  }}
+              controls
+            ></video>
           </Grid>
         </TabPanel>
       </Grid>

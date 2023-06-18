@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Landing from "../src/pages/landing/Landing";
 import Test from "./pages/tests/test.jsx"
-import Test2 from "./pages/tests/test2.jsx"
 import axios from 'axios';
 import Display from "../src/pages/display/Display"
 import Starter from "../src/pages/starter/Starter"
@@ -19,7 +18,7 @@ function App() {
         <Route  exact path={"/starter"} element={<Starter />}> </Route>
         <Route  exact path={"/products"} element={<Display />}> </Route>
         <Route  exact path={"/test"} element={<Test />}> </Route>
-        <Route  exact path={"/test2"} element={<Test2 />}> </Route>
+        {/* <Route  exact path={"/test2"} element={<Card2 />}> </Route> */}
       </Routes>
   );
 }

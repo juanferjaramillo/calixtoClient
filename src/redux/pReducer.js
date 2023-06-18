@@ -4,12 +4,16 @@ import {
   FILTER_BY_PROVIDER,
   FILTER_BY_NAME,
   RESET_BOARD,
+  FILTER_BY_CATEG,
+  FILTER_BY_DISPONIBILITY,
+  FILTER_BY_PROPERTY,
 } from "./actions";
 
 const initialState = {
   allProducts: JSON.parse(sessionStorage.getItem("allProducts")) || [],
   filteredProducts: JSON.parse(sessionStorage.getItem("allProducts")) || [],
   providers: JSON.parse(sessionStorage.getItem("providers")) || [],
+  categories: JSON.parse(sessionStorage.getItem("categ")) || [],
 };
 
 const pReducer = (state = initialState, action) => {
@@ -22,6 +26,7 @@ const pReducer = (state = initialState, action) => {
         allProducts: action.payload.prodUser,
         filteredProducts: action.payload.prodUser,
         providers: action.payload.prove,
+        categories: action.payload.categ,
       };
 
     case GET_ALL_PRODUCTS:
@@ -33,14 +38,22 @@ const pReducer = (state = initialState, action) => {
 
     case FILTER_BY_PROVIDER:
       let prodsProvider = [];
-      action.payload === "TODOS"
-        ? (prodsProvider = [...state.allProducts])
-        : (prodsProvider = state.allProducts.filter(
-            (prod) => prod.provider.name === action.payload
-          ));
+      prodsProvider = state.filteredProducts.filter(
+        (prod) => prod.provider.name === action.payload
+      );
       return {
         ...state,
         filteredProducts: prodsProvider,
+      };
+
+    case FILTER_BY_CATEG:
+      let prodsCateg = [];
+      prodsCateg = state.filteredProducts.filter(
+        (prod) => prod.category.name === action.payload
+      );
+      return {
+        ...state,
+        filteredProducts: prodsCateg,
       };
 
     case FILTER_BY_NAME:
@@ -58,6 +71,23 @@ const pReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredProducts: [...state.allProducts],
+      };
+
+    case FILTER_BY_DISPONIBILITY:
+      return {
+        ...state,
+        filteredProducts: state.filteredProducts.filter(
+          (p) => p.stateId === action.payload
+        ),
+      };
+
+    case FILTER_BY_PROPERTY:
+      return {
+        ...state,
+        filteredProducts: state.filteredProducts.filter((p) => {
+          const ic = p.icons.map((i) => i.id);
+          return ic.includes(Number(action.payload));
+        }),
       };
 
       return {

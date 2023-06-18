@@ -52,12 +52,12 @@ const colorsDot = (id) => {
       return (colorD = "green");
       break;
     case 2:
-      //agotado
-      return (colorD = "red");
+      //llegó
+      return (colorD = "blue");
       break;
     case 3:
-      //llegado
-      return (colorD = "blue");
+      //agotado
+      return (colorD = "red");
       break;
     case 4:
       //escaso
@@ -89,17 +89,18 @@ function Card(props) {
     <Box
       key={props.ind}
       margin={1}
-      border={1}
+      // border={1}
       className={flipped ? style.backCard : style.frontCard}
       sx={{
-        width: isMobile ? "80vw" : "25vw",
-        minWidth: "320px",
+        // width: isMobile ? "80vw" : "25vw",
+        // minWidth: "320px",
+        width: "320px",
         // minWidth: isMobile ? "310px" : "310px",
         bgcolor: theme.palette.background.paper,
         boxShadow: 8,
         borderRadius: 2,
         p: 1,
-        borderColor: "purple",
+        // borderColor: "purple",
         // borderColor: "lightgray",
       }}
     >
@@ -114,14 +115,17 @@ function Card(props) {
           onMouseLeave={handleClick}
           onClick={handleClick}
           sx={{
-            minHeight: "65vh",
+            height: "500px",
             className: "style.turn",
             cursor: "pointer",
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
 
-          <Typography fontSize={11} textAlign="center" p={1} boxShadow={2}>
+          {/* EXISTENCIA EN INVENTARIO------------------------------------------------------ */}
+          <Typography variant="body2">{`0315`}</Typography>
+
+          <Typography fontSize={13} textAlign="justify" p={1} boxShadow={2}>
             {props.descripcion}
           </Typography>
 
@@ -143,8 +147,8 @@ function Card(props) {
                   alt="icon"
                   src={icon.iconUrl}
                   sx={{
-                    width: 35,
-                    height: 35,
+                    width: 40,
+                    height:40,
                     marginRight: 0.5,
                     marginLeft: 0.5,
                   }}
@@ -162,7 +166,7 @@ function Card(props) {
           justifyContent={"space-around"}
           onClick={handleClick}
           sx={{
-            minHeight: "65vh",
+            height: "500px",
             cursor: "pointer",
           }}
 
@@ -181,7 +185,7 @@ function Card(props) {
                   textAlign: "center",
                 }}
               >
-                {`Codigo: ${props.codigo}`}
+                {`Código: ${props.codigo}`}
               </Typography>
        
           </StyledBadge>
@@ -192,13 +196,14 @@ function Card(props) {
             style={{ objectFit: "contain" }}
             src={props.prodImg}
             height="220vh"
-            width="240vh"
+            width="300vh"
             alt="producto"
+            // border="1"
           />
 
           <Typography
-            variant="body1"
-            fontWeight={"1000"}
+            variant="h6"
+            fontWeight={"bold"}
             sx={{
               textAlign: "center",
               width: "310px",
@@ -212,8 +217,7 @@ function Card(props) {
           <Typography variant="body2">{`Precio con IVA: $ ${PT}`}</Typography>
 
           <Grid item width={300} textAlign={"center"}>
-            {/* {cats?.map((k, i) => { */}
-            {/* return ( */}
+         
             <Typography variant="body2">
               {props.categoria}
               </Typography>
@@ -221,17 +225,6 @@ function Card(props) {
             {/* })} */}
           </Grid>
 
-          {/* <Box
-            sx={{
-              width: "80%",
-              textAlign: "right",
-              pt: 1,
-            }}
-          >
-            <Typography variant="body2" fontSize={10}>
-              🔴 🟡 🟢
-            </Typography>
-          </Box> */}
         </Grid>
       )}
     </Box>

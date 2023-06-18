@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useActionData } from "react-router-dom";
 
 export const GET_AUTH_USER = "GET_AUTH_USER";
 export const GET_PRODS_USER = "GET_PRODS_USER";
@@ -8,6 +9,9 @@ export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
 export const USER_LOGOUT = "USER_LOGOUT";
+export const FILTER_BY_CATEG = "FILTER_BY_CATEG";
+export const FILTER_BY_DISPONIBILITY = "FILTER_BY_DISPONIBILITY";
+export const FILTER_BY_PROPERTY = "FILTER_BY_PROPERTY";
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
@@ -29,21 +33,23 @@ export const getProdsUser = (usr) => {
   return async function (dispatch) {
     let prodUser = [];
     let prove = [];
+    let categ = [];
     usr
-      ? ({ prodUser, prove } = (await axios.get(`/prodsuser/${usr}`)).data)
+      ? ({ prodUser, prove, categ } = (
+          await axios.get(`/prodsuser/${usr}`)
+        ).data)
       : null;
-    console.log('prodUser');
-    console.log(prodUser);
+
     prodUser
       ? prodUser.sort((a, b) => a.prioridad - b.prioridad)
       : console.log("sin ordenar");
-    console.log("prodUser[0]");
-    console.log(prodUser[0]);
+
     sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
     sessionStorage.setItem("providers", JSON.stringify(prove));
+    sessionStorage.setItem("categ", JSON.stringify(categ));
     return dispatch({
       type: GET_PRODS_USER,
-      payload: { prodUser, prove },
+      payload: { prodUser, prove, categ },
     });
   };
 };
@@ -89,12 +95,33 @@ export const filterByProvider = (provider) => {
   };
 };
 
+export const filterByCategory = (categ) => {
+  return {
+    type: FILTER_BY_CATEG,
+    payload: categ,
+  };
+};
+
 export const filterByName = (name) => {
   return {
     type: FILTER_BY_NAME,
     payload: name,
   };
 };
+
+export const filterByDisponibility = (id) => {
+  return {
+    type: FILTER_BY_DISPONIBILITY,
+    payload: id
+  }
+}
+
+export const filterByProperty= (pro) => {
+  return {
+    type: FILTER_BY_PROPERTY,
+    payload: pro
+  }
+}
 
 export const resetBoard = () => {
   return {

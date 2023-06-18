@@ -2,43 +2,22 @@ import { useEffect, useRef, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
-import Select from "@mui/material/Select";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import MenuItem from "@mui/material/MenuItem";
 import Grid from "@mui/material/Grid";
 import Card from "../../components/card/Card";
-import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
-import ListItemButton from "@mui/material/ListItemButton";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import {
-  filterByProvider,
-  filterByName,
-  resetBoard,
-  filterByCategory
-} from "../../redux/actions";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
-import Checkbox from "@mui/material/Checkbox";
-import FormGroup from "@mui/material/FormGroup";
-import WorkIcon from "@mui/icons-material/Work";
-import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import SearchIcon from "@mui/icons-material/Search";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import CategoryIcon from "@mui/icons-material/Category";
-import ClassIcon from "@mui/icons-material/Class";
-import { FormControlLabel, fabClasses } from "@mui/material";
 import palette from "../../css/palette.js";
+import DrawerContent from "../../components/drawer/Drawer";
 
 let ss = 0;
 const drawerWidth = 180;
@@ -46,26 +25,10 @@ const maxCards = 6; //number of cards to render at a time
 //------------------------------COMPONENT-------------------------
 function Display() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [FBP, setFBP] = useState("TODOS");
-  const [FBC, setFBC] = useState("TODOS");
-  const [FBD, setFBD] = useState("TODOS");
-  const [FBPP, setFBPP] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
-  const [selectProv, setSelectProv] = useState(false);
-  const [searchProd, setSearchProd] = useState(false);
-  const [selectCateg, setSelectCateg] = useState(false);
-  const [selectDisp, setSelectDisp] = useState(false);
-  const [smallScreen, setSmallScreen] = useState(false);
-  const [selectPro, setSelectPro] = useState(false);
 
-  // const providers = JSON.parse(sessionStorage.getItem("providers"));
-  const providers = useSelector((state) => state.product.providers);
-  const categories = useSelector(state=>state.product.categories);
-  const logoOwner = useSelector(
-    (state) => state.users.authUser?.owner?.logoOwner
-  );
   const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
   const sloganOwner = useSelector(
     (state) => state.users.authUser?.owner?.sloganOwner
@@ -107,304 +70,15 @@ function Display() {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleFilterProviderChange = (event) => {
-    dispatch(filterByProvider(event.target.value));
-    //to keep the selection box updated
-    document.documentElement.scrollTop = 0;
-    setFBP(event.target.value);
-    setRender((r) => !r);
-  };
-
-  const handleInput = (event) => {
-    inputRef.current.value = event.target.value.trim().toLowerCase();
-  };
-
-  const handleBuscarClick = () => {
-    dispatch(filterByName(inputRef.current.value));
-    document.documentElement.scrollTop = 0;
-    setRender((r) => !r);
-  };
-
-  const handleResetClick = () => {
-    inputRef.current ? (inputRef.current.value = "") : null;
-    setFBP("TODOS");
-    setFBC("TODOS");
-    dispatch(resetBoard());
-    document.documentElement.scrollTop = 0;
-    setInitCard((init) => 0);
-    setRender((r) => !r);
-  };
-
   const handlelogout = () => {
     dispatch(logout());
     sessionStorage.clear();
     navigate("/");
   };
 
-  const handleFilterCategChange = (event) => {
-    console.log(event.target.value);
-
-    dispatch(filterByCategory(event.target.value));
-    //to keep the selection box updated
-    document.documentElement.scrollTop = 0;
-    setFBC(event.target.value);
-    setRender((r) => !r);
-  };
-  const handleFilterDispChange = () => {};
-
-  const handleFilterProChange = () => {};
-
-  //------------------------DRAWER FUNCTION------------------------------
-
-  const drawer = (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Grid item>
-        <img
-          height="55vh"
-          width="180vh"
-          alt="Logo Cliente"
-          src={logoOwner}
-          style={{ objectFit: "contain" }}
-        ></img>
-      </Grid>
-      <Divider />
-      <List>
-        <ListItem key={"proveedor"}>
-          <ListItemButton onClick={() => setSelectProv(!selectProv)}>
-            <WorkIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Proveedor" />
-          </ListItemButton>
-        </ListItem>
-
-        {!selectProv ? null : (
-          <>
-            <ListItem key={"provList"} disablePadding>
-              <Select
-                name="filterProvider"
-                onChange={handleFilterProviderChange}
-                sx={{
-                  backgroundColor: "whiteSmoke",
-                  width: "90%",
-                  height: 30,
-                  mb: 2,
-                  ml: 1,
-                  mr: 1,
-                }}
-                value={FBP}
-              >
-                {/* <MenuItem key={0} value="TODOS">
-                  Todos
-                </MenuItem> */}
-                {providers?.map((p, i) => {
-                  return (
-                    <MenuItem key={i + 1} value={p}>
-                      {p}
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </ListItem>
-          </>
-        )}
-        <Divider />
-
-        <ListItem key={"categoria"}>
-          <ListItemButton onClick={() => setSelectCateg(!selectCateg)}>
-            <CategoryIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
-          </ListItemButton>
-        </ListItem>
-
-        {!selectCateg ? null : (
-          <>
-            <Select
-              name="filtercateg"
-              onChange={handleFilterCategChange}
-              sx={{
-                backgroundColor: "whiteSmoke",
-                width: "90%",
-                height: 30,
-                mb: 2,
-                ml: 1,
-                mr: 1,
-              }}
-              value={FBC}
-            >
-              {/* <MenuItem key={0} value="TODOS">
-                Todos
-              </MenuItem> */}
-              {categories?.map((e, i) => {
-                return(
-                <MenuItem key={i + 1} value={e}>
-                  {e}
-                </MenuItem>
-              )}
-              )}
-            </Select>
-          </>
-        )}
-
-        <Divider />
-
-        <ListItem key={"propiedad"}>
-          <ListItemButton onClick={() => setSelectPro(!selectPro)}>
-            <ClassIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Propiedad" />
-          </ListItemButton>
-        </ListItem>
-
-        <FormGroup
-        sx={{ml: 2}}
-        >
-          {!selectPro ? null : (
-            <>           
-             <FormControlLabel 
-             control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Vegano" />
-            <FormControlLabel control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Vegetariano" />
-            <FormControlLabel control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Alto Proteína" />
-            <FormControlLabel control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Keto" />
-            <FormControlLabel control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Apto Diabéticos" />
-            <FormControlLabel control={
-            <Checkbox
-              checked={false}
-              // onChange={handleChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />} label = "Gluten Free" />
-            </>
-          )}
-        </FormGroup>
-
-        <Divider />
-
-        <ListItem key={"disponibilidad"}>
-          <ListItemButton onClick={() => setSelectDisp(!selectDisp)}>
-            <InventoryIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Disponibilidad" />
-          </ListItemButton>
-        </ListItem>
-
-        {!selectDisp ? null : (
-          <>
-            <Select
-              name="filterDisp"
-              onChange={handleFilterDispChange}
-              sx={{
-                backgroundColor: "whiteSmoke",
-                width: "90%",
-                height: 30,
-                mb: 2,
-                ml: 1,
-                mr: 1,
-              }}
-              value={FBD}
-            >
-              {/* <MenuItem key={0} value="TODOS">
-                Todos
-              </MenuItem> */}
-              {["Llegado", "Escaso", "Agotado"].map((e, i) => (
-                <MenuItem key={i + 1} value={e}>
-                  {e}
-                </MenuItem>
-              ))}
-            </Select>
-          </>
-        )}
-
-        <Divider />
-
-        <ListItem key={"Nproducto"}>
-          <ListItemButton onClick={() => setSearchProd(!searchProd)}>
-            <LocalGroceryStoreIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
-          </ListItemButton>
-        </ListItem>
-
-        {!searchProd ? null : (
-          <>
-            <ListItem disablePadding>
-              <Input
-                placeholder="Producto"
-                sx={{ marginLeft: 1, height: 30 }}
-                type="text"
-                inputRef={inputRef}
-                onChange={handleInput}
-              ></Input>
-
-              <Button
-                // variant="outlined"
-                disablePadding
-                sx={{ color: "black" }}
-                onClick={handleBuscarClick}
-              >
-                <SearchIcon fontSize="small" />
-              </Button>
-            </ListItem>
-          </>
-        )}
-        <Divider sx={{ mb: 3 }} />
-
-        <ListItem>
-          <Button
-            variant="outlined"
-            color="success"
-            sx={{ width: "100%" }}
-            // sx={{ backgroundColor: "black" }}
-            onClick={handleResetClick}
-          >
-            todos
-          </Button>
-        </ListItem>
-      </List>
-
-      <Grid
-        item
-        display={"flex"}
-        alignItems={"center"}
-        border={1}
-        height={40}
-        width={"100%"}
-        borderRadius={"10%"}
-        backgroundColor={palette.appBar}
-        color={"white"}
-        sx={{ position: "absolute", marginTop: "92vh" }}
-      >
-        <Typography width={"100%"} textAlign={"center"}>
-          Made by Sthemma
-        </Typography>
-      </Grid>
-    </Box>
-  );
-
   //==================================RENDER======================================
   return (
-    <Box
-    minHeight={"100vh"}
-    sx={{ display: "flex" }}>
+    <Box minHeight={"100vh"} sx={{ display: "flex" }}>
       <CssBaseline />
       <Toaster
         toastOptions={{ style: { background: "gray", color: "white" } }}
@@ -473,11 +147,8 @@ function Display() {
         </Toolbar>
       </AppBar>
 
-      {/* -------------------------DRAWER------------------------ */}
-      {/* {isSmallScreen ? ss=0 : ss=drawerWidth} */}
       <Box
         component="nav"
-        sx={{ width: { md: ss }, flexShrink: { md: 0 } }}
         sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
         aria-label="mailbox folders"
       >
@@ -493,9 +164,8 @@ function Display() {
               width: drawerWidth,
             },
           }}
-          // open
         >
-          {drawer}
+          <DrawerContent />
         </Drawer>
       </Box>
 

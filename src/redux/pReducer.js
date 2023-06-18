@@ -5,6 +5,8 @@ import {
   FILTER_BY_NAME,
   RESET_BOARD,
   FILTER_BY_CATEG,
+  FILTER_BY_DISPONIBILITY,
+  FILTER_BY_PROPERTY,
 } from "./actions";
 
 const initialState = {
@@ -36,11 +38,9 @@ const pReducer = (state = initialState, action) => {
 
     case FILTER_BY_PROVIDER:
       let prodsProvider = [];
-      action.payload === "TODOS"
-        ? (prodsProvider = [...state.allProducts])
-        : (prodsProvider = state.filteredProducts.filter(
-            (prod) => prod.provider.name === action.payload
-          ));
+      prodsProvider = state.filteredProducts.filter(
+        (prod) => prod.provider.name === action.payload
+      );
       return {
         ...state,
         filteredProducts: prodsProvider,
@@ -48,11 +48,9 @@ const pReducer = (state = initialState, action) => {
 
     case FILTER_BY_CATEG:
       let prodsCateg = [];
-      action.payload === "TODOS"
-        ? (prodsCateg = [...state.allProducts])
-        : (prodsCateg = state.filteredProducts.filter(
-            (prod) => prod.category.name === action.payload
-          ));
+      prodsCateg = state.filteredProducts.filter(
+        (prod) => prod.category.name === action.payload
+      );
       return {
         ...state,
         filteredProducts: prodsCateg,
@@ -73,6 +71,23 @@ const pReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredProducts: [...state.allProducts],
+      };
+
+    case FILTER_BY_DISPONIBILITY:
+      return {
+        ...state,
+        filteredProducts: state.filteredProducts.filter(
+          (p) => p.stateId === action.payload
+        ),
+      };
+
+    case FILTER_BY_PROPERTY:
+      return {
+        ...state,
+        filteredProducts: state.filteredProducts.filter((p) => {
+          const ic = p.icons.map((i) => i.id);
+          return ic.includes(Number(action.payload));
+        }),
       };
 
       return {

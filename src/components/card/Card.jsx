@@ -52,12 +52,12 @@ const colorsDot = (id) => {
       return (colorD = "green");
       break;
     case 2:
-      //agotado
-      return (colorD = "red");
+      //llegó
+      return (colorD = "blue");
       break;
     case 3:
-      //llegado
-      return (colorD = "blue");
+      //agotado
+      return (colorD = "red");
       break;
     case 4:
       //escaso

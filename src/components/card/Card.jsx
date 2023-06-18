@@ -125,7 +125,7 @@ function Card(props) {
           {/* EXISTENCIA EN INVENTARIO------------------------------------------------------ */}
           <Typography variant="body2">{`0315`}</Typography>
 
-          <Typography fontSize={13} textAlign="center" p={1} boxShadow={2}>
+          <Typography fontSize={13} textAlign="justify" p={1} boxShadow={2}>
             {props.descripcion}
           </Typography>
 
@@ -137,7 +137,6 @@ function Card(props) {
             alt="producto"
             // border="1"
           />
-      
 
           <Divider sx={{ width: "80%" }} />
           <Grid item display={"flex"} justifyContent={"center"} marginTop={1}>

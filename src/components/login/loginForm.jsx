@@ -27,7 +27,6 @@ function LoginForm() {
     try {
       dispatch(getAuthUser(email)); //brings the authUser to the state
       dispatch(getProdsUser(email)); //brings products and providers of that user to the state
-      // navigate("/products");
       navigate("/starter");
     } catch ({ response }) {
       toast("La identificación o la contraseña son incorrectos 😳");

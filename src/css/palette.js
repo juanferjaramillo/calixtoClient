@@ -4,9 +4,9 @@ const darkorange = "#E26C2C";
 const darkblue="#27457D";
 
 const palette = {
-    backgroundDisplay: lightorange,
-    appBar: darkblue,
-    icons: darkblue,
+    backgroundDisplay: lightblue,
+    appBar: darkorange,
+    icons: darkorange,
 }
 
 export default palette;

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -24,21 +23,24 @@ import {
   filterByProvider,
   filterByName,
   resetBoard,
+  filterByCategory
 } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
+import Checkbox from "@mui/material/Checkbox";
+import FormGroup from "@mui/material/FormGroup";
 import WorkIcon from "@mui/icons-material/Work";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SearchIcon from "@mui/icons-material/Search";
-import InventoryIcon from '@mui/icons-material/Inventory';
-import CategoryIcon from '@mui/icons-material/Category';
-import { fabClasses } from "@mui/material";
-import palette from "../../css/palette.js"
+import InventoryIcon from "@mui/icons-material/Inventory";
+import CategoryIcon from "@mui/icons-material/Category";
+import ClassIcon from "@mui/icons-material/Class";
+import { FormControlLabel, fabClasses } from "@mui/material";
+import palette from "../../css/palette.js";
 
-
-let ss=0;
+let ss = 0;
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
 //------------------------------COMPONENT-------------------------
@@ -47,6 +49,7 @@ function Display() {
   const [FBP, setFBP] = useState("TODOS");
   const [FBC, setFBC] = useState("TODOS");
   const [FBD, setFBD] = useState("TODOS");
+  const [FBPP, setFBPP] = useState("TODOS");
   const [initCard, setInitCard] = useState(0);
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
@@ -55,9 +58,11 @@ function Display() {
   const [selectCateg, setSelectCateg] = useState(false);
   const [selectDisp, setSelectDisp] = useState(false);
   const [smallScreen, setSmallScreen] = useState(false);
+  const [selectPro, setSelectPro] = useState(false);
 
   // const providers = JSON.parse(sessionStorage.getItem("providers"));
   const providers = useSelector((state) => state.product.providers);
+  const categories = useSelector(state=>state.product.categories);
   const logoOwner = useSelector(
     (state) => state.users.authUser?.owner?.logoOwner
   );
@@ -123,6 +128,7 @@ function Display() {
   const handleResetClick = () => {
     inputRef.current ? (inputRef.current.value = "") : null;
     setFBP("TODOS");
+    setFBC("TODOS");
     dispatch(resetBoard());
     document.documentElement.scrollTop = 0;
     setInitCard((init) => 0);
@@ -135,8 +141,18 @@ function Display() {
     navigate("/");
   };
 
+  const handleFilterCategChange = (event) => {
+    console.log(event.target.value);
+
+    dispatch(filterByCategory(event.target.value));
+    //to keep the selection box updated
+    document.documentElement.scrollTop = 0;
+    setFBC(event.target.value);
+    setRender((r) => !r);
+  };
   const handleFilterDispChange = () => {};
-  const handleFilterCategChange = () => {};
+
+  const handleFilterProChange = () => {};
 
   //------------------------DRAWER FUNCTION------------------------------
 
@@ -176,9 +192,9 @@ function Display() {
                 }}
                 value={FBP}
               >
-                <MenuItem key={0} value="TODOS">
+                {/* <MenuItem key={0} value="TODOS">
                   Todos
-                </MenuItem>
+                </MenuItem> */}
                 {providers?.map((p, i) => {
                   return (
                     <MenuItem key={i + 1} value={p}>
@@ -214,23 +230,80 @@ function Display() {
               }}
               value={FBC}
             >
-              <MenuItem key={0} value="TODOS">
+              {/* <MenuItem key={0} value="TODOS">
                 Todos
-              </MenuItem>
-              {["Categ1", "Categ1", "Categ1"].map((e, i) => (
-                <MenuItem key={i+1} value={e}>
+              </MenuItem> */}
+              {categories?.map((e, i) => {
+                return(
+                <MenuItem key={i + 1} value={e}>
                   {e}
                 </MenuItem>
-              ))}
+              )}
+              )}
             </Select>
           </>
         )}
 
         <Divider />
 
+        <ListItem key={"propiedad"}>
+          <ListItemButton onClick={() => setSelectPro(!selectPro)}>
+            <ClassIcon sx={{ color: palette.icons }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Propiedad" />
+          </ListItemButton>
+        </ListItem>
+
+        <FormGroup
+        sx={{ml: 2}}
+        >
+          {!selectPro ? null : (
+            <>           
+             <FormControlLabel 
+             control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Vegano" />
+            <FormControlLabel control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Vegetariano" />
+            <FormControlLabel control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Alto Proteína" />
+            <FormControlLabel control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Keto" />
+            <FormControlLabel control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Apto Diabéticos" />
+            <FormControlLabel control={
+            <Checkbox
+              checked={false}
+              // onChange={handleChange}
+              inputProps={{ "aria-label": "controlled" }}
+            />} label = "Gluten Free" />
+            </>
+          )}
+        </FormGroup>
+
+        <Divider />
+
         <ListItem key={"disponibilidad"}>
           <ListItemButton onClick={() => setSelectDisp(!selectDisp)}>
-            <InventoryIcon sx={{ color: palette.icons  }} />
+            <InventoryIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Disponibilidad" />
           </ListItemButton>
         </ListItem>
@@ -250,11 +323,11 @@ function Display() {
               }}
               value={FBD}
             >
-              <MenuItem key={0} value="TODOS">
+              {/* <MenuItem key={0} value="TODOS">
                 Todos
-              </MenuItem>
+              </MenuItem> */}
               {["Llegado", "Escaso", "Agotado"].map((e, i) => (
-                <MenuItem key={i+1} value={e}>
+                <MenuItem key={i + 1} value={e}>
                   {e}
                 </MenuItem>
               ))}
@@ -329,7 +402,9 @@ function Display() {
 
   //==================================RENDER======================================
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box
+    minHeight={"100vh"}
+    sx={{ display: "flex" }}>
       <CssBaseline />
       <Toaster
         toastOptions={{ style: { background: "gray", color: "white" } }}
@@ -338,7 +413,7 @@ function Display() {
       <AppBar
         position="fixed"
         sx={{
-          width: {md: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
         }}
       >
@@ -364,7 +439,7 @@ function Display() {
                 variant="h6"
                 noWrap
                 component="div"
-                sx={{ fontSize: { xs: "100%",md: "130%", md: "160%" } }}
+                sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
               >
                 {nameOwner}: {sloganOwner}
               </Typography>
@@ -375,7 +450,7 @@ function Display() {
                 sx={{
                   // backgroundColor: "gray",
                   color: "white",
-                  fontSize: { xs: "80%",md: "90%", md: "100%" },
+                  fontSize: { xs: "80%", md: "90%", md: "100%" },
                 }}
                 onClick={() => navigate("/starter")}
               >
@@ -402,7 +477,7 @@ function Display() {
       {/* {isSmallScreen ? ss=0 : ss=drawerWidth} */}
       <Box
         component="nav"
-        sx={{ width: { md:ss }, flexShrink: { md: 0 } }}
+        sx={{ width: { md: ss }, flexShrink: { md: 0 } }}
         sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
         aria-label="mailbox folders"
       >
@@ -432,7 +507,12 @@ function Display() {
       >
         <Toolbar />
 
-        <Grid item display={"flex"} justifyContent={"center"} sx={{ flexWrap: "wrap" }}>
+        <Grid
+          item
+          display={"flex"}
+          justifyContent={"center"}
+          sx={{ flexWrap: "wrap" }}
+        >
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
                 return (

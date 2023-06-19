@@ -9,10 +9,10 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import WorkIcon from "@mui/icons-material/Work";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
-import video1 from "../../../assets/video1.mp4";
-import video2 from "../../../assets/video2.mp4";
-import video3 from "../../../assets/video3.mp4";
-import video4 from "../../../assets/video4.mp4";
+// import video1 from "../../../assets/video1.mp4";
+// import video2 from "../../../assets/video2.mp4";
+// import video3 from "../../../assets/video3.mp4";
+// import video4 from "../../../assets/video4.mp4";
 
 //==================Component=======================
 function Starter() {
@@ -76,7 +76,8 @@ function Starter() {
               // loop
               muted
               // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={video1}
+              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184750/calixto/videos/video2_vqi7tg.mp4"}
+              // src={video1}
               type="video/mp4"
               width={"70%"}
               style={{ objectFit: "fill", margin:10 }}
@@ -88,7 +89,8 @@ function Starter() {
               // loop
               muted
               // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={video2}
+              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184748/calixto/videos/video4_eqf3qw.mp4"}
+              // src={video2}
               type="video/mp4"
               width={"70%"}
               style={{ objectFit: "fill", margin:10  }}
@@ -100,7 +102,8 @@ function Starter() {
               // loop
               muted
               // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={video3}
+              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184747/calixto/videos/video1_k6r5jj.mp4"}
+              // src={video3}
               type="video/mp4"
               width={"70%"}
               style={{ objectFit: "fill", margin:10  }}
@@ -112,7 +115,8 @@ function Starter() {
               // loop
               muted
               // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={video4}
+              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184746/calixto/videos/video3_sxo33b.mp4"}
+              // src={video4}
               type="video/mp4"
               width={"70%"}
               style={{ objectFit: "fill", margin:10  }}

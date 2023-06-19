@@ -97,7 +97,7 @@ function Display() {
             display={"flex"}
             justifyContent={"space-between"}
             alignItems={"center"}
-            width={"100%"}
+            width={"100vw"}
           >
             <IconButton
               color="inherit"
@@ -111,7 +111,7 @@ function Display() {
             <Grid item>
               <Typography
                 variant="h6"
-                noWrap
+                // noWrap
                 component="div"
                 sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
               >

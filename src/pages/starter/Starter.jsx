@@ -9,10 +9,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import WorkIcon from "@mui/icons-material/Work";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
-// import video1 from "../../../assets/video1.mp4";
-// import video2 from "../../../assets/video2.mp4";
-// import video3 from "../../../assets/video3.mp4";
-// import video4 from "../../../assets/video4.mp4";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
+import video1 from "../../../assets/video1.mp4";
+import video2 from "../../../assets/video2.mp4";
+import video3 from "../../../assets/video3.mp4";
+import video4 from "../../../assets/video4.mp4";
 
 //==================Component=======================
 function Starter() {
@@ -26,6 +28,10 @@ function Starter() {
   const handleClick = () => {
     navigate("/products");
   };
+
+  let videoWidth = "30%";
+  const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
+  isSmallScreen ? (videoWidth = "100%") : null;
 
   //-------------------------Render---------------------
   return (
@@ -43,6 +49,7 @@ function Starter() {
             onChange={handleChange}
             aria-label="basic tabs example"
             centered
+            
           >
             <Tab icon={<WorkIcon />} label="Proveedores" />
             <Tab icon={<FiberNewIcon />} label="Novedades" />
@@ -57,6 +64,7 @@ function Starter() {
               onClick={handleClick}
               width={"90%"}
               style={{ objectFit: "fit", cursor: "pointer" }}
+              
             />
           </Grid>
         </TabPanel>
@@ -65,63 +73,74 @@ function Starter() {
           <Grid
             item
             display={"Flex"}
-            justifyContent={"center"}
+            flexDirection={"row"}
+            justifyContent={"space-between"}
             alignItems={"center"}
-            width={"30vw"}
+            flexWrap={"wrap"}
+            padding={1}
+            width={"90vw"}
+            height={"80vh"}
             sx={{ cursor: "pointer" }}
             onClick={() => navigate("/products")}
+            // border={2}
           >
-            <video
-              // autoPlay
-              // loop
-              muted
-              // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184750/calixto/videos/video2_vqi7tg.mp4"}
-              // src={video1}
-              type="video/mp4"
-              width={"70%"}
-              style={{ objectFit: "fill", margin:10 }}
-              controls
-            ></video>
+            
+              <video
+                type="video/mp4"
+                width={videoWidth}
+                src={
+                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184750/calixto/videos/video2_vqi7tg.mp4"
+                }
+                // src={video1}
+                controls
+                // autoPlay
+                // loop
+                // muted
+                // poster="https://assets.codepen.io/6093409/river.jpg"
+              ></video>
 
-            <video
-              // autoPlay
-              // loop
-              muted
-              // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184748/calixto/videos/video4_eqf3qw.mp4"}
-              // src={video2}
-              type="video/mp4"
-              width={"70%"}
-              style={{ objectFit: "fill", margin:10  }}
-              controls
-            ></video>
-
-            <video
-              // autoPlay
-              // loop
-              muted
-              // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184747/calixto/videos/video1_k6r5jj.mp4"}
-              // src={video3}
-              type="video/mp4"
-              width={"70%"}
-              style={{ objectFit: "fill", margin:10  }}
-              controls
-            ></video>
-
-            <video
-              // autoPlay
-              // loop
-              muted
-              // poster="https://assets.codepen.io/6093409/river.jpg"
-              src={"https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184746/calixto/videos/video3_sxo33b.mp4"}
-              // src={video4}
-              type="video/mp4"
-              width={"70%"}
-              style={{ objectFit: "fill", margin:10  }}
-              controls
-            ></video>
+              <video
+                type="video/mp4"
+                width={videoWidth}
+                src={
+                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184748/calixto/videos/video4_eqf3qw.mp4"
+                }
+                controls
+                // src={video2}
+                // autoPlay
+                // loop
+                // muted
+                // poster="https://assets.codepen.io/6093409/river.jpg"
+              ></video>
+           
+              <video
+                type="video/mp4"
+                width={videoWidth}
+                src={
+                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184747/calixto/videos/video1_k6r5jj.mp4"
+                }
+                controls
+                // src={video3}
+                // autoPlay
+                // loop
+                // muted
+                // poster="https://assets.codepen.io/6093409/river.jpg"
+              ></video>
+           
+              <video
+                type="video/mp4"
+                width={videoWidth}
+                src={
+                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184746/calixto/videos/video3_sxo33b.mp4"
+                }
+                controls
+                // src={video4}
+                // autoPlay
+                // loop
+                // muted
+                // poster="https://assets.codepen.io/6093409/river.jpg"
+              ></video>
+           
           </Grid>
         </TabPanel>
       </Grid>

@@ -40,9 +40,9 @@ export const getProdsUser = (usr) => {
         ).data)
       : null;
 
-    prodUser
-      ? prodUser.sort((a, b) => a.prioridad - b.prioridad)
-      : console.log("sin ordenar");
+    // prodUser
+    //   ? prodUser.sort((a, b) => a.prioridad - b.prioridad)
+    //   : console.log("sin ordenar");
 
     sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
     sessionStorage.setItem("providers", JSON.stringify(prove));

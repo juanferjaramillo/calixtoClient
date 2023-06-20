@@ -49,7 +49,6 @@ function Starter() {
             onChange={handleChange}
             aria-label="basic tabs example"
             centered
-            
           >
             <Tab icon={<WorkIcon />} label="Proveedores" />
             <Tab icon={<FiberNewIcon />} label="Novedades" />
@@ -81,7 +80,7 @@ function Starter() {
             width={"90vw"}
             height={"80vh"}
             sx={{ cursor: "pointer" }}
-            onClick={() => navigate("/products")}
+            // onClick={() => navigate("/products")}
             // border={2}
           >
             

@@ -42,7 +42,7 @@ function Starter() {
         flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
-      >
+      > 
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}

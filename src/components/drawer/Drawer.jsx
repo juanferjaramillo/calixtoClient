@@ -198,7 +198,7 @@ export default function DrawerContent() {
               }}
               value={FBD}
             >
-              {["Llegó", "Agotado", "Escaso"].map((d, i) => (
+              {["Llegado", "Agotado", "limitado"].map((d, i) => (
                 <MenuItem key={i} value={i + 2}>
                   {d}
                 </MenuItem>
@@ -244,10 +244,10 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"propiedad"}>
+        <ListItem key={"atributos"}>
           <ListItemButton onClick={() => setSelectPro(!selectPro)}>
             <ClassIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Propiedad" />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Atributos" />
           </ListItemButton>
         </ListItem>
 

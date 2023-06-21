@@ -173,7 +173,7 @@ function Display() {
       <Box
         component="main"
         backgroundColor={palette.backgroundDisplay}
-        sx={{ width: { md: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ width: { md: `calc(100% - ${drawerWidth}px)`,sm: "100%" } }}
       >
         <Toolbar />
 

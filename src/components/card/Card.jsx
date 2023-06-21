@@ -52,7 +52,7 @@ const colorsDot = (id) => {
       return (colorD = "green");
       break;
     case 2:
-      //llegó
+      //llegado
       return (colorD = "blue");
       break;
     case 3:
@@ -60,7 +60,7 @@ const colorsDot = (id) => {
       return (colorD = "red");
       break;
     case 4:
-      //escaso
+      //limitado
       return (colorD = "orange");
       break;
     default:

@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import WorkIcon from "@mui/icons-material/Work";
 import FiberNewIcon from "@mui/icons-material/FiberNew";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import Card from "@mui/material/Card";
 
 import video1 from "../../../assets/video1.mp4";
 import video2 from "../../../assets/video2.mp4";
@@ -31,7 +32,7 @@ function Starter() {
 
   let videoWidth = "30%";
   const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
-  isSmallScreen ? (videoWidth = "100%") : null;
+  isSmallScreen ? (videoWidth = "100%") : (videoWidth = "40%");
 
   //-------------------------Render---------------------
   return (
@@ -42,7 +43,7 @@ function Starter() {
         flexDirection={"column"}
         alignItems={"center"}
         justifyContent={"center"}
-      > 
+      >
         <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
           <Tabs
             value={value}
@@ -63,7 +64,6 @@ function Starter() {
               onClick={handleClick}
               width={"90%"}
               style={{ objectFit: "fit", cursor: "pointer" }}
-              
             />
           </Grid>
         </TabPanel>
@@ -80,66 +80,63 @@ function Starter() {
             width={"90vw"}
             height={"80vh"}
             sx={{ cursor: "pointer" }}
-            // onClick={() => navigate("/products")}
             // border={2}
           >
-            
-              <video
-                type="video/mp4"
-                width={videoWidth}
-                src={
-                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184750/calixto/videos/video2_vqi7tg.mp4"
-                }
-                // src={video1}
-                controls
-                // autoPlay
-                // loop
-                // muted
-                // poster="https://assets.codepen.io/6093409/river.jpg"
-              ></video>
+            <video
+              type="video/mp4"
+              width={videoWidth}
+              src={
+                " https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184750/calixto/videos/video2_vqi7tg.mp4"
+              }
+              controls
+              // src={video2}
+              // autoPlay
+              // loop
+              // muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+            ></video>
 
-              <video
-                type="video/mp4"
-                width={videoWidth}
-                src={
-                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184748/calixto/videos/video4_eqf3qw.mp4"
-                }
-                controls
-                // src={video2}
-                // autoPlay
-                // loop
-                // muted
-                // poster="https://assets.codepen.io/6093409/river.jpg"
-              ></video>
-           
-              <video
-                type="video/mp4"
-                width={videoWidth}
-                src={
-                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184747/calixto/videos/video1_k6r5jj.mp4"
-                }
-                controls
-                // src={video3}
-                // autoPlay
-                // loop
-                // muted
-                // poster="https://assets.codepen.io/6093409/river.jpg"
-              ></video>
-           
-              <video
-                type="video/mp4"
-                width={videoWidth}
-                src={
-                  "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184746/calixto/videos/video3_sxo33b.mp4"
-                }
-                controls
-                // src={video4}
-                // autoPlay
-                // loop
-                // muted
-                // poster="https://assets.codepen.io/6093409/river.jpg"
-              ></video>
-           
+            <video
+              type="video/mp4"
+              width={videoWidth}
+              src={
+                "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184748/calixto/videos/video4_eqf3qw.mp4"
+              }
+              controls
+              // src={video2}
+              // autoPlay
+              // loop
+              // muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+            ></video>
+
+            <video
+              type="video/mp4"
+              width={videoWidth}
+              src={
+                "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184747/calixto/videos/video1_k6r5jj.mp4"
+              }
+              controls
+              // src={video3}
+              // autoPlay
+              // loop
+              // muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+            ></video>
+
+            <video
+              type="video/mp4"
+              width={videoWidth}
+              src={
+                "https://res.cloudinary.com/dbxsr9mfc/video/upload/v1687184746/calixto/videos/video3_sxo33b.mp4"
+              }
+              controls
+              // src={video4}
+              // autoPlay
+              // loop
+              // muted
+              // poster="https://assets.codepen.io/6093409/river.jpg"
+            ></video>
           </Grid>
         </TabPanel>
       </Grid>

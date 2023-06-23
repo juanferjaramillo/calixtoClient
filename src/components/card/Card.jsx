@@ -185,7 +185,7 @@ function Card(props) {
                   textAlign: "center",
                 }}
               >
-                {`Código: ${props.codigo}`}
+                {`Código: ${props.id}`}
               </Typography>
        
           </StyledBadge>

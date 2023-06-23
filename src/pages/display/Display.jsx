@@ -89,6 +89,7 @@ function Display() {
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
+          height: "64px",
         }}
       >
         <Toolbar sx={{ backgroundColor: palette.appBar }}>
@@ -189,7 +190,7 @@ function Display() {
                   <Card
                     key={index}
                     ind={index}
-                    codigo={prod.codigo}
+                    id={prod.id}
                     nombre={prod.nombre}
                     Barras={prod.codigoBarras}
                     precio_base={prod.precioBase}

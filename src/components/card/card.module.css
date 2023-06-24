@@ -1,6 +1,6 @@
 .frontCard {
   animation-name: flipCard1;
-  animation-duration: 0.2s;
+  animation-duration: 0.9s;
   animation-iteration-count: 1;
 }
 @keyframes flipCard1 {

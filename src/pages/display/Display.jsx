@@ -43,9 +43,10 @@ function Display() {
   let data = [];
 
   function handleScroll() {
+    // console.log(document.documentElement.scrollTop);
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 1000
     ) {
       document.documentElement.scroll;
       setInitCard((init) => init + maxCards);
@@ -53,8 +54,8 @@ function Display() {
   }
 
   useEffect(() => {
-    toast.success("Bienvenido!");
     window.addEventListener("scroll", handleScroll);
+    toast.success("Bienvenido!");
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -75,7 +76,6 @@ function Display() {
     sessionStorage.clear();
     navigate("/");
   };
-
   //==================================RENDER======================================
   return (
     <Box minHeight={"100vh"} sx={{ display: "flex" }}>

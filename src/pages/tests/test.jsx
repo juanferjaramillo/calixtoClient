@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import style from "../../components/card/card.module.css";
 
 const Test = () => {
   const [side, setSide] = useState(true);

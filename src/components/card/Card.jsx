@@ -44,6 +44,7 @@ function Card(props) {
       descripcion={props.descripcion}
       icons={props.icons}
       Barras={props.Barras}
+      existencia={props.existencia}
       />
     </ReactCardFlip>
   );

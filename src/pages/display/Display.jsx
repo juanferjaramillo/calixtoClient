@@ -207,6 +207,7 @@ function Display() {
                     iva={prod.tax?.tax}
                     icons={prod.icons} //array of objects with iconUrl
                     estado={prod.state.id}
+                    existencia={prod.existencia}
                   />
                 );
               })

@@ -18,6 +18,7 @@ import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import palette from "../../css/palette.js";
 import DrawerContent from "../../components/drawer/Drawer";
+import { resetBoard } from "../../redux/actions";
 
 let ss = 0;
 const drawerWidth = 180;
@@ -76,6 +77,12 @@ function Display() {
     sessionStorage.clear();
     navigate("/");
   };
+
+  const handleInicioClick = () => {
+    dispatch(resetBoard());
+    navigate("/starter");
+  };
+
   //==================================RENDER======================================
   return (
     <Box minHeight={"100vh"} sx={{ display: "flex" }}>
@@ -127,7 +134,7 @@ function Display() {
                   color: "white",
                   fontSize: { xs: "80%", md: "90%", md: "100%" },
                 }}
-                onClick={() => navigate("/starter")}
+                onClick={handleInicioClick}
               >
                 Inicio
               </Button>
@@ -174,7 +181,7 @@ function Display() {
       <Box
         component="main"
         backgroundColor={palette.backgroundDisplay}
-        sx={{ width: { md: `calc(100% - ${drawerWidth}px)`,sm: "100%" } }}
+        sx={{ width: { md: `calc(100% - ${drawerWidth}px)`, sm: "100%" } }}
       >
         <Toolbar />
 

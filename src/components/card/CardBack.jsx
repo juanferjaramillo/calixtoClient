@@ -47,7 +47,7 @@ import {
   //================component==================
   export default function CardBack(props) {
     const theme = useTheme();
-
+    console.log(props);
     return (
         <Box
         key={props.ind}
@@ -76,7 +76,7 @@ import {
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
   
           {/* EXISTENCIA EN INVENTARIO------------------------------------------------------ */}
-          <Typography variant="body2">{`0315`}</Typography>
+          <Typography variant="body2">{props.existencia}</Typography>
   
           <Typography fontSize={13} textAlign="justify" p={1} boxShadow={2}>
             {props.descripcion}

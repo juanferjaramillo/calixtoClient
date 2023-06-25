@@ -74,13 +74,17 @@ import {
           }}
         >
           <Typography variant="body1">{`Codigo: ${props.Barras}`}</Typography>
-  
-          {/* EXISTENCIA EN INVENTARIO------------------------------------------------------ */}
+
           <Typography variant="body2">{props.existencia}</Typography>
-  
-          <Typography fontSize={13} textAlign="justify" p={1} boxShadow={2}>
+          
+          <Grid item
+          sx={{height:"230px"}}
+          boxShadow={4}
+          >
+          <Typography fontSize={13} textAlign="justify" p={1} >
             {props.descripcion}
           </Typography>
+          </Grid>
   
           <img
             style={{ objectFit: "contain" }}

@@ -18,6 +18,7 @@ import { logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import palette from "../../css/palette.js";
 import DrawerContent from "../../components/drawer/Drawer";
+import { resetBoard } from "../../redux/actions";
 
 let ss = 0;
 const drawerWidth = 180;
@@ -43,9 +44,10 @@ function Display() {
   let data = [];
 
   function handleScroll() {
+    // console.log(document.documentElement.scrollTop);
     if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight - 1000
     ) {
       document.documentElement.scroll;
       setInitCard((init) => init + maxCards);
@@ -53,8 +55,8 @@ function Display() {
   }
 
   useEffect(() => {
-    toast.success("Bienvenido!");
     window.addEventListener("scroll", handleScroll);
+    toast.success("Bienvenido!");
     return () => document.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -76,6 +78,11 @@ function Display() {
     navigate("/");
   };
 
+  const handleInicioClick = () => {
+    dispatch(resetBoard());
+    navigate("/starter");
+  };
+
   //==================================RENDER======================================
   return (
     <Box minHeight={"100vh"} sx={{ display: "flex" }}>
@@ -89,6 +96,7 @@ function Display() {
         sx={{
           width: { md: `calc(100% - ${drawerWidth}px)` },
           ml: { md: `${drawerWidth}px` },
+          height: "64px",
         }}
       >
         <Toolbar sx={{ backgroundColor: palette.appBar }}>
@@ -126,7 +134,7 @@ function Display() {
                   color: "white",
                   fontSize: { xs: "80%", md: "90%", md: "100%" },
                 }}
-                onClick={() => navigate("/starter")}
+                onClick={handleInicioClick}
               >
                 Inicio
               </Button>
@@ -173,7 +181,7 @@ function Display() {
       <Box
         component="main"
         backgroundColor={palette.backgroundDisplay}
-        sx={{ width: { md: `calc(100% - ${drawerWidth}px)` } }}
+        sx={{ width: { md: `calc(100% - ${drawerWidth}px)`, sm: "100%" } }}
       >
         <Toolbar />
 
@@ -189,7 +197,7 @@ function Display() {
                   <Card
                     key={index}
                     ind={index}
-                    codigo={prod.codigo}
+                    id={prod.id}
                     nombre={prod.nombre}
                     Barras={prod.codigoBarras}
                     precio_base={prod.precioBase}

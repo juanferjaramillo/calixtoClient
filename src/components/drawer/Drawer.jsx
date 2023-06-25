@@ -83,7 +83,7 @@ export default function DrawerContent() {
     setFBP("");
     setFBC("");
     setFBD("");
-    setFBPP([false,false,false,false,false,false]);
+    setFBPP([false, false, false, false, false, false]);
     dispatch(resetBoard());
     document.documentElement.scrollTop = 0;
     setInitCard((init) => 0);
@@ -105,7 +105,7 @@ export default function DrawerContent() {
   };
 
   const handleCheckChange = (event) => {
-    dispatch(filterByProperty(event.target.value))
+    dispatch(filterByProperty(event.target.value));
     let checks = FBPP;
     checks[event.target.value - 1] = true;
     setFBPP(checks);
@@ -114,7 +114,8 @@ export default function DrawerContent() {
 
   //---------------------Render-----------------
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" } }
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <Grid item>
         <img
@@ -127,8 +128,7 @@ export default function DrawerContent() {
       </Grid>
       <Divider />
       <List>
-
-      <ListItem>
+        <ListItem>
           <Button
             variant="outlined"
             color="success"
@@ -141,7 +141,15 @@ export default function DrawerContent() {
         </ListItem>
 
         <ListItem key={"proveedor"}>
-          <ListItemButton onClick={() => setSelectProv(!selectProv)}>
+          <ListItemButton
+            onClick={() => {
+              setSelectProv(!selectProv);
+              setSelectCateg(false);
+              setSelectPro(false);
+              setSelectDisp(false);
+              setSearchProd(false);
+            }}
+          >
             <WorkIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Proveedor" />
           </ListItemButton>
@@ -177,7 +185,15 @@ export default function DrawerContent() {
         <Divider />
 
         <ListItem key={"disponibilidad"}>
-          <ListItemButton onClick={() => setSelectDisp(!selectDisp)}>
+          <ListItemButton
+            onClick={() => {
+              setSelectDisp(!selectDisp);
+              setSelectProv(false);
+              setSelectCateg(false);
+              setSelectPro(false);
+              setSearchProd(false);
+            }}
+          >
             <InventoryIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Disponibilidad" />
           </ListItemButton>
@@ -198,7 +214,7 @@ export default function DrawerContent() {
               }}
               value={FBD}
             >
-              {["Llegó", "Agotado", "Escaso"].map((d, i) => (
+              {["Llegado", "Agotado", "limitado"].map((d, i) => (
                 <MenuItem key={i} value={i + 2}>
                   {d}
                 </MenuItem>
@@ -210,7 +226,14 @@ export default function DrawerContent() {
         <Divider />
 
         <ListItem key={"categoria"}>
-          <ListItemButton onClick={() => setSelectCateg(!selectCateg)}>
+          <ListItemButton onClick={() => {
+            setSelectCateg(!selectCateg);
+            setSelectDisp(false);
+            setSelectProv(false);
+            setSelectPro(false);
+            setSearchProd(false);
+            
+            }}>
             <CategoryIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
           </ListItemButton>
@@ -244,15 +267,20 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"propiedad"}>
-          <ListItemButton onClick={() => setSelectPro(!selectPro)}>
+        <ListItem key={"atributos"}>
+          <ListItemButton onClick={() => {
+            setSelectPro(!selectPro)
+            setSelectDisp(false);
+            setSelectProv(false);
+            setSelectCateg(false);
+            setSearchProd(false);
+          }}>
             <ClassIcon sx={{ color: palette.icons }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Propiedad" />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Atributos" />
           </ListItemButton>
         </ListItem>
 
-        <FormGroup 
-        sx={{ ml: 2}}>
+        <FormGroup sx={{ ml: 2 }}>
           {!selectPro ? null : (
             <Grid container>
               <FormControlLabel
@@ -335,10 +363,14 @@ export default function DrawerContent() {
 
         <Divider />
 
-       
-
         <ListItem key={"Nproducto"}>
-          <ListItemButton onClick={() => setSearchProd(!searchProd)}>
+          <ListItemButton onClick={() => {
+            setSearchProd(!searchProd)
+            setSelectDisp(false);
+            setSelectProv(false);
+            setSelectCateg(false);
+            setSelectPro(false);
+            }}>
             <LocalGroceryStoreIcon sx={{ color: palette.icons }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
           </ListItemButton>
@@ -365,7 +397,6 @@ export default function DrawerContent() {
           </Grid>
         )}
         <Divider sx={{ mb: 3 }} />
-
       </List>
 
       {/* <Grid

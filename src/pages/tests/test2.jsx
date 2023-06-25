@@ -49,7 +49,7 @@ function Test2() {
     <div>
         <h1>Data here</h1>
       {filtProds.map((prod, index) => {
-        return <p>{prod.codigo}</p>;
+        return <p>{prod.id}</p>;
       })}
     </div>
   );

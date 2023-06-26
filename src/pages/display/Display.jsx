@@ -30,7 +30,7 @@ function Display() {
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
 
-  const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
+  // const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
   const sloganOwner = useSelector(
     (state) => state.users.authUser?.owner?.sloganOwner
   );
@@ -123,7 +123,7 @@ function Display() {
                 component="div"
                 sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
               >
-                {nameOwner}: {sloganOwner}
+                {sloganOwner}
               </Typography>
             </Grid>
             <Grid item display={"flex"}>

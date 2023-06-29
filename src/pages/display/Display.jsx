@@ -19,6 +19,7 @@ import { Toaster, toast } from "sonner";
 import palette from "../../css/palette.js";
 import DrawerContent from "../../components/drawer/Drawer";
 import { resetBoard } from "../../redux/actions";
+import { lightBlue } from "@mui/material/colors";
 
 let ss = 0;
 const drawerWidth = 180;
@@ -35,10 +36,13 @@ function Display() {
     (state) => state.users.authUser?.owner?.sloganOwner
   );
   const filtProds = useSelector((state) => state.product.filteredProducts);
+    const colorPrimario = `#${useSelector(state=>state.users?.authUser?.owner?.colorPrimario)}`
+    const colorSecundario = `#${useSelector(state=>state.users?.authUser?.owner?.colorSecundario)}`
+    const colorTerciario = `#${useSelector(state=>state.users?.authUser?.owner?.colorTerciario)}`
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const inputRef = useRef(null);
-
   // const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
   const isSmallScreen = useMediaQuery(`(max-width: 900px)`);
   let data = [];
@@ -99,7 +103,8 @@ function Display() {
           height: "64px",
         }}
       >
-        <Toolbar sx={{ backgroundColor: palette.appBar }}>
+        {/* <Toolbar sx={{ backgroundColor: palette.appBar }}> */}
+        <Toolbar sx={{ backgroundColor: colorPrimario}}>
           <Grid
             item
             display={"flex"}
@@ -180,7 +185,7 @@ function Display() {
       {/* -------------------------------BOARD------------------------- */}
       <Box
         component="main"
-        backgroundColor={palette.backgroundDisplay}
+        backgroundColor={colorSecundario}
         sx={{ width: { md: `calc(100% - ${drawerWidth}px)`, sm: "100%" } }}
       >
         <Toolbar />

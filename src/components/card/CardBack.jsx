@@ -47,7 +47,7 @@ import {
   //================component==================
   export default function CardBack(props) {
     const theme = useTheme();
-    console.log(props);
+    // console.log(props);
     return (
         <Box
         key={props.ind}

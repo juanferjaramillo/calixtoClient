@@ -57,6 +57,7 @@ export default function DrawerContent() {
   const logoOwner = useSelector(
     (state) => state.users.authUser?.owner?.logoOwner
   );
+  const colorPrimario = `#${useSelector(state=>state.users?.authUser?.owner?.colorPrimario)}`
 
   const dispatch = useDispatch();
 
@@ -150,7 +151,7 @@ export default function DrawerContent() {
               setSearchProd(false);
             }}
           >
-            <WorkIcon sx={{ color: palette.icons }} />
+            <WorkIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Proveedor" />
           </ListItemButton>
         </ListItem>
@@ -194,7 +195,7 @@ export default function DrawerContent() {
               setSearchProd(false);
             }}
           >
-            <InventoryIcon sx={{ color: palette.icons }} />
+            <InventoryIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Disponibilidad" />
           </ListItemButton>
         </ListItem>
@@ -234,7 +235,7 @@ export default function DrawerContent() {
             setSearchProd(false);
             
             }}>
-            <CategoryIcon sx={{ color: palette.icons }} />
+            <CategoryIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
           </ListItemButton>
         </ListItem>
@@ -275,7 +276,7 @@ export default function DrawerContent() {
             setSelectCateg(false);
             setSearchProd(false);
           }}>
-            <ClassIcon sx={{ color: palette.icons }} />
+            <ClassIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Atributos" />
           </ListItemButton>
         </ListItem>
@@ -371,7 +372,7 @@ export default function DrawerContent() {
             setSelectCateg(false);
             setSelectPro(false);
             }}>
-            <LocalGroceryStoreIcon sx={{ color: palette.icons }} />
+            <LocalGroceryStoreIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
           </ListItemButton>
         </ListItem>

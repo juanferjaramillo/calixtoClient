@@ -17,7 +17,7 @@ function App() {
         <Route  exact path={"/"} element={<Landing />}> </Route>
         <Route  exact path={"/starter"} element={<Starter />}> </Route>
         <Route  exact path={"/products"} element={<Display />}> </Route>
-        <Route  exact path={"/test"} element={<Test />}> </Route>
+        {/* <Route  exact path={"/test"} element={<CC />}> </Route> */}
         {/* <Route  exact path={"/test2"} element={<Card2 />}> </Route> */}
       </Routes>
   );

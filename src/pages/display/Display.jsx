@@ -14,7 +14,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/actions";
+import { getProdsUser, logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import palette from "../../css/palette.js";
 import DrawerContent from "../../components/drawer/Drawer";
@@ -31,14 +31,20 @@ function Display() {
   const [render, setRender] = useState(true);
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
 
-  // const nameOwner = useSelector((state) => state.users.authUser?.owner?.name);
+  const userId = useSelector(state=>state.users.authUser.id)
   const sloganOwner = useSelector(
     (state) => state.users.authUser?.owner?.sloganOwner
   );
   const filtProds = useSelector((state) => state.product.filteredProducts);
-    const colorPrimario = `#${useSelector(state=>state.users?.authUser?.owner?.colorPrimario)}`
-    const colorSecundario = `#${useSelector(state=>state.users?.authUser?.owner?.colorSecundario)}`
-    const colorTerciario = `#${useSelector(state=>state.users?.authUser?.owner?.colorTerciario)}`
+  const colorPrimario = `#${useSelector(
+    (state) => state.users?.authUser?.owner?.colorPrimario
+  )}`;
+  const colorSecundario = `#${useSelector(
+    (state) => state.users?.authUser?.owner?.colorSecundario
+  )}`;
+  const colorTerciario = `#${useSelector(
+    (state) => state.users?.authUser?.owner?.colorTerciario
+  )}`;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,6 +65,7 @@ function Display() {
   }
 
   useEffect(() => {
+    dispatch(getProdsUser(userId))
     window.addEventListener("scroll", handleScroll);
     toast.success("Bienvenido!");
     return () => document.removeEventListener("scroll", handleScroll);
@@ -104,7 +111,7 @@ function Display() {
         }}
       >
         {/* <Toolbar sx={{ backgroundColor: palette.appBar }}> */}
-        <Toolbar sx={{ backgroundColor: colorPrimario}}>
+        <Toolbar sx={{ backgroundColor: colorPrimario }}>
           <Grid
             item
             display={"flex"}
@@ -198,6 +205,14 @@ function Display() {
         >
           {cardsOnDisplay.length > 0
             ? cardsOnDisplay.map((prod, index) => {
+                let estado = 1;
+                if (prod.existencia / prod.rotacion <= prod.limitado / 100) {
+                  estado = 4;
+                }
+                if (prod.existencia / prod.rotacion <= prod.agotado / 100) {
+                  estado = 3;
+                }
+                //1-disponible / 2-llegado / 3-agotado / 4-limitado
                 return (
                   <Card
                     key={index}
@@ -211,7 +226,7 @@ function Display() {
                     categoria={prod.category?.name} //array of objects with name:""
                     iva={prod.tax?.tax}
                     icons={prod.icons} //array of objects with iconUrl
-                    estado={prod.state.id}
+                    estado={estado}
                     existencia={prod.existencia}
                   />
                 );

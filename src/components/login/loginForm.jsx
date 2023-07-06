@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAuthUser, getProdsUser } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 
@@ -12,11 +12,16 @@ const validationSchema = Yup.object({
   password: Yup.string().required("Por favor ingrese su contraseña"),
 });
 
-//======================Component===================
+//===============================COMPONENT===============================
 function LoginForm() {
   const [id, setId] = useState(localStorage.getItem("User"));
+  const [pswInput, setPswInput] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // const pswValid = useSelector((state) => state.users?.getAuthUser?.password);
+
+  // console.log(pswValid);
 
   const initialValues = {
     email: id,
@@ -24,15 +29,18 @@ function LoginForm() {
   };
 
   const submitHandler = async ({ email, password }) => {
-    try {
+    // try {
       dispatch(getAuthUser(email)); //brings the authUser to the state
+    if (password === "valeria") {
       dispatch(getProdsUser(email)); //brings products and providers of that user to the state
       navigate("/starter");
-    } catch ({ response }) {
+    } else {
       toast("La identificación o la contraseña son incorrectos 😳");
-      //alert("La identificación o la contraseña son incorrectos 😳");
     }
-  };
+    // alert(`error inesperado: ${response}`);
+  }
+
+//--------------------------RENDER------------------------
 
   return (
     <Box>

@@ -1,6 +1,7 @@
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import WorkIcon from "@mui/icons-material/Work";
+import LogoutIcon from '@mui/icons-material/Logout';
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import SearchIcon from "@mui/icons-material/Search";
 import InventoryIcon from "@mui/icons-material/Inventory";
@@ -20,10 +21,9 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import palette from "../../css/palette.js";
 import { useState } from "react";
-import { Dispatch } from "react";
 import { useRef } from "react";
+import { logout } from "../../redux/actions";
 
 import {
   filterByProvider,
@@ -33,6 +33,7 @@ import {
   filterByDisponibility,
   filterByProperty,
 } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 //======================Component===============
 export default function DrawerContent() {
@@ -50,16 +51,18 @@ export default function DrawerContent() {
   const [render, setRender] = useState(true);
   const [initCard, setInitCard] = useState(0);
 
-  const inputRef = useRef(null);
-
   const providers = useSelector((state) => state.product.providers);
   const categories = useSelector((state) => state.product.categories);
   const logoOwner = useSelector(
     (state) => state.users.authUser?.owner?.logoOwner
   );
-  const colorPrimario = `#${useSelector(state=>state.users?.authUser?.owner?.colorPrimario)}`
+  const colorPrimario = `#${useSelector(
+    (state) => state.users?.authUser?.owner?.colorPrimario
+  )}`;
 
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleFilterProviderChange = (event) => {
     dispatch(filterByProvider(event.target.value));
@@ -111,6 +114,12 @@ export default function DrawerContent() {
     checks[event.target.value - 1] = true;
     setFBPP(checks);
     setRender((r) => !r);
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    sessionStorage.clear();
+    navigate("/");
   };
 
   //---------------------Render-----------------
@@ -227,14 +236,15 @@ export default function DrawerContent() {
         <Divider />
 
         <ListItem key={"categoria"}>
-          <ListItemButton onClick={() => {
-            setSelectCateg(!selectCateg);
-            setSelectDisp(false);
-            setSelectProv(false);
-            setSelectPro(false);
-            setSearchProd(false);
-            
-            }}>
+          <ListItemButton
+            onClick={() => {
+              setSelectCateg(!selectCateg);
+              setSelectDisp(false);
+              setSelectProv(false);
+              setSelectPro(false);
+              setSearchProd(false);
+            }}
+          >
             <CategoryIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Categoria" />
           </ListItemButton>
@@ -269,13 +279,15 @@ export default function DrawerContent() {
         <Divider />
 
         <ListItem key={"atributos"}>
-          <ListItemButton onClick={() => {
-            setSelectPro(!selectPro)
-            setSelectDisp(false);
-            setSelectProv(false);
-            setSelectCateg(false);
-            setSearchProd(false);
-          }}>
+          <ListItemButton
+            onClick={() => {
+              setSelectPro(!selectPro);
+              setSelectDisp(false);
+              setSelectProv(false);
+              setSelectCateg(false);
+              setSearchProd(false);
+            }}
+          >
             <ClassIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Atributos" />
           </ListItemButton>
@@ -365,13 +377,15 @@ export default function DrawerContent() {
         <Divider />
 
         <ListItem key={"Nproducto"}>
-          <ListItemButton onClick={() => {
-            setSearchProd(!searchProd)
-            setSelectDisp(false);
-            setSelectProv(false);
-            setSelectCateg(false);
-            setSelectPro(false);
-            }}>
+          <ListItemButton
+            onClick={() => {
+              setSearchProd(!searchProd);
+              setSelectDisp(false);
+              setSelectProv(false);
+              setSelectCateg(false);
+              setSelectPro(false);
+            }}
+          >
             <LocalGroceryStoreIcon sx={{ color: colorPrimario }} />
             <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
           </ListItemButton>
@@ -397,6 +411,15 @@ export default function DrawerContent() {
             </Button>
           </Grid>
         )}
+        {/* <Divider sx={{ mb: 3 }} /> */}
+        <Divider sx={{ mb: 3 }} />
+
+        <ListItem key={"Salir"}>
+          <ListItemButton onClick={handleLogout}>
+            <LogoutIcon sx={{ color: colorPrimario }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Logout" />
+          </ListItemButton>
+        </ListItem>
         <Divider sx={{ mb: 3 }} />
       </List>
 

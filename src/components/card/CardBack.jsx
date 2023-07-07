@@ -81,7 +81,10 @@ import {
           sx={{height:"230px"}}
           boxShadow={4}
           >
-          <Typography fontSize={13} textAlign="justify" p={1} >
+          <Typography 
+          sx={{ fontSize: 13 }}
+          // fontSize={13} 
+          textAlign="justify" p={1} >
             {props.descripcion}
           </Typography>
           </Grid>

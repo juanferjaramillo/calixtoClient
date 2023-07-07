@@ -19,9 +19,8 @@ function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // const pswValid = useSelector((state) => state.users?.getAuthUser?.password);
-
-  // console.log(pswValid);
+  const pswValid = useSelector((state) => state.users?.authUser?.password);
+  // console.log('pasword en state',pswValid);
 
   const initialValues = {
     email: id,
@@ -29,18 +28,23 @@ function LoginForm() {
   };
 
   const submitHandler = async ({ email, password }) => {
-    // try {
-      dispatch(getAuthUser(email)); //brings the authUser to the state
-    if (password === "valeria") {
-      dispatch(getProdsUser(email)); //brings products and providers of that user to the state
+    dispatch(getAuthUser(email)); //brings the authUser to the state
+    setPswInput(password);
+    setId(email);
+  };
+
+  useEffect(() => {
+    if (pswInput === pswValid) {
+      console.log("permitido");
+      dispatch(getProdsUser(id)); //brings products and providers of that user to the state
       navigate("/starter");
     } else {
-      toast("La identificación o la contraseña son incorrectos 😳");
+      console.log("negado");
+      toast.error("La identificación o la contraseña son incorrectos 😳");
     }
-    // alert(`error inesperado: ${response}`);
-  }
+  }, [pswInput]);
 
-//--------------------------RENDER------------------------
+  //--------------------------RENDER------------------------
 
   return (
     <Box>

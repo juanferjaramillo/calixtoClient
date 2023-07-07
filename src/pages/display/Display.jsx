@@ -83,16 +83,20 @@ function Display() {
     setMobileOpen(!mobileOpen);
   };
 
-  const handlelogout = () => {
-    dispatch(logout());
-    sessionStorage.clear();
-    navigate("/");
-  };
+  // const handlelogout = () => {
+  //   dispatch(logout());
+  //   sessionStorage.clear();
+  //   navigate("/");
+  // };
 
   const handleInicioClick = () => {
     dispatch(resetBoard());
     navigate("/starter");
   };
+
+  const handleCliente = () => {
+
+  }
 
   //==================================RENDER======================================
   return (
@@ -139,29 +143,42 @@ function Display() {
               </Typography>
             </Grid>
             <Grid item display={"flex"}>
+              
               <Button
                 variant="outlined"
                 sx={{
                   // backgroundColor: "gray",
                   color: "white",
-                  fontSize: { xs: "80%", md: "90%", md: "100%" },
+                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 7 },
+                }}
+                onClick={handleCliente}
+              >
+                Cliente
+              </Button>
+              
+              <Button
+                variant="outlined"
+                sx={{
+                  // backgroundColor: "gray",
+                  color: "white",
+                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 7 },
                 }}
                 onClick={handleInicioClick}
               >
                 Inicio
               </Button>
 
-              <Button
+              {/* <Button
                 variant="outlined"
                 sx={{
                   // backgroundColor: "gray",
                   color: "white",
-                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 5 },
+                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 7 },
                 }}
                 onClick={handlelogout}
               >
                 salir
-              </Button>
+              </Button> */}
             </Grid>
           </Grid>
         </Toolbar>

@@ -20,7 +20,9 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const pswValid = useSelector((state) => state.users?.authUser?.password);
-  // console.log('pasword en state',pswValid);
+
+  console.log("pasword en state1: ", pswValid);
+  console.log("password ingresado1: ", pswInput);
 
   const initialValues = {
     email: id,
@@ -28,12 +30,15 @@ function LoginForm() {
   };
 
   const submitHandler = async ({ email, password }) => {
-    dispatch(getAuthUser(email)); //brings the authUser to the state
+     dispatch(getAuthUser(email)); //brings the authUser to the state
+     console.log("dispatch ready");
     setPswInput(password);
     setId(email);
   };
 
   useEffect(() => {
+    console.log("pasword en state2: ", pswValid);
+    console.log("password ingresado2: ", pswInput);
     if (pswInput === pswValid) {
       console.log("permitido");
       dispatch(getProdsUser(id)); //brings products and providers of that user to the state
@@ -42,7 +47,7 @@ function LoginForm() {
       console.log("negado");
       toast.error("La identificación o la contraseña son incorrectos 😳");
     }
-  }, [pswInput]);
+  }, [pswValid]);
 
   //--------------------------RENDER------------------------
 
@@ -52,7 +57,7 @@ function LoginForm() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={submitHandler}
+        onSubmit={(values) => submitHandler(values)}
       >
         {(formik) => {
           const { errors, touched, isSubmitting } = formik;

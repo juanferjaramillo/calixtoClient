@@ -3,7 +3,7 @@ import { useActionData } from "react-router-dom";
 
 export const GET_AUTH_USER = "GET_AUTH_USER";
 export const GET_PRODS_USER = "GET_PRODS_USER";
-export const GET_ALL_USERS = "GET_ALL_USERS";
+// export const GET_ALL_USERS = "GET_ALL_USERS";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
@@ -54,17 +54,17 @@ export const getProdsUser = (usr) => {
   };
 };
 
-export const getAllUsers = () => {
-  //brings all the users from the db to the state
-  return async function (dispatch) {
-    let allUsers = await axios.get("/owners");
-    allUsers = allUsers.data;
-    return dispatch({
-      type: GET_ALL_USERS,
-      payload: allUsers,
-    });
-  };
-};
+// export const getAllUsers = () => {
+//   //brings all the users from the db to the state
+//   return async function (dispatch) {
+//     let allUsers = await axios.get("/owners");
+//     allUsers = allUsers.data;
+//     return dispatch({
+//       type: GET_ALL_USERS,
+//       payload: allUsers,
+//     });
+//   };
+// };
 
 export const logout = () => {
   return {

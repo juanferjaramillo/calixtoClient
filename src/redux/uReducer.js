@@ -1,6 +1,6 @@
 import {
   GET_AUTH_USER,
-  GET_ALL_USERS, 
+  // GET_ALL_USERS, 
   USER_LOGOUT
 } from "./actions";
 
@@ -19,11 +19,11 @@ const uReducer = (state = initialState, action) => {
       authUser: action.payload[0],
     }
     
-    case GET_ALL_USERS:
-      return {
-        ...state,
-        allUsers: action.payload,
-      };
+    // case GET_ALL_USERS:
+    //   return {
+    //     ...state,
+    //     allUsers: action.payload,
+    //   };
 
       case USER_LOGOUT:
         return {

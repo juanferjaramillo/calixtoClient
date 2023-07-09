@@ -22,6 +22,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 let ss = 0;
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
@@ -34,6 +35,10 @@ function Display() {
   const [cardsOnDisplay, setCardsOnDisplay] = useState([]);
   const [open, setOpen] = useState(false);
   const [crearCliente, setCrearCliente] = useState(false);
+  const [clientId, setClientId] = useState("");
+  const [clientName, setClientName] = useState("");
+  const [clientEmail, setClientEmail] = useState("");
+  const [clientCell, setClientCell] = useState("");
 
   const userId = useSelector((state) => state.users.authUser.id);
   const sloganOwner = useSelector(
@@ -104,7 +109,11 @@ function Display() {
     setOpen(true);
   };
 
-  const handleCrearCliente = () => {
+  const handleCrearCliente = async () => {
+              // console.log("Datos del cliente:");
+              // console.log(clientId, clientName, clientEmail, clientCell);
+              const newClient = {id:clientId, name:clientName, email:clientEmail, phone:clientCell, user:userId}
+              await axios.post('/client', newClient);
               setOpen(false);
               setCrearCliente(false);
             }
@@ -119,6 +128,7 @@ function Display() {
           label="identificacion"
           type="text"
           variant="filled"
+          onChange={()=>setClientId(event.target.value)}
           // fullWidth
         />
         {crearCliente ? null : (
@@ -136,6 +146,7 @@ function Display() {
               label="Nombre"
               type="text"
               sx={{ margin: 1 }}
+              onChange={()=>setClientName(event.target.value)}
               fullWidth
             />
             <TextField
@@ -143,6 +154,7 @@ function Display() {
               label="email"
               type="text"
               sx={{ margin: 1 }}
+              onChange={()=>setClientEmail(event.target.value)}
               fullWidth
             />
             <TextField
@@ -150,6 +162,7 @@ function Display() {
               label="Celular"
               type="text"
               sx={{ margin: 1 }}
+              onChange={()=>setClientCell(event.target.value)}
               fullWidth
             />
           </>
@@ -177,11 +190,7 @@ function Display() {
           <Button
             variant="contained"
             sx={{ margin: 1 }}
-            onClick={handleCrearCliente}
-            // onClick={() => {
-            //   setOpen(false);
-            //   setCrearCliente(false);
-            // }}
+            onClick={()=>handleCrearCliente(event.target.value)}
           >
             Crear!
           </Button>
@@ -210,6 +219,7 @@ function Display() {
           handleInicioClick={handleInicioClick}
         />
 
+        {/* ----------------------------------DRAWER----------------------------- */}
         <Box
           component="nav"
           sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
@@ -239,6 +249,7 @@ function Display() {
           sx={{ width: { md: `calc(100% - ${drawerWidth}px)`, sm: "100%" } }}
         >
           <Toolbar />
+          {/* para hacer espacio a la AppBar */}
 
           <Grid
             item

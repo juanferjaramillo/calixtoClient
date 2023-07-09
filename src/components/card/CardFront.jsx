@@ -1,14 +1,7 @@
-import {
-  Box,
-  Grid,
-  Typography,
-  Divider,
-  useTheme,
-  useMediaQuery,
-  Avatar,
-} from "@mui/material";
+import { Box, Grid, Typography, Divider, useTheme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
 
 let colorD = "white";
 
@@ -43,7 +36,6 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
   },
 }));
 
-
 const colorsDot = (id) => {
   switch (id) {
     case 1:
@@ -67,8 +59,10 @@ const colorsDot = (id) => {
   }
 };
 
-//================component==================
+//==========================COMPONENT=========================
 export default function CardFront(props) {
+  const clientValid = useSelector((state) => state.users?.client?.id);
+  const sell = useSelector((state)=> state.product.sell)
   const theme = useTheme();
 
   let PB = Number(props.precio_base).toFixed();
@@ -77,12 +71,13 @@ export default function CardFront(props) {
   PT = PT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   colorsDot(props.estado);
+  // console.log("clienteValido", clientValid);
+  //------------------------RENDER-------------------------
 
-    return (
-<Box
+  return (
+    <Box
       key={props.ind}
       margin={1}
-      onClick={props.onClick}
       sx={{
         width: "320px",
         height: "530px",
@@ -94,31 +89,69 @@ export default function CardFront(props) {
     >
       <Grid
         container
-        direction={"column"}
+        direction={"row"}
         alignItems={"center"}
-        justifyContent={"space-around"}
+        justifyContent={"flex-start"}
         sx={{
-          height: "500px",
-          cursor: "pointer",
+          height: "50px",
         }}
       >
+        {clientValid ? (
+          <Badge
+          // badgeContent={props.sell}
+          badgeContent={sell[props.id]}
+          >
+          <Grid
+            item
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+            sx={{ pl: 3, cursor: "pointer" }}
+            // border={1}
+            width="60px"
+            height="30px"
+            fontSize={30}
+            onClick={props.handleAddToCart}
+          >
+            🛒
+          </Grid>
+          </Badge>
+        ) : (
+          <Grid item width="60px" height="30px"></Grid>
+        )}
+
+        <Typography
+          variant="body1"
+          // border={1}
+          sx={{
+            width: "200px",
+            textAlign: "center",
+          }}
+        >
+          {`Código: ${props.id}`}
+        </Typography>
+
         <StyledBadge
           overlap="circular"
           anchorOrigin={{ vertical: "top", horizontal: "right" }}
           badgeContent=""
           variant="dot"
         >
-          <Typography
-            variant="body1"
-            sx={{
-              width: "310px",
-              textAlign: "center",
-            }}
-          >
-            {`Código: ${props.id}`}
-          </Typography>
+          <Grid item sx={{ width: "20px" }}></Grid>
         </StyledBadge>
-
+      </Grid>
+      <Grid
+        container
+        direction={"column"}
+        alignItems={"center"}
+        onClick={props.onClick}
+        justifyContent={"space-around"}
+        sx={{
+          height: "450px",
+          cursor: "pointer",
+        }}
+      >
         <img
           style={{ objectFit: "contain" }}
           src={props.prodImg}
@@ -150,5 +183,5 @@ export default function CardFront(props) {
         </Grid>
       </Grid>
     </Box>
-    )
+  );
 }

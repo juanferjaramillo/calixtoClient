@@ -3,15 +3,20 @@ import { useActionData } from "react-router-dom";
 
 export const GET_AUTH_USER = "GET_AUTH_USER";
 export const GET_PRODS_USER = "GET_PRODS_USER";
-export const GET_ALL_USERS = "GET_ALL_USERS";
+export const USER_LOGOUT = "USER_LOGOUT";
+export const GET_CLIENT = "GET_CLIENT";
+export const SEARCH_CLIENT = "SEARCH_CLIENT";
+export const EXIT_CLIENT = "EXIT_CLIENT";
+// export const GET_ALL_USERS = "GET_ALL_USERS";
+
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const FILTER_BY_PROVIDER = "FILTER_BY_PROVIDER";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const RESET_BOARD = "RESET_BOARD";
-export const USER_LOGOUT = "USER_LOGOUT";
 export const FILTER_BY_CATEG = "FILTER_BY_CATEG";
 export const FILTER_BY_DISPONIBILITY = "FILTER_BY_DISPONIBILITY";
 export const FILTER_BY_PROPERTY = "FILTER_BY_PROPERTY";
+export const SELL = "SELL";
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
@@ -27,6 +32,34 @@ export const getAuthUser = (usr) => {
     });
   };
 };
+
+export const getClient = (newClient) => {
+  return async function (dispatch) {
+    await axios.post("/client", newClient);
+    return dispatch({
+      type: GET_CLIENT,
+      payload: newClient,
+    });
+  };
+};
+
+export const searchClient = (id) => {
+  return async function (dispatch) {
+    const clienteBuscado = (await axios.get(`/client/${id}`)).data;
+    console.log("clienteBuscado", clienteBuscado);
+    return dispatch({
+      type: SEARCH_CLIENT,
+      payload: clienteBuscado,
+    });
+  };
+};
+
+export const exitClient = () => {
+  return {
+    type: EXIT_CLIENT,
+    payload: {}
+  }
+}
 
 export const getProdsUser = (usr) => {
   //brings the user products to the state
@@ -54,17 +87,25 @@ export const getProdsUser = (usr) => {
   };
 };
 
-export const getAllUsers = () => {
-  //brings all the users from the db to the state
-  return async function (dispatch) {
-    let allUsers = await axios.get("/owners");
-    allUsers = allUsers.data;
-    return dispatch({
-      type: GET_ALL_USERS,
-      payload: allUsers,
-    });
-  };
-};
+export const sell = (prdId,qty) => {
+  console.log(`${prdId}: ${qty}`)
+  return {
+    type: SELL,
+    payload: [prdId, qty]
+  }
+}
+
+// export const getAllUsers = () => {
+//   //brings all the users from the db to the state
+//   return async function (dispatch) {
+//     let allUsers = await axios.get("/owners");
+//     allUsers = allUsers.data;
+//     return dispatch({
+//       type: GET_ALL_USERS,
+//       payload: allUsers,
+//     });
+//   };
+// };
 
 export const logout = () => {
   return {
@@ -112,16 +153,16 @@ export const filterByName = (name) => {
 export const filterByDisponibility = (id) => {
   return {
     type: FILTER_BY_DISPONIBILITY,
-    payload: id
-  }
-}
+    payload: id,
+  };
+};
 
-export const filterByProperty= (pro) => {
+export const filterByProperty = (pro) => {
   return {
     type: FILTER_BY_PROPERTY,
-    payload: pro
-  }
-}
+    payload: pro,
+  };
+};
 
 export const resetBoard = () => {
   return {

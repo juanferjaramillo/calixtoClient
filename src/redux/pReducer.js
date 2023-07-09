@@ -7,6 +7,7 @@ import {
   FILTER_BY_CATEG,
   FILTER_BY_DISPONIBILITY,
   FILTER_BY_PROPERTY,
+  SELL
 } from "./actions";
 
 const initialState = {
@@ -14,6 +15,7 @@ const initialState = {
   filteredProducts: JSON.parse(sessionStorage.getItem("allProducts")) || [],
   providers: JSON.parse(sessionStorage.getItem("providers")) || [],
   categories: JSON.parse(sessionStorage.getItem("categ")) || [],
+  sell: {}
 };
 
 const pReducer = (state = initialState, action) => {
@@ -89,6 +91,14 @@ const pReducer = (state = initialState, action) => {
           return ic.includes(Number(action.payload));
         }),
       };
+     
+    case SELL:
+      const prdId = action.payload[0];
+      const qty = action.payload[1]
+      return {
+        ...state,
+        sell: {...state.sell, [prdId]:qty}
+      }  
 
       return {
         ...state,

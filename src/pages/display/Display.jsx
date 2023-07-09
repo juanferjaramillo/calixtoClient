@@ -10,10 +10,11 @@ import Card from "../../components/card/Card";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getProdsUser, logout } from "../../redux/actions";
+import { getProdsUser, logout, getClient } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import DrawerContent from "../../components/drawer/Drawer";
 import { resetBoard } from "../../redux/actions";
+import { searchClient, exitClient } from "../../redux/actions";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +42,7 @@ function Display() {
   const [clientCell, setClientCell] = useState("");
 
   const userId = useSelector((state) => state.users.authUser.id);
+  const clienteBuscado = useSelector(state=>state.users.client)
   const sloganOwner = useSelector(
     (state) => state.users.authUser?.owner?.sloganOwner
   );
@@ -77,6 +79,16 @@ function Display() {
     setRender((r) => !r);
   }, [filtProds]);
 
+  useEffect(()=>{
+    console.log("clienteBuscado",clienteBuscado);
+    if (clienteBuscado) {
+      setClientName(clienteBuscado.name);
+      setOpen(false)
+     }else{
+      toast.error("Este cliente no existe aún 🤨")
+     }
+  },[clienteBuscado])
+
   function handleScroll() {
     // console.log(document.documentElement.scrollTop);
     if (
@@ -100,24 +112,64 @@ function Display() {
 
   const handleInicioClick = () => {
     dispatch(resetBoard());
+    setClientId("");
+    setClientName("");
+    setClientEmail("");
+    setClientCell("");
+    dispatch(exitClient());
     navigate("/starter");
   };
 
-  const handleCloseClient = () => {};
+  const handleCloseClient = () => {
+    setOpen(false);
+  };
 
-  const handleCliente = () => {
+  const handleOpenCliente = () => {
     setOpen(true);
   };
 
-  const handleCrearCliente = async () => {
-              // console.log("Datos del cliente:");
-              // console.log(clientId, clientName, clientEmail, clientCell);
-              const newClient = {id:clientId, name:clientName, email:clientEmail, phone:clientCell, user:userId}
-              await axios.post('/client', newClient);
-              setOpen(false);
-              setCrearCliente(false);
-            }
+  const handleCrearCliente = () => {
+    const newClient = {
+      id: clientId,
+      name: clientName,
+      email: clientEmail,
+      phone: clientCell,
+      userId: userId,
+    };
+    dispatch(getClient(newClient))
+    // await axios.post("/client", newClient);
+    setOpen(false);
+    setCrearCliente(false);
+    toast("Cliente creado 👍🏻");
+  };
 
+  const handleBuscarCliente = async () => {
+    console.log("cl", clientId);
+    dispatch(searchClient(clientId))
+    // const clienteBuscado = (await axios.get(`/client/${clientId}`)).data;
+    // const clienteBuscado = useSelector(state=>state.users.client)
+    // console.log("clienteBuscado",clienteBuscado);
+    // if (clienteBuscado) {
+    //   setClientName(clienteBuscado.name);
+    //   setOpen(false)
+    //  }else{
+    //   toast.error("Este cliente no existe aún 🤨")
+    //  }
+  };
+
+  // const handleBuscarCliente = async () => {
+  //   // console.log("cl", clientId);
+  //   const clienteBuscado = (await axios.get(`/client/${clientId}`)).data;
+  //   // console.log(clienteBuscado);
+  //   if (clienteBuscado) {
+  //     setClientName(clienteBuscado.name);
+  //     setOpen(false)
+  //    }else{
+  //     toast.error("Este cliente no existe aún 🤨")
+  //    }
+  // };
+
+  //-------------------------Modal Cliente------------------------------
   const modalCliente = (
     <Dialog open={open} onClose={handleCloseClient}>
       <DialogTitle>Clientes</DialogTitle>
@@ -128,17 +180,21 @@ function Display() {
           label="identificacion"
           type="text"
           variant="filled"
-          onChange={()=>setClientId(event.target.value)}
+          onChange={() => setClientId(event.target.value)}
           // fullWidth
         />
         {crearCliente ? null : (
-          <Button variant="outlined" sx={{ margin: 1 }}>
+          <Button
+            variant="outlined"
+            sx={{ margin: 1 }}
+            onClick={handleBuscarCliente}
+          >
             Buscar
           </Button>
         )}
-  
+
         <Divider />
-  
+
         {crearCliente ? (
           <>
             <TextField
@@ -146,7 +202,7 @@ function Display() {
               label="Nombre"
               type="text"
               sx={{ margin: 1 }}
-              onChange={()=>setClientName(event.target.value)}
+              onChange={() => setClientName(event.target.value)}
               fullWidth
             />
             <TextField
@@ -154,7 +210,7 @@ function Display() {
               label="email"
               type="text"
               sx={{ margin: 1 }}
-              onChange={()=>setClientEmail(event.target.value)}
+              onChange={() => setClientEmail(event.target.value)}
               fullWidth
             />
             <TextField
@@ -162,7 +218,7 @@ function Display() {
               label="Celular"
               type="text"
               sx={{ margin: 1 }}
-              onChange={()=>setClientCell(event.target.value)}
+              onChange={() => setClientCell(event.target.value)}
               fullWidth
             />
           </>
@@ -172,7 +228,7 @@ function Display() {
             sx={{ margin: 1 }}
             onClick={() => setCrearCliente(true)}
           >
-            Nuevo
+            Crear / Editar
           </Button>
         )}
         <Button
@@ -185,14 +241,14 @@ function Display() {
         >
           Cancelar
         </Button>
-  
+
         {crearCliente ? (
           <Button
             variant="contained"
             sx={{ margin: 1 }}
-            onClick={()=>handleCrearCliente(event.target.value)}
+            onClick={() => handleCrearCliente}
           >
-            Crear!
+            Listo!
           </Button>
         ) : null}
       </DialogContent>
@@ -203,11 +259,11 @@ function Display() {
   return (
     <>
       {modalCliente}
-  
+
       <Box minHeight={"100vh"} sx={{ display: "flex" }}>
         <CssBaseline />
         <Toaster
-          toastOptions={{ style: { background: "gray", color: "white" } }}
+          // toastOptions={{ style: { background: "gray", color: "white" } }}
         />
         {/* ---------------------------------APP BAR----------------------------     */}
         <Appbar
@@ -215,8 +271,9 @@ function Display() {
           colorPrimario={colorPrimario}
           sloganOwner={sloganOwner}
           handleDrawerToggle={handleDrawerToggle}
-          handleCliente={handleCliente}
+          handleCliente={handleOpenCliente}
           handleInicioClick={handleInicioClick}
+          clientName={clientName}
         />
 
         {/* ----------------------------------DRAWER----------------------------- */}

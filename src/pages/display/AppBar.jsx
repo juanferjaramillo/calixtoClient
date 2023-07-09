@@ -5,25 +5,28 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { Divider } from "@mui/material";
 
 export default function Appbar(props) {
-    return (
-        <AppBar
-        position="fixed"
-        sx={{
-          width: { md: `calc(100% - ${props.drawerWidth}px)` },
-          ml: { md: `${props.drawerWidth}px` },
-          height: "64px",
-        }}
-      >
-        {/* <Toolbar sx={{ backgroundColor: palette.appBar }}> */}
-        <Toolbar sx={{ backgroundColor: props.colorPrimario }}>
+  return (
+    <AppBar
+      position="fixed"
+      sx={{
+        width: { md: `calc(100% - ${props.drawerWidth}px)` },
+        ml: { md: `${props.drawerWidth}px` },
+        height: "64px",
+      }}
+    >
+      {/* <Toolbar sx={{ backgroundColor: palette.appBar }}> */}
+      <Toolbar sx={{ backgroundColor: props.colorPrimario }}>
+        <Grid item display={"flex"} flexDirection={"column"}>
           <Grid
             item
             display={"flex"}
             justifyContent={"space-between"}
             alignItems={"center"}
-            width={"100vw"}
+            width={"80vw"}
+            // sx={{mr:5}}
           >
             <IconButton
               color="inherit"
@@ -45,7 +48,6 @@ export default function Appbar(props) {
               </Typography>
             </Grid>
             <Grid item display={"flex"}>
-              
               <Button
                 variant="outlined"
                 sx={{
@@ -57,7 +59,7 @@ export default function Appbar(props) {
               >
                 Cliente
               </Button>
-              
+
               <Button
                 variant="outlined"
                 sx={{
@@ -71,7 +73,12 @@ export default function Appbar(props) {
               </Button>
             </Grid>
           </Grid>
-        </Toolbar>
-      </AppBar>
-    )
+
+          <Grid item>
+            <Typography>{props.clientName}</Typography>
+          </Grid>
+        </Grid>
+      </Toolbar>
+    </AppBar>
+  );
 }

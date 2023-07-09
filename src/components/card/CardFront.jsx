@@ -1,12 +1,7 @@
-import {
-  Box,
-  Grid,
-  Typography,
-  Divider,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Typography, Divider, useTheme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
+import { useSelector } from "react-redux";
 
 let colorD = "white";
 
@@ -66,6 +61,8 @@ const colorsDot = (id) => {
 
 //==========================COMPONENT=========================
 export default function CardFront(props) {
+  const clientValid = useSelector((state) => state.users?.client?.id);
+  const sell = useSelector((state)=> state.product.sell)
   const theme = useTheme();
 
   let PB = Number(props.precio_base).toFixed();
@@ -74,7 +71,7 @@ export default function CardFront(props) {
   PT = PT.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   colorsDot(props.estado);
-
+  // console.log("clienteValido", clientValid);
   //------------------------RENDER-------------------------
 
   return (
@@ -99,21 +96,31 @@ export default function CardFront(props) {
           height: "50px",
         }}
       >
-        <Grid
-          item
-          display={"flex"}
-          flexDirection={"row"}
-          justifyContent={"flex-start"}
-          alignItems={"center"}
-          sx={{ pl: 3, cursor: "pointer" }}
-          // border={1}
-          width="60px"
-          height="30px"
-          fontSize={30}
-          onClick={props.handleAddToCart}
-        >
-          🛒
-        </Grid>
+        {clientValid ? (
+          <Badge
+          // badgeContent={props.sell}
+          badgeContent={sell[props.id]}
+          >
+          <Grid
+            item
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+            sx={{ pl: 3, cursor: "pointer" }}
+            // border={1}
+            width="60px"
+            height="30px"
+            fontSize={30}
+            onClick={props.handleAddToCart}
+          >
+            🛒
+          </Grid>
+          </Badge>
+        ) : (
+          <Grid item width="60px" height="30px"></Grid>
+        )}
+
         <Typography
           variant="body1"
           // border={1}
@@ -124,6 +131,7 @@ export default function CardFront(props) {
         >
           {`Código: ${props.id}`}
         </Typography>
+
         <StyledBadge
           overlap="circular"
           anchorOrigin={{ vertical: "top", horizontal: "right" }}

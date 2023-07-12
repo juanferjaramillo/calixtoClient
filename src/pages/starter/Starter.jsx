@@ -131,7 +131,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/wake.png"
                 alt="providers"
-                onClick={()=>handleClick("ALL")}
+                onClick={()=>handleClick("UP NUTRICIONAL FOOD SAS")}
                 height={"50px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -147,7 +147,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/kala.png"
                 alt="providers"
-                onClick={()=>handleClick("ALL")}
+                onClick={()=>handleClick("GRECO")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -179,7 +179,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/Nature.png"
                 alt="providers"
-                onClick={()=>handleClick("ALL")}
+                onClick={()=>handleClick("TERRAFERTIL COLOMBIA SAS")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />

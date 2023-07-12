@@ -42,7 +42,7 @@ function Display() {
   const [clientCell, setClientCell] = useState("");
 
   const userId = useSelector((state) => state.users.authUser.id);
-  const clienteBuscado = useSelector(state=>state.users.client)
+  const clienteBuscado = useSelector((state) => state.users.client);
   const sloganOwner = useSelector(
     (state) => state.users.authUser?.owner?.sloganOwner
   );
@@ -65,7 +65,7 @@ function Display() {
   let data = [];
 
   useEffect(() => {
-    dispatch(getProdsUser(userId));
+    // dispatch(getProdsUser(userId));
     window.addEventListener("scroll", handleScroll);
     toast.success("Bienvenido!");
     return () => document.removeEventListener("scroll", handleScroll);
@@ -79,15 +79,15 @@ function Display() {
     setRender((r) => !r);
   }, [filtProds]);
 
-  useEffect(()=>{
-    console.log("clienteBuscado",clienteBuscado);
+  useEffect(() => {
+    console.log("clienteBuscado", clienteBuscado);
     if (clienteBuscado) {
       setClientName(clienteBuscado.name);
-      setOpen(false)
-     }else{
-      toast.error("Este cliente no existe aún 🤨")
-     }
-  },[clienteBuscado])
+      setOpen(false);
+    } else {
+      toast.error("Este cliente no existe aún 🤨");
+    }
+  }, [clienteBuscado]);
 
   function handleScroll() {
     // console.log(document.documentElement.scrollTop);
@@ -111,6 +111,7 @@ function Display() {
   // };
 
   const handleInicioClick = () => {
+    //AQUI DEBE GUARDAR EN BD LOS CONTENIDOS EN LOS CARRITOS DE COMPRA!!
     dispatch(resetBoard());
     setClientId("");
     setClientName("");
@@ -136,7 +137,7 @@ function Display() {
       phone: clientCell,
       userId: userId,
     };
-    dispatch(getClient(newClient))
+    dispatch(getClient(newClient));
     // await axios.post("/client", newClient);
     setOpen(false);
     setCrearCliente(false);
@@ -145,7 +146,7 @@ function Display() {
 
   const handleBuscarCliente = async () => {
     console.log("cl", clientId);
-    dispatch(searchClient(clientId))
+    dispatch(searchClient(clientId));
     // const clienteBuscado = (await axios.get(`/client/${clientId}`)).data;
     // const clienteBuscado = useSelector(state=>state.users.client)
     // console.log("clienteBuscado",clienteBuscado);
@@ -246,7 +247,7 @@ function Display() {
           <Button
             variant="contained"
             sx={{ margin: 1 }}
-            onClick={() => handleCrearCliente}
+            onClick={handleCrearCliente}
           >
             Listo!
           </Button>
@@ -263,7 +264,7 @@ function Display() {
       <Box minHeight={"100vh"} sx={{ display: "flex" }}>
         <CssBaseline />
         <Toaster
-          // toastOptions={{ style: { background: "gray", color: "white" } }}
+        // toastOptions={{ style: { background: "gray", color: "white" } }}
         />
         {/* ---------------------------------APP BAR----------------------------     */}
         <Appbar

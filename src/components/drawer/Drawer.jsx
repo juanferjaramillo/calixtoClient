@@ -134,10 +134,13 @@ export default function DrawerContent() {
           alt="Logo Cliente"
           src={logoOwner}
           style={{ objectFit: "contain" }}
+         
         ></img>
       </Grid>
-      <Divider />
+
+      <Divider /> 
       <List>
+        
         <ListItem>
           <Button
             variant="outlined"
@@ -150,7 +153,7 @@ export default function DrawerContent() {
           </Button>
         </ListItem>
 
-        <ListItem key={"proveedor"}>
+        <ListItem key={"proveedor"} sx={{ml:-2}}>
           <ListItemButton
             onClick={() => {
               setSelectProv(!selectProv);
@@ -173,11 +176,12 @@ export default function DrawerContent() {
                 onChange={handleFilterProviderChange}
                 sx={{
                   backgroundColor: "whiteSmoke",
-                  width: "90%",
+                  width: "150px",
                   height: 30,
                   mb: 2,
                   ml: 1,
                   mr: 1,
+                  fontSize: 12
                 }}
                 value={FBP}
               >
@@ -194,7 +198,7 @@ export default function DrawerContent() {
         )}
         <Divider />
 
-        <ListItem key={"disponibilidad"}>
+        <ListItem key={"disponibilidad"} sx={{ml:-2}}>
           <ListItemButton
             onClick={() => {
               setSelectDisp(!selectDisp);
@@ -235,7 +239,7 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"categoria"}>
+        <ListItem key={"categoria"} sx={{ml:-2}}>
           <ListItemButton
             onClick={() => {
               setSelectCateg(!selectCateg);
@@ -278,7 +282,7 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"atributos"}>
+        <ListItem key={"atributos"} sx={{ml:-2}}>
           <ListItemButton
             onClick={() => {
               setSelectPro(!selectPro);
@@ -376,7 +380,7 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"Nproducto"}>
+        <ListItem key={"Nproducto"} sx={{ml:-2}}>
           <ListItemButton
             onClick={() => {
               setSearchProd(!searchProd);

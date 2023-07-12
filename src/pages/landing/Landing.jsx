@@ -1,8 +1,10 @@
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useEffect } from "react";
 import Login from "../../components/login/Login";
+import { logout } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 // import {dataDb} from "../../dataDb"
 
 const styles = {
@@ -28,6 +30,13 @@ const styles = {
 
 // //===========================COMPONENT=============================
 function LoginPage() {
+
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    dispatch(logout());
+  }, []);
+
   return (
     <Box>
       <Grid container sx={styles.principal}>

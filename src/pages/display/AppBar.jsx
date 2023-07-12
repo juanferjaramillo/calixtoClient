@@ -26,7 +26,6 @@ export default function Appbar(props) {
             justifyContent={"space-between"}
             alignItems={"center"}
             width={"80vw"}
-            // sx={{mr:5}}
           >
             <IconButton
               color="inherit"
@@ -37,16 +36,23 @@ export default function Appbar(props) {
             >
               <MenuIcon />
             </IconButton>
+            <Grid item display={"Flex"} flexDirection={"column"}>
             <Grid item>
               <Typography
                 variant="h6"
-                // noWrap
                 component="div"
                 sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
               >
                 {props.sloganOwner}
               </Typography>
             </Grid>
+
+            <Grid item>
+            <Typography>{props.clientName}</Typography>
+           </Grid>
+
+           </Grid>
+
             <Grid item display={"flex"}>
               <Button
                 variant="outlined"
@@ -74,9 +80,6 @@ export default function Appbar(props) {
             </Grid>
           </Grid>
 
-          <Grid item>
-            <Typography>{props.clientName}</Typography>
-          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

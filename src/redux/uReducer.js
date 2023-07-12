@@ -37,7 +37,7 @@ const uReducer = (state = initialState, action) => {
     case EXIT_CLIENT:
       return {
         ...state,
-        client: action.payload,
+        client: action.payload
       };
 
     // case GET_ALL_USERS:

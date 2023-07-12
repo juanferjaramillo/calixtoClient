@@ -16,7 +16,9 @@ export const RESET_BOARD = "RESET_BOARD";
 export const FILTER_BY_CATEG = "FILTER_BY_CATEG";
 export const FILTER_BY_DISPONIBILITY = "FILTER_BY_DISPONIBILITY";
 export const FILTER_BY_PROPERTY = "FILTER_BY_PROPERTY";
-export const SELL = "SELL";
+export const SELL = "SELL";  //sell qty and client to store
+export const CLEAR_SELLS = "CLEAR_SELLS"; //Clear the previous sells from store
+export const CLOSE_SELLS = "CLOSE_SELLS" //closes the sell in bd (estado=closed)
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
@@ -24,6 +26,7 @@ export const getAuthUser = (usr) => {
   return async function (dispatch) {
     let oneUsr = {};
     usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
+    console.log('actions', oneUsr[0]);
     sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
     localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
@@ -61,6 +64,13 @@ export const exitClient = () => {
   }
 }
 
+export const clearSells= () => {
+  return {
+    type: CLEAR_SELLS,
+    payload: {}
+  }
+}
+
 export const getProdsUser = (usr) => {
   //brings the user products to the state
   return async function (dispatch) {
@@ -87,13 +97,7 @@ export const getProdsUser = (usr) => {
   };
 };
 
-export const sell = (prdId,qty) => {
-  console.log(`${prdId}: ${qty}`)
-  return {
-    type: SELL,
-    payload: [prdId, qty]
-  }
-}
+
 
 // export const getAllUsers = () => {
 //   //brings all the users from the db to the state
@@ -163,6 +167,14 @@ export const filterByProperty = (pro) => {
     payload: pro,
   };
 };
+
+export const sell = (prdId,qty) => {
+  console.log(`${prdId}: ${qty}`)
+  return {
+    type: SELL,
+    payload: [prdId, qty]
+  }
+}
 
 export const resetBoard = () => {
   return {

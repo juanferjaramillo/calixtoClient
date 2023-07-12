@@ -5,7 +5,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
+import SpeedDial from "@mui/material/SpeedDial";
+import SpeedDialAction from "@mui/material/SpeedDialAction";
 import Grid from "@mui/material/Grid";
+import SearchIcon from "@mui/icons-material/Search";
 import Card from "../../components/card/Card";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,7 +17,7 @@ import { getProdsUser, logout, getClient } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import DrawerContent from "../../components/drawer/Drawer";
 import { resetBoard } from "../../redux/actions";
-import { searchClient, exitClient } from "../../redux/actions";
+import { searchClient, exitClient, clearSells } from "../../redux/actions";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +31,7 @@ let ss = 0;
 const drawerWidth = 180;
 const maxCards = 6; //number of cards to render at a time
 
-//======================COMPONENT=======================
+//===================================COMPONENT=====================================
 function Display() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [initCard, setInitCard] = useState(0);
@@ -56,16 +59,16 @@ function Display() {
   const colorTerciario = `#${useSelector(
     (state) => state.users?.authUser?.owner?.colorTerciario
   )}`;
+  const sells = useSelector((state) => state.product.sell);
+  console.log("sells at beginning", sells);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const inputRef = useRef(null);
   // const isSmallScreen = useMediaQuery(`(max-width: 600px)`);
   const isSmallScreen = useMediaQuery(`(max-width: 900px)`);
   let data = [];
 
   useEffect(() => {
-    // dispatch(getProdsUser(userId));
     window.addEventListener("scroll", handleScroll);
     toast.success("Bienvenido!");
     return () => document.removeEventListener("scroll", handleScroll);
@@ -80,7 +83,7 @@ function Display() {
   }, [filtProds]);
 
   useEffect(() => {
-    console.log("clienteBuscado", clienteBuscado);
+    console.log("clienteBuscado2", clienteBuscado);
     if (clienteBuscado) {
       setClientName(clienteBuscado.name);
       setOpen(false);
@@ -104,20 +107,17 @@ function Display() {
     setMobileOpen(!mobileOpen);
   };
 
-  // const handlelogout = () => {
-  //   dispatch(logout());
-  //   sessionStorage.clear();
-  //   navigate("/");
-  // };
-
-  const handleInicioClick = () => {
-    //AQUI DEBE GUARDAR EN BD LOS CONTENIDOS EN LOS CARRITOS DE COMPRA!!
+  const handleInicioClick = async () => {
     dispatch(resetBoard());
     setClientId("");
     setClientName("");
     setClientEmail("");
     setClientCell("");
+    console.log("userId", userId);
+    console.log('clienteBuscado',clienteBuscado);
+    await axios.post('/recSell', {userId, clienteBuscado, sells})
     dispatch(exitClient());
+    dispatch(clearSells());
     navigate("/starter");
   };
 
@@ -147,28 +147,7 @@ function Display() {
   const handleBuscarCliente = async () => {
     console.log("cl", clientId);
     dispatch(searchClient(clientId));
-    // const clienteBuscado = (await axios.get(`/client/${clientId}`)).data;
-    // const clienteBuscado = useSelector(state=>state.users.client)
-    // console.log("clienteBuscado",clienteBuscado);
-    // if (clienteBuscado) {
-    //   setClientName(clienteBuscado.name);
-    //   setOpen(false)
-    //  }else{
-    //   toast.error("Este cliente no existe aún 🤨")
-    //  }
   };
-
-  // const handleBuscarCliente = async () => {
-  //   // console.log("cl", clientId);
-  //   const clienteBuscado = (await axios.get(`/client/${clientId}`)).data;
-  //   // console.log(clienteBuscado);
-  //   if (clienteBuscado) {
-  //     setClientName(clienteBuscado.name);
-  //     setOpen(false)
-  //    }else{
-  //     toast.error("Este cliente no existe aún 🤨")
-  //    }
-  // };
 
   //-------------------------Modal Cliente------------------------------
   const modalCliente = (
@@ -347,6 +326,19 @@ function Display() {
           </Grid>
         </Box>
       </Box>
+
+      {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: "fixed", bottom: 16, right: 16 }}
+        icon={<SearchIcon />}
+      >
+        <SpeedDialAction
+          key="busqueda"
+          icon={<SearchIcon />}
+          tooltipTitle="Buscar Producto"
+        ></SpeedDialAction>
+      </SpeedDial>
     </>
   );
 }

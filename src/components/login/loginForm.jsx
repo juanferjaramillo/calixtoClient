@@ -20,8 +20,7 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const pswValid = useSelector((state) => state.users?.authUser?.password);
-
-  console.log("pasword en state1: ", pswValid);
+  console.log("pswValid1: ", pswValid);
   console.log("password ingresado1: ", pswInput);
 
   const initialValues = {
@@ -30,14 +29,15 @@ function LoginForm() {
   };
 
   const submitHandler = async ({ email, password }) => {
-     dispatch(getAuthUser(email)); //brings the authUser to the state
-     console.log("dispatch ready");
+    console.log("dispatch ready");
+    console.log("pswValid2",pswValid);
     setPswInput(password);
     setId(email);
+    dispatch(getAuthUser(email)); //brings the authUser to the state
   };
 
   useEffect(() => {
-    console.log("pasword en state2: ", pswValid);
+    console.log("pswValid3: ", pswValid);
     console.log("password ingresado2: ", pswInput);
     if (pswInput === pswValid) {
       console.log("permitido");

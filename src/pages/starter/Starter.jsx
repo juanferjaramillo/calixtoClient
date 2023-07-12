@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,7 +12,7 @@ import FiberNewIcon from "@mui/icons-material/FiberNew";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Card from "@mui/material/Card";
 import { useDispatch } from "react-redux";
-import { filterByProvider } from "../../redux/actions";
+import { filterByProvider, exitClient } from "../../redux/actions";
 
 // import video1 from "../../../assets/video1.mp4";
 // import video2 from "../../../assets/video2.mp4";
@@ -25,6 +25,11 @@ function Starter() {
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('loading stater');
+    dispatch(exitClient());
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -80,7 +85,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/sfgroup.png"
                 alt="providers"
-                onClick={()=>handleClick("ALL")}
+                onClick={() => handleClick("ALL")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -96,7 +101,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/flexy.png"
                 alt="providers"
-                onClick={()=>handleClick("ALL")}
+                onClick={() => handleClick("ALL")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -114,7 +119,7 @@ function Starter() {
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/ecohome.png"
                 alt="providers"
                 value="ECOHOME"
-                onClick={()=>handleClick("ECOHOME")}
+                onClick={() => handleClick("ECOHOME")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -131,7 +136,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/wake.png"
                 alt="providers"
-                onClick={()=>handleClick("UP NUTRICIONAL FOOD SAS")}
+                onClick={() => handleClick("UP NUTRICIONAL FOOD SAS")}
                 height={"50px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -147,7 +152,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/kala.png"
                 alt="providers"
-                onClick={()=>handleClick("GRECO")}
+                onClick={() => handleClick("GRECO")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -163,7 +168,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/El_dorado.png"
                 alt="providers"
-                onClick={()=>handleClick("EL DORADO COMEX SAS")}
+                onClick={() => handleClick("EL DORADO COMEX SAS")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -179,7 +184,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/Nature.png"
                 alt="providers"
-                onClick={()=>handleClick("TERRAFERTIL COLOMBIA SAS")}
+                onClick={() => handleClick("TERRAFERTIL COLOMBIA SAS")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />
@@ -195,7 +200,7 @@ function Starter() {
               <img
                 src="https://res.cloudinary.com/sthemma/calixto/logosProveedores/amira.jpg"
                 alt="providers"
-                onClick={()=>handleClick("AMIRA SAS")}
+                onClick={() => handleClick("AMIRA SAS")}
                 height={"100px"}
                 style={{ objectFit: "contain", cursor: "pointer" }}
               />

@@ -2,6 +2,7 @@ import { Box, Grid, Typography, Divider, useTheme } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { useSelector } from "react-redux";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 let colorD = "white";
 
@@ -105,16 +106,18 @@ export default function CardFront(props) {
             item
             display={"flex"}
             flexDirection={"row"}
-            justifyContent={"flex-start"}
+            justifyContent={"center"}
             alignItems={"center"}
-            sx={{ pl: 3, cursor: "pointer" }}
-            // border={1}
-            width="60px"
-            height="30px"
-            fontSize={30}
+            sx={{ ml: 2, cursor: "pointer" }}
+            border={1}
+            borderColor={"lightgrey"}
+            color={"grey"}
+            borderRadius={"50%"}
+            width="40px"
+            height="40px"
             onClick={props.handleAddToCart}
           >
-            🛒
+            <AddShoppingCartIcon />
           </Grid>
           </Badge>
         ) : (

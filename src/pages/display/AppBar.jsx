@@ -8,33 +8,54 @@ import Button from "@mui/material/Button";
 import { Divider } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import Input from "@mui/material/Input";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { filterByName } from "../../redux/actions";
 
 //============================COMPONENT==========================
 export default function Appbar(props) {
-  const inputRef = useRef();
+  const [render, setRender] = useState(true);
 
-  const handleInput = () => {};
+  const inputRef = useRef();
+  const dispatch = useDispatch();
+
+  const handleInput = (event) => {
+    inputRef.current.value = event.target.value.trim().toLowerCase();
+  };
+
+  const handleBuscarClick = () => {
+    dispatch(filterByName(inputRef.current.value));
+    inputRef.current.value = "";
+    document.documentElement.scrollTop = 0;
+    setRender((r) => !r);
+  };
 
   //---------------------render------------------------
   return (
     <AppBar
       position="fixed"
       sx={{
-        width: { md: `calc(100% - ${props.drawerWidth}px)` },
+        width: { md: `calc(100vw - ${props.drawerWidth}px)` },
         ml: { md: `${props.drawerWidth}px` },
         height: "64px",
       }}
     >
-      {/* <Toolbar sx={{ backgroundColor: palette.appBar }}> */}
-      <Toolbar sx={{ backgroundColor: props.colorPrimario }}>
-        <Grid item display={"flex"} flexDirection={"column"}>
+      <Toolbar
+        sx={{
+          backgroundColor: props.colorPrimario,
+          width: { md: `calc(100vw - ${props.drawerWidth}px)` },
+        }}
+      >
+        <Grid item display={"flex"} flexDirection={"column"}
+        sx={{width:"100%"}}
+        >
           <Grid
             item
             display={"flex"}
             justifyContent={"space-between"}
             alignItems={"center"}
-            width={"80vw"}
+            
+            // sx={{width: { md: `calc(100vw - ${props.drawerWidth}px)` }}}
           >
             <IconButton
               color="inherit"
@@ -45,12 +66,15 @@ export default function Appbar(props) {
             >
               <MenuIcon />
             </IconButton>
+
             <Grid item display={"Flex"} flexDirection={"column"}>
-              <Grid item>
+              <Grid item
+              // sx={{maxHeight:"10px" }}
+              >
                 <Typography
-                  variant="h6"
+                  // variant="h6"
                   component="div"
-                  sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
+                  sx={{ fontSize: { xs: "00%", md: "130%", md: "160%" } }}
                 >
                   {props.sloganOwner}
                 </Typography>
@@ -70,7 +94,7 @@ export default function Appbar(props) {
             >
               <Input
                 placeholder="Producto"
-                sx={{ height: 30, mr:3 }}
+                sx={{ height: 30, mr: 3 }}
                 type="text"
                 inputRef={inputRef}
                 onChange={handleInput}
@@ -86,8 +110,10 @@ export default function Appbar(props) {
                 borderColor={"gray"}
                 borderRadius={"50%"}
               >
-                <SearchIcon 
-                sx={{color: "gray"}} />
+                <SearchIcon
+                  sx={{ color: "gray" }}
+                  onClick={handleBuscarClick}
+                />
               </Grid>
             </Grid>
           </Grid>

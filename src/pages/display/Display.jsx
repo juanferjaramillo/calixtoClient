@@ -11,6 +11,7 @@ import SpeedDialAction from "@mui/material/SpeedDialAction";
 import SearchIcon from "@mui/icons-material/Search";
 import SaveIcon from '@mui/icons-material/Save';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Card from "../../components/card/Card";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -20,7 +21,7 @@ import { getProdsUser, logout, getClient } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 import DrawerContent from "../../components/drawer/Drawer";
 import { resetBoard } from "../../redux/actions";
-import { searchClient, exitClient, clearSells } from "../../redux/actions";
+import { searchClient, exitClient, clearSells, filterByCurrentSell } from "../../redux/actions";
 import {
   Dialog,
   DialogContent,
@@ -118,7 +119,7 @@ function Display() {
     setClientCell("");
     // console.log("userId", userId);
     // console.log('clienteBuscado',clienteBuscado);
-    console.log("sellsLenght", Object.keys(sells).length);
+    // console.log("sellsLenght", Object.keys(sells).length);
     Object.keys(sells).length > 0 ?
     await axios.post('/recSell', {userId, clienteBuscado, sells})
     : null;
@@ -153,6 +154,10 @@ function Display() {
   const handleBuscarCliente = async () => {
     // console.log("cl", clientId);
     dispatch(searchClient(clientId));
+  };
+
+  const handleCurrentSell = () => {
+    dispatch(filterByCurrentSell(sells));
   };
 
   //-------------------------Modal Cliente------------------------------
@@ -338,19 +343,25 @@ function Display() {
         ariaLabel="DrawerSD"
         sx={{ position: "fixed", bottom: 16, right: 16 }}
         icon={<ShoppingCartIcon />}
-        backgroundColor="red"
-
       >
         <SpeedDialAction
           key="client account"
-          icon={<AccountCircleIcon />}
+          icon={<AccountCircleIcon sx={{ color: colorPrimario }}  />}
           tooltipTitle="Cuenta de Cliente"
           onClick={handleOpenCliente}
         />
+
+        <SpeedDialAction
+        key="ver carrito"
+        icon={ <LocalShippingIcon sx={{ color: colorPrimario }} />}
+        tooltipTitle="Ver Carrito"
+        onClick={handleCurrentSell}
+        />
+
         <SpeedDialAction
         key="save sell"
-        icon={<SaveIcon />}
-        tooltipTitle="Guardar y salir" 
+        icon={<SaveIcon sx={{ color: colorPrimario }} />}
+        tooltipTitle="Guardar y Salir" 
         onClick={handleInicioClick}
         />
       </SpeedDial>

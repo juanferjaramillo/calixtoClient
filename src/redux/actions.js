@@ -16,9 +16,10 @@ export const RESET_BOARD = "RESET_BOARD";
 export const FILTER_BY_CATEG = "FILTER_BY_CATEG";
 export const FILTER_BY_DISPONIBILITY = "FILTER_BY_DISPONIBILITY";
 export const FILTER_BY_PROPERTY = "FILTER_BY_PROPERTY";
-export const SELL = "SELL";  //sell qty and client to store
+export const FILTER_BY_CURRENTSELL = "FILTER_BY_CURRENTSELL";
+export const SELL = "SELL"; //sell qty and client to store
 export const CLEAR_SELLS = "CLEAR_SELLS"; //Clear the previous sells from store
-export const CLOSE_SELLS = "CLOSE_SELLS" //closes the sell in bd (estado=closed)
+export const CLOSE_SELLS = "CLOSE_SELLS"; //closes the sell in bd (estado=closed)
 
 //----------------------USER ACTIONS--------------------------------
 export const getAuthUser = (usr) => {
@@ -26,7 +27,7 @@ export const getAuthUser = (usr) => {
   return async function (dispatch) {
     let oneUsr = {};
     usr ? (oneUsr = (await axios.get(`/user/${usr}`)).data) : null;
-    console.log('actions', oneUsr[0]);
+    // console.log("actions", oneUsr[0]);
     sessionStorage.setItem("AuthUsr", JSON.stringify(oneUsr[0]));
     localStorage.setItem("User", JSON.stringify(oneUsr[0].id));
     return dispatch({
@@ -49,7 +50,7 @@ export const getClient = (newClient) => {
 export const searchClient = (id) => {
   return async function (dispatch) {
     const clienteBuscado = (await axios.get(`/client/${id}`)).data;
-    console.log("clienteBuscado", clienteBuscado);
+    // console.log("clienteBuscado", clienteBuscado);
     return dispatch({
       type: SEARCH_CLIENT,
       payload: clienteBuscado,
@@ -60,16 +61,16 @@ export const searchClient = (id) => {
 export const exitClient = () => {
   return {
     type: EXIT_CLIENT,
-    payload: {}
-  }
-}
+    payload: {},
+  };
+};
 
-export const clearSells= () => {
+export const clearSells = () => {
   return {
     type: CLEAR_SELLS,
-    payload: {}
-  }
-}
+    payload: {},
+  };
+};
 
 export const getProdsUser = (usr) => {
   //brings the user products to the state
@@ -85,7 +86,7 @@ export const getProdsUser = (usr) => {
 
     prodUser
       ? prodUser.sort((a, b) => a.prioridad - b.prioridad)
-      : console.log("sin ordenar");
+      : null;
 
     sessionStorage.setItem("allProducts", JSON.stringify(prodUser));
     sessionStorage.setItem("providers", JSON.stringify(prove));
@@ -96,8 +97,6 @@ export const getProdsUser = (usr) => {
     });
   };
 };
-
-
 
 // export const getAllUsers = () => {
 //   //brings all the users from the db to the state
@@ -168,13 +167,20 @@ export const filterByProperty = (pro) => {
   };
 };
 
-export const sell = (prdId,qty) => {
-  console.log(`${prdId}: ${qty}`)
+export const filterByCurrentSell = (sells) => {
+  return {
+    type: FILTER_BY_CURRENTSELL,
+    payload: sells,
+  };
+};
+
+export const sell = (prdId, qty) => {
+  // console.log(`${prdId}: ${qty}`);
   return {
     type: SELL,
-    payload: [prdId, qty]
-  }
-}
+    payload: [prdId, qty],
+  };
+};
 
 export const resetBoard = () => {
   return {

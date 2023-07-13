@@ -9,7 +9,7 @@ import ClassIcon from "@mui/icons-material/Class";
 import { FormControlLabel, fabClasses } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import Input from "@mui/material/Input";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -23,7 +23,7 @@ import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
-import { logout } from "../../redux/actions";
+import { logout, filterByCurrentSell } from "../../redux/actions";
 import SearchIcon from "@mui/icons-material/Search";
 
 import {
@@ -73,18 +73,8 @@ export default function DrawerContent() {
     setRender((r) => !r);
   };
 
-  const handleInput = (event) => {
-    inputRef.current.value = event.target.value.trim().toLowerCase();
-  };
-
-  const handleBuscarClick = () => {
-    dispatch(filterByName(inputRef.current.value));
-    document.documentElement.scrollTop = 0;
-    setRender((r) => !r);
-  };
-
   const handleResetClick = () => {
-    inputRef.current ? (inputRef.current.value = "") : null;
+    // inputRef.current ? (inputRef.current.value = "") : null;
     setFBP("");
     setFBC("");
     setFBD("");
@@ -122,10 +112,6 @@ export default function DrawerContent() {
     sessionStorage.clear();
     navigate("/");
   };
-
-  const handleCurrentSell = () =>{
-    console.log("ver los productos en el carrito");
-  }
 
   //---------------------Render-----------------
   return (
@@ -381,61 +367,6 @@ export default function DrawerContent() {
           )}
         </FormGroup>
 
-        <Divider />
-
-        <ListItem key={"currentSell"} sx={{ ml: -2 }}>
-          <ListItemButton
-            onClick={() => {
-              setSelectDisp(false);
-              setSelectProv(false);
-              setSelectCateg(false);
-              setSelectPro(false);
-              handleCurrentSell;
-            }}
-          >
-            <LocalShippingIcon sx={{ color: colorPrimario }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Ver Carrito" />
-          </ListItemButton>
-        </ListItem>
-{/* 
-        <ListItem key={"Nproducto"} sx={{ ml: -2 }}>
-          <ListItemButton
-            onClick={() => {
-              setSearchProd(!searchProd);
-              setSelectDisp(false);
-              setSelectProv(false);
-              setSelectCateg(false);
-              setSelectPro(false);
-            }}
-          >
-            <LocalGroceryStoreIcon sx={{ color: colorPrimario }} />
-            <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
-          </ListItemButton>
-        </ListItem>
- */}
-        {!searchProd ? null : (
-          <Grid item display={"flex"}>
-            {/* <ListItem disablePadding> */}
-            <Input
-              placeholder="Producto"
-              sx={{ marginLeft: 1, height: 30 }}
-              type="text"
-              inputRef={inputRef}
-              onChange={handleInput}
-            ></Input>
-
-            <Button
-              // variant="outlined"
-              sx={{ color: "black", p: 0 }}
-              onClick={handleBuscarClick}
-            >
-              <SearchIcon fontSize="small" />
-            </Button>
-          </Grid>
-        )} 
-       
-
-        {/* <Divider sx={{ mb: 3 }} /> */}
         <Divider sx={{ mb: 3 }} />
 
         <ListItem key={"Salir"}>

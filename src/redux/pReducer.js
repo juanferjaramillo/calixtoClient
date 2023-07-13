@@ -9,6 +9,7 @@ import {
   FILTER_BY_PROPERTY,
   SELL,
   CLEAR_SELLS,
+  FILTER_BY_CURRENTSELL,
 } from "./actions";
 
 const initialState = {
@@ -68,6 +69,20 @@ const pReducer = (state = initialState, action) => {
       return {
         ...state,
         filteredProducts: prodsName,
+      };
+
+    case FILTER_BY_CURRENTSELL:
+      console.log("atendido por currentsell");
+      let s = action.payload;
+      let sells = [];
+      for (let key in s) {
+        sells.push(state.allProducts.filter((p) => p.id === Number(key))[0]);
+        // console.log("this code in reducer", sells);
+      }
+      // console.log("sells in reducer", sells);
+      return {
+        ...state,
+        filteredProducts: sells,
       };
 
     case RESET_BOARD:

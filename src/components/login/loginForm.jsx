@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthUser, getProdsUser } from "../../redux/actions";
+import { getAuthUser, getProdsUser, logout } from "../../redux/actions";
 import { Toaster, toast } from "sonner";
 
 const validationSchema = Yup.object({
@@ -20,8 +20,8 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   const pswValid = useSelector((state) => state.users?.authUser?.password);
-  console.log("pswValid1: ", pswValid);
-  console.log("password ingresado1: ", pswInput);
+  // console.log("pswValid1: ", pswValid);
+  // console.log("password ingresado1: ", pswInput);
 
   const initialValues = {
     email: id,
@@ -29,23 +29,24 @@ function LoginForm() {
   };
 
   const submitHandler = async ({ email, password }) => {
-    console.log("dispatch ready");
-    console.log("pswValid2",pswValid);
+    // console.log("dispatch ready");
+    // console.log("pswValid2",pswValid);
     setPswInput(password);
     setId(email);
     dispatch(getAuthUser(email)); //brings the authUser to the state
   };
 
   useEffect(() => {
-    console.log("pswValid3: ", pswValid);
-    console.log("password ingresado2: ", pswInput);
+    // console.log("pswValid3: ", pswValid);
+    // console.log("password ingresado2: ", pswInput);
     if (pswInput === pswValid) {
-      console.log("permitido");
+      // console.log("permitido");
       dispatch(getProdsUser(id)); //brings products and providers of that user to the state
       navigate("/starter");
     } else {
-      console.log("negado");
+      // console.log("negado");
       toast.error("La identificación o la contraseña son incorrectos 😳");
+      dispatch(logout())
     }
   }, [pswValid]);
 

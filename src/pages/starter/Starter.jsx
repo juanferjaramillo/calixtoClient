@@ -27,7 +27,7 @@ function Starter() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log('loading stater');
+    // console.log('loading stater');
     dispatch(exitClient());
   }, []);
 

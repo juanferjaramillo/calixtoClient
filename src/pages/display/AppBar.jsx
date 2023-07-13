@@ -6,8 +6,17 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Divider } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import Input from "@mui/material/Input";
+import { useRef } from "react";
 
+//============================COMPONENT==========================
 export default function Appbar(props) {
+  const inputRef = useRef();
+
+  const handleInput = () => {};
+
+  //---------------------render------------------------
   return (
     <AppBar
       position="fixed"
@@ -37,49 +46,51 @@ export default function Appbar(props) {
               <MenuIcon />
             </IconButton>
             <Grid item display={"Flex"} flexDirection={"column"}>
-            <Grid item>
-              <Typography
-                variant="h6"
-                component="div"
-                sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
-              >
-                {props.sloganOwner}
-              </Typography>
+              <Grid item>
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ fontSize: { xs: "100%", md: "130%", md: "160%" } }}
+                >
+                  {props.sloganOwner}
+                </Typography>
+              </Grid>
+
+              <Grid item>
+                <Typography>{props.clientName}</Typography>
+              </Grid>
             </Grid>
 
-            <Grid item>
-            <Typography>{props.clientName}</Typography>
-           </Grid>
-
-           </Grid>
-
-            <Grid item display={"flex"}>
-              <Button
-                variant="outlined"
-                sx={{
-                  // backgroundColor: "gray",
-                  color: "white",
-                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 7 },
-                }}
-                onClick={props.handleCliente}
+            <Grid
+              item
+              display={"flex"}
+              flexDirection={"row"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Input
+                placeholder="Producto"
+                sx={{ height: 30, mr:3 }}
+                type="text"
+                inputRef={inputRef}
+                onChange={handleInput}
+              ></Input>
+              <Grid
+                item
+                display={"flex"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                width={40}
+                height={40}
+                border={1}
+                borderColor={"gray"}
+                borderRadius={"50%"}
               >
-                Cliente
-              </Button>
-
-              <Button
-                variant="outlined"
-                sx={{
-                  // backgroundColor: "gray",
-                  color: "white",
-                  fontSize: { xs: "80%", md: "90%", md: "100%", marginLeft: 7 },
-                }}
-                onClick={props.handleInicioClick}
-              >
-                Inicio
-              </Button>
+                <SearchIcon 
+                sx={{color: "gray"}} />
+              </Grid>
             </Grid>
           </Grid>
-
         </Grid>
       </Toolbar>
     </AppBar>

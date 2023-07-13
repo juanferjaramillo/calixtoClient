@@ -1,15 +1,15 @@
 import Checkbox from "@mui/material/Checkbox";
 import FormGroup from "@mui/material/FormGroup";
 import WorkIcon from "@mui/icons-material/Work";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
-import SearchIcon from "@mui/icons-material/Search";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import CategoryIcon from "@mui/icons-material/Category";
 import ClassIcon from "@mui/icons-material/Class";
 import { FormControlLabel, fabClasses } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import ListItemButton from "@mui/material/ListItemButton";
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import Input from "@mui/material/Input";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -24,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useRef } from "react";
 import { logout } from "../../redux/actions";
+import SearchIcon from "@mui/icons-material/Search";
 
 import {
   filterByProvider,
@@ -122,6 +123,10 @@ export default function DrawerContent() {
     navigate("/");
   };
 
+  const handleCurrentSell = () =>{
+    console.log("ver los productos en el carrito");
+  }
+
   //---------------------Render-----------------
   return (
     <Box
@@ -134,13 +139,11 @@ export default function DrawerContent() {
           alt="Logo Cliente"
           src={logoOwner}
           style={{ objectFit: "contain" }}
-         
         ></img>
       </Grid>
 
-      <Divider /> 
+      <Divider />
       <List>
-        
         <ListItem>
           <Button
             variant="outlined"
@@ -153,7 +156,7 @@ export default function DrawerContent() {
           </Button>
         </ListItem>
 
-        <ListItem key={"proveedor"} sx={{ml:-2}}>
+        <ListItem key={"proveedor"} sx={{ ml: -2 }}>
           <ListItemButton
             onClick={() => {
               setSelectProv(!selectProv);
@@ -181,7 +184,7 @@ export default function DrawerContent() {
                   mb: 2,
                   ml: 1,
                   mr: 1,
-                  fontSize: 12
+                  fontSize: 12,
                 }}
                 value={FBP}
               >
@@ -198,7 +201,7 @@ export default function DrawerContent() {
         )}
         <Divider />
 
-        <ListItem key={"disponibilidad"} sx={{ml:-2}}>
+        <ListItem key={"disponibilidad"} sx={{ ml: -2 }}>
           <ListItemButton
             onClick={() => {
               setSelectDisp(!selectDisp);
@@ -239,7 +242,7 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"categoria"} sx={{ml:-2}}>
+        <ListItem key={"categoria"} sx={{ ml: -2 }}>
           <ListItemButton
             onClick={() => {
               setSelectCateg(!selectCateg);
@@ -282,7 +285,7 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"atributos"} sx={{ml:-2}}>
+        <ListItem key={"atributos"} sx={{ ml: -2 }}>
           <ListItemButton
             onClick={() => {
               setSelectPro(!selectPro);
@@ -380,7 +383,22 @@ export default function DrawerContent() {
 
         <Divider />
 
-        <ListItem key={"Nproducto"} sx={{ml:-2}}>
+        <ListItem key={"currentSell"} sx={{ ml: -2 }}>
+          <ListItemButton
+            onClick={() => {
+              setSelectDisp(false);
+              setSelectProv(false);
+              setSelectCateg(false);
+              setSelectPro(false);
+              handleCurrentSell;
+            }}
+          >
+            <LocalShippingIcon sx={{ color: colorPrimario }} />
+            <ListItemText sx={{ marginLeft: 1 }} primary="Ver Carrito" />
+          </ListItemButton>
+        </ListItem>
+{/* 
+        <ListItem key={"Nproducto"} sx={{ ml: -2 }}>
           <ListItemButton
             onClick={() => {
               setSearchProd(!searchProd);
@@ -394,7 +412,7 @@ export default function DrawerContent() {
             <ListItemText sx={{ marginLeft: 1 }} primary="Producto" />
           </ListItemButton>
         </ListItem>
-
+ */}
         {!searchProd ? null : (
           <Grid item display={"flex"}>
             {/* <ListItem disablePadding> */}
@@ -414,7 +432,9 @@ export default function DrawerContent() {
               <SearchIcon fontSize="small" />
             </Button>
           </Grid>
-        )}
+        )} 
+       
+
         {/* <Divider sx={{ mb: 3 }} /> */}
         <Divider sx={{ mb: 3 }} />
 

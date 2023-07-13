@@ -5,10 +5,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Drawer from "@mui/material/Drawer";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
 import SpeedDial from "@mui/material/SpeedDial";
 import SpeedDialAction from "@mui/material/SpeedDialAction";
-import Grid from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
+import SaveIcon from '@mui/icons-material/Save';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Card from "../../components/card/Card";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useDispatch, useSelector } from "react-redux";
@@ -60,7 +63,7 @@ function Display() {
     (state) => state.users?.authUser?.owner?.colorTerciario
   )}`;
   const sells = useSelector((state) => state.product.sell);
-  console.log("sells at beginning", sells);
+  // console.log("sells at beginning", sells);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -83,7 +86,7 @@ function Display() {
   }, [filtProds]);
 
   useEffect(() => {
-    console.log("clienteBuscado2", clienteBuscado);
+    // console.log("clienteBuscado2", clienteBuscado);
     if (clienteBuscado) {
       setClientName(clienteBuscado.name);
       setOpen(false);
@@ -113,9 +116,12 @@ function Display() {
     setClientName("");
     setClientEmail("");
     setClientCell("");
-    console.log("userId", userId);
-    console.log('clienteBuscado',clienteBuscado);
+    // console.log("userId", userId);
+    // console.log('clienteBuscado',clienteBuscado);
+    console.log("sellsLenght", Object.keys(sells).length);
+    Object.keys(sells).length > 0 ?
     await axios.post('/recSell', {userId, clienteBuscado, sells})
+    : null;
     dispatch(exitClient());
     dispatch(clearSells());
     navigate("/starter");
@@ -145,7 +151,7 @@ function Display() {
   };
 
   const handleBuscarCliente = async () => {
-    console.log("cl", clientId);
+    // console.log("cl", clientId);
     dispatch(searchClient(clientId));
   };
 
@@ -329,15 +335,24 @@ function Display() {
 
       {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}> */}
       <SpeedDial
-        ariaLabel="SpeedDial basic example"
+        ariaLabel="DrawerSD"
         sx={{ position: "fixed", bottom: 16, right: 16 }}
-        icon={<SearchIcon />}
+        icon={<ShoppingCartIcon />}
+        backgroundColor="red"
+
       >
         <SpeedDialAction
-          key="busqueda"
-          icon={<SearchIcon />}
-          tooltipTitle="Buscar Producto"
-        ></SpeedDialAction>
+          key="client account"
+          icon={<AccountCircleIcon />}
+          tooltipTitle="Cuenta de Cliente"
+          onClick={handleOpenCliente}
+        />
+        <SpeedDialAction
+        key="save sell"
+        icon={<SaveIcon />}
+        tooltipTitle="Guardar y salir" 
+        onClick={handleInicioClick}
+        />
       </SpeedDial>
     </>
   );
